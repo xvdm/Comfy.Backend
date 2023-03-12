@@ -9,22 +9,24 @@ namespace Comfy.Domain
         public string Text { get; set; } = null!;
         public DateTime CreateDate { get; set; }
         public int UsefullQuestionCount { get; set; }
-        public int NeedlesslyCount { get; set; }
+        public int NeedlessQuestionCount { get; set; }
         public bool IsActive { get; set; }
 
         public int UserId { get; set; }
-        //public User User { get; set; } = null!;
+        public User User { get; set; } = null!;
 
         public int ProductId { get; set; }
         public Product Product { get; set; } = null!;
 
-        public ICollection<Answer>? Answers { get; set; }
+        public ICollection<QuestionAnswer> Answers { get; set; } = null!;
 
 
         public void Configure(EntityTypeBuilder<Question> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.CreateDate).HasColumnType("date");
+
+            builder.Property(e => e.CreateDate)
+                .HasColumnType("date");
 
             builder.HasOne(d => d.Product)
                 .WithMany(p => p.Questions)

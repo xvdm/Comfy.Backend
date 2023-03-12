@@ -9,7 +9,6 @@ namespace Comfy.Application.Interfaces
         public DbSet<LoggingAction> LoggingActions { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AddressType> AddressTypes { get; set; }
-        public DbSet<Answer> Answers { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<MainCategory> MainCategories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
@@ -25,7 +24,9 @@ namespace Comfy.Application.Interfaces
         public DbSet<PriceHistory> PriceHistories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<ReviewAnswer> ReviewAnswers { get; set; }
         public DbSet<Wishlist> WhishLists { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

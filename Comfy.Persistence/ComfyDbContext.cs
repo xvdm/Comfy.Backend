@@ -16,7 +16,6 @@ namespace Comfy.Domain
         public DbSet<LoggingAction> LoggingActions { get; set; } = null!;
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<AddressType> AddressTypes { get; set; } = null!;
-        public DbSet<Answer> Answers { get; set; } = null!;
         public DbSet<Brand> Brands { get; set; } = null!;
         public DbSet<MainCategory> MainCategories { get; set; } = null!;
         public DbSet<Subcategory> Subcategories { get; set; } = null!;
@@ -32,7 +31,9 @@ namespace Comfy.Domain
         public DbSet<PriceHistory> PriceHistories { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Question> Questions { get; set; } = null!;
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
+        public DbSet<ReviewAnswer> ReviewAnswers { get; set; } = null!;
         public DbSet<Wishlist> WhishLists { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
