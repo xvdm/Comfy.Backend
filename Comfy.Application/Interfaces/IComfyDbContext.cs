@@ -19,7 +19,6 @@ namespace Comfy.Application.Interfaces
         public DbSet<Model> Models { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
-        public DbSet<OrderedProduct> OrderedProducts { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<PriceHistory> PriceHistories { get; set; }
         public DbSet<Product> Products { get; set; }

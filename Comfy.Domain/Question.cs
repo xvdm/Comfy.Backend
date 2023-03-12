@@ -12,7 +12,7 @@ namespace Comfy.Domain
         public int NeedlessQuestionCount { get; set; }
         public bool IsActive { get; set; }
 
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; } = null!;
 
         public int ProductId { get; set; }

@@ -29,10 +29,8 @@ namespace Comfy.Domain
         public ICollection<Image> Images { get; set; } = null!;
 
         public ICollection<Characteristic> Characteristics { get; set; } = null!;
-        public ICollection<OrderedProduct> OrderedProducts { get; set; } = null!;
         public ICollection<Question> Questions { get; set; } = null!;
         public ICollection<Review> Reviews { get; set; } = null!;
-        public ICollection<Wishlist> WhishLists { get; set; } = null!;
 
 
         public void Configure(EntityTypeBuilder<Product> builder)
