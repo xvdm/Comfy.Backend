@@ -14,15 +14,15 @@ namespace Comfy.Persistence
             var connectionString = configuration.GetConnectionString("ComfyDbContextConnection")
                 ?? throw new InvalidOperationException("Connection string 'ComfyDbContextConnection' not found.");
 
-            services.AddDbContext<ComfyDbContext>(config => 
+            services.AddDbContext<ApplicationDbContext>(config => 
             {
                 config.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 4, 25)));
             });
 
-            services.AddScoped<IComfyDbContext>(provider => provider.GetService<ComfyDbContext>()!);
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>()!);
 
             services.AddIdentity<User, ApplicationRole>(config => UseTestingIdentityConfig(config))
-                .AddEntityFrameworkStores<ComfyDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;
         }

@@ -16,9 +16,9 @@ namespace Comfy.Application.Handlers
 
     public class GetSubcategoryByIdQueryHandler : IRequestHandler<GetSubcategoryByIdQuery, Subcategory?>
     {
-        private readonly IComfyDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public GetSubcategoryByIdQueryHandler(IComfyDbContext context)
+        public GetSubcategoryByIdQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }

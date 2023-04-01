@@ -2,11 +2,6 @@
 using Comfy.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Comfy.Application.Handlers
 {
@@ -21,9 +16,9 @@ namespace Comfy.Application.Handlers
 
     public class GetBrandsQueryHandler : IRequestHandler<GetBrandsQuery, IEnumerable<Brand>>
     {
-        private readonly IComfyDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public GetBrandsQueryHandler(IComfyDbContext context)
+        public GetBrandsQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }
@@ -32,15 +27,11 @@ namespace Comfy.Application.Handlers
         {
             var category = await _context.Subcategories
                 .Include(x => x.UniqueBrands)
-                .FirstOrDefaultAsync(x => x.Id == request.CategoryId);
+                .FirstOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken);
 
             if (category is null) throw new HttpRequestException("There is no category with given id");
 
-            var brands = new List<Brand>();
-            if (category.UniqueBrands is not null)
-            {
-                brands = category.UniqueBrands.ToList();
-            }
+            var brands = category.UniqueBrands.ToList();
 
             return brands;
         }

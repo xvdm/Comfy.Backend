@@ -19,9 +19,9 @@ public class GetProductsQuery : IRequest<IEnumerable<Product>>
 
 public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<Product>>
 {
-    private readonly IComfyDbContext _context;
+    private readonly IApplicationDbContext _context;
 
-    public GetProductsQueryHandler(IComfyDbContext context)
+    public GetProductsQueryHandler(IApplicationDbContext context)
     {
         _context = context;
     }

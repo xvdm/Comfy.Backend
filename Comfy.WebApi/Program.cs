@@ -1,5 +1,6 @@
 using Comfy.Application.Common.Mappings;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Comfy.Application.Interfaces;
 using Comfy.Application;
 using Comfy.Persistence;
@@ -11,7 +12,7 @@ IConfiguration configuration = builder.Configuration;
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-    config.AddProfile(new AssemblyMappingProfile(typeof(IComfyDbContext).Assembly));
+    config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
 builder.Services.AddApplication();
 builder.Services.AddPersistence(configuration);
@@ -19,12 +20,13 @@ builder.Services
     .AddControllers()
     .AddJsonOptions(options =>
 {
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.Converters.Add(new CharacteristicNameConverter());
     options.JsonSerializerOptions.Converters.Add(new CharacteristicDictionaryConverter());
 });
 
 
-//todo: разрешить только для фронтенда
+//todo: allow only for frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>

@@ -1,13 +1,14 @@
 ﻿using Comfy.Application.Interfaces;
+using Comfy.Domain.Base;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Comfy.Domain
 {
-    public class ComfyDbContext : IdentityDbContext<User, ApplicationRole, Guid>, IComfyDbContext
+    public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, Guid>, IApplicationDbContext
     {
-        public ComfyDbContext(DbContextOptions<ComfyDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             ChangeTracker.LazyLoadingEnabled = false;
         }
@@ -33,12 +34,54 @@ namespace Comfy.Domain
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
         public DbSet<ReviewAnswer> ReviewAnswers { get; set; } = null!;
-        public DbSet<Wishlist> WhishLists { get; set; } = null!;
+        public DbSet<WishList> WishLists { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            DbSaveChanges();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            DbSaveChanges();
+            return base.SaveChanges();
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            DbSaveChanges();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+        {
+            DbSaveChanges();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void DbSaveChanges()
+        {
+            var addedEntries = ChangeTracker.Entries().Where(x => x.State == EntityState.Added);
+
+            foreach (var entry in addedEntries)
+            {
+                if (entry.Entity is not Auditable) continue;
+
+                var defaultDate = DateTime.UtcNow;
+
+                var createdAt = entry.Property(nameof(Auditable.CreatedAt)).CurrentValue;
+                if (createdAt is null)
+                {
+                    entry.Property(nameof(Auditable.CreatedAt)).CurrentValue = defaultDate;
+                }
+            }
         }
     }
 }

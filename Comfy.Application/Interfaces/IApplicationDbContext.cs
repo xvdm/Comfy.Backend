@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Interfaces
 {
-    public interface IComfyDbContext
+    public interface IApplicationDbContext
     {
         public DbSet<UserLog> UserLogs { get; set; }
         public DbSet<LoggingAction> LoggingActions { get; set; }
@@ -26,7 +26,7 @@ namespace Comfy.Application.Interfaces
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewAnswer> ReviewAnswers { get; set; }
-        public DbSet<Wishlist> WhishLists { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

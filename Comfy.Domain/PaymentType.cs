@@ -1,16 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-
-namespace Comfy.Domain
+﻿namespace Comfy.Domain
 {
-    public class PaymentType : IEntityTypeConfiguration<PaymentType>
+    public class PaymentType
     {
         public int Id { get; set; }
         public string Type { get; set; } = null!;
-
-        public void Configure(EntityTypeBuilder<PaymentType> builder)
-        {
-            builder.HasKey(e => e.Id);
-        }
     }
 }
