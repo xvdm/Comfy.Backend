@@ -37,6 +37,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -51,6 +53,12 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.Run();
 
