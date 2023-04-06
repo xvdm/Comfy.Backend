@@ -16,7 +16,7 @@ namespace Comfy.Persistence
 
             services.AddDbContext<ApplicationDbContext>(config => 
             {
-                config.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 4, 25)));
+                config.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 9, 5)));
             });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>()!);

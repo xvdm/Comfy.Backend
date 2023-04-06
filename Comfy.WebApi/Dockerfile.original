@@ -8,9 +8,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Comfy.WebApi/Comfy.WebApi.csproj", "Comfy.WebApi/"]
-COPY ["Comfy.Application/Comfy.Application.csproj", "Comfy.Application/"]
-COPY ["Comfy.Domain/Comfy.Domain.csproj", "Comfy.Domain/"]
-COPY ["Comfy.Persistence/Comfy.Persistence.csproj", "Comfy.Persistence/"]
 RUN dotnet restore "Comfy.WebApi/Comfy.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Comfy.WebApi"
