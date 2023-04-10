@@ -1,14 +1,14 @@
-version: '3.4'
+version: '3.8'
 
 
 networks:
-  dev:
-    driver: bridge
-
+  comfy_network:
+    external: true
 
 
 volumes:
-  app_data:
+  dbvolume:
+    external: true
 
 
 services:
@@ -21,25 +21,5 @@ services:
     build:
       context: .
       dockerfile: Comfy.WebApi/Dockerfile
-    depends_on:
-      - db
     networks:
-      - dev
-     
-
-  db:
-    container_name: database
-    image: mariadb:10.9.5
-    restart: always
-    volumes:
-      - app_data:/var/lib/mysql
-    environment:
-      - MARIADB_ROOT_PASSWORD=password
-      - MARIADB_DATABASE=comfy
-    ports:
-      - "23306:3306"
-    networks:
-      - dev
-
-
-    
+      - comfy_network
