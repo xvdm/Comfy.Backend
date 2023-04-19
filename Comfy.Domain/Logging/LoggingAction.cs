@@ -1,9 +1,8 @@
-﻿namespace Comfy.Domain
-{
-    public class LoggingAction
-    {
-        public int Id { get; set; }
+﻿namespace Comfy.Domain.Logging;
 
-        public string Action { get; set; } = null!;
-    }
+public class LoggingAction
+{
+    public int Id { get; set; }
+
+    public string Action { get; set; } = null!;
 }

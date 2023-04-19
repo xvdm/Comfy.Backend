@@ -3,37 +3,36 @@ using Comfy.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers
+namespace Comfy.Application.Handlers;
+
+public class GetBrandsQuery : IRequest<IEnumerable<Brand>>
 {
-    public class GetBrandsQuery : IRequest<IEnumerable<Brand>>
+    public int CategoryId { get; set; }
+    public GetBrandsQuery(int categoryId)
     {
-        public int CategoryId { get; set; }
-        public GetBrandsQuery(int categoryId)
-        {
-            CategoryId = categoryId;
-        }
+        CategoryId = categoryId;
+    }
+}
+
+public class GetBrandsQueryHandler : IRequestHandler<GetBrandsQuery, IEnumerable<Brand>>
+{
+    private readonly IApplicationDbContext _context;
+
+    public GetBrandsQueryHandler(IApplicationDbContext context)
+    {
+        _context = context;
     }
 
-    public class GetBrandsQueryHandler : IRequestHandler<GetBrandsQuery, IEnumerable<Brand>>
+    public async Task<IEnumerable<Brand>> Handle(GetBrandsQuery request, CancellationToken cancellationToken)
     {
-        private readonly IApplicationDbContext _context;
+        var category = await _context.Subcategories
+            .Include(x => x.UniqueBrands)
+            .FirstOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken);
 
-        public GetBrandsQueryHandler(IApplicationDbContext context)
-        {
-            _context = context;
-        }
+        if (category is null) throw new HttpRequestException("There is no category with given id");
 
-        public async Task<IEnumerable<Brand>> Handle(GetBrandsQuery request, CancellationToken cancellationToken)
-        {
-            var category = await _context.Subcategories
-                .Include(x => x.UniqueBrands)
-                .FirstOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken);
+        var brands = category.UniqueBrands.ToList();
 
-            if (category is null) throw new HttpRequestException("There is no category with given id");
-
-            var brands = category.UniqueBrands.ToList();
-
-            return brands;
-        }
+        return brands;
     }
 }

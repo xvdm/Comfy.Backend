@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 
-namespace Comfy.Application.Common.Mappings
+namespace Comfy.Application.Common.Mappings;
+
+internal interface IMapWith<T>
 {
-    internal interface IMapWith<T>
+    void Mapping(Profile profile)
     {
-        void Mapping(Profile profile)
-        {
-            profile.CreateMap(typeof(T), GetType());
-        }
+        profile.CreateMap(typeof(T), GetType());
     }
 }

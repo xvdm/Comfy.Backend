@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Comfy.Domain.Base;
 
-namespace Comfy.Domain.Base
+public abstract class Auditable
 {
-    public abstract class Auditable
-    {
-        public DateTime? CreatedAt { get; set; }
-    }
+    public DateTime? CreatedAt { get; set; }
 }

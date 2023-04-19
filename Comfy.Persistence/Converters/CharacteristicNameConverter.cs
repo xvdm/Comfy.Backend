@@ -2,26 +2,25 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Comfy.Persistence.Converters
+namespace Comfy.Persistence.Converters;
+
+public class CharacteristicNameConverter : JsonConverter<CharacteristicName>
 {
-    public class CharacteristicNameConverter : JsonConverter<CharacteristicName>
+    public override CharacteristicName? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override CharacteristicName? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        public override void Write(Utf8JsonWriter writer, CharacteristicName value, JsonSerializerOptions options)
-        {
-            writer.WriteStartObject();
+    public override void Write(Utf8JsonWriter writer, CharacteristicName value, JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
 
-            //writer.WriteNumber("Id", value.Id);
-            //writer.WriteString("Name", value.Name);
+        //writer.WriteNumber("Id", value.Id);
+        //writer.WriteString("Name", value.Name);
 
-            writer.WriteNumberValue(value.Id);
-            writer.WriteStringValue(value.Name);
+        writer.WriteNumberValue(value.Id);
+        writer.WriteStringValue(value.Name);
 
-            writer.WriteEndObject();
-        }
+        writer.WriteEndObject();
     }
 }

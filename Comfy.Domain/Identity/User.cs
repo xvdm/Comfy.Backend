@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Comfy.Domain
-{
-    public class User : IdentityUser<Guid>
-    {
-    }
-}
+namespace Comfy.Domain.Identity;
 
-
+ public class User : IdentityUser<Guid>
+ {
+ }

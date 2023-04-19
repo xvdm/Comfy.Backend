@@ -61,26 +61,3 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
-
-
-
-
-//static void UseTestingIdentityConfig(IdentityOptions config)
-//{
-//    config.SignIn.RequireConfirmedAccount = false;
-//    config.Password.RequireNonAlphanumeric = false;
-//    config.Password.RequireUppercase = false;
-//    config.Password.RequireLowercase = true;
-//    config.Password.RequiredLength = 3;
-//    config.Password.RequireDigit = false;
-//}
-
-//static void UseProductionIdentityConfig(IdentityOptions config)
-//{
-//    config.SignIn.RequireConfirmedAccount = false;
-//    config.Password.RequireNonAlphanumeric = true;
-//    config.Password.RequireUppercase = true;
-//    config.Password.RequireLowercase = true;
-//    config.Password.RequiredLength = 10;
-//    config.Password.RequireDigit = true;
-//}

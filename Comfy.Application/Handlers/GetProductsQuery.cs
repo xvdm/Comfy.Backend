@@ -40,14 +40,15 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumer
                 .Include(x => x.Characteristics);
         }
 
-        products = products.AsNoTracking()
+        products = products
+            .AsNoTracking()
             .AsQueryable();
 
         foreach (var pair in request.QueryDictionary)
         {
             if (pair.Value.Any())
             {
-                var ids = pair.Value.Where(x => int.TryParse(x, out int id)).Select(x => int.Parse(x)).ToArray();
+                var ids = pair.Value.Where(x => int.TryParse(x, out var id)).Select(int.Parse).ToArray();
         
                 if (pair.Key == "brand")
                 {
