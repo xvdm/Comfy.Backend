@@ -3,7 +3,7 @@ using Comfy.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers;
+namespace Comfy.Application.Handlers.Products.ShowcaseProducts;
 
 public class GetProductsQuery : IRequest<IEnumerable<Product>>
 {
@@ -31,7 +31,7 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumer
         var products = _context.Products
             .Where(x => x.CategoryId == request.CategoryId);
 
-        if(request.QueryDictionary.Any())
+        if (request.QueryDictionary.Any())
         {
             products = products
                 .Include(x => x.Model)
@@ -49,7 +49,7 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumer
             if (pair.Value.Any())
             {
                 var ids = pair.Value.Where(x => int.TryParse(x, out var id)).Select(int.Parse).ToArray();
-        
+
                 if (pair.Key == "brand")
                 {
                     products = products.Where(x => ids.Contains(x.Brand.Id));

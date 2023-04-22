@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Comfy.WebApi.Controllers;
+namespace Comfy.WebApi.Controllers.Base;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+//[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 public abstract class BaseController : ControllerBase
 {
     private IMediator _mediator;

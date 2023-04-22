@@ -60,7 +60,7 @@ public static class ProductUrl
     {
         queryDictionary = new Dictionary<string, List<string>>();
         var queryChanged = false;
-        if (string.IsNullOrEmpty(query))
+        if (string.IsNullOrEmpty(query) || query.Contains('=') == false)
         {
             return queryChanged;
         }
