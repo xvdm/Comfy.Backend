@@ -15,11 +15,11 @@ public class ProductDTO : IMapWith<Product>
     public double Rating { get; set; }
     public string Url { get; set; } = null!;
 
-    public ICollection<PriceHistoryDTO> PriceHistory { get; set; } = null!;
-    public IList<ImageDTO> Images { get; set; } = null!;
-    public ICollection<CharacteristicDTO> Characteristics { get; set; } = null!;
-    public ICollection<QuestionDTO> Questions { get; set; } = null!;
-    public ICollection<ReviewDTO> Reviews { get; set; } = null!;
+    public IEnumerable<PriceHistoryDTO> PriceHistory { get; set; } = null!;
+    public IEnumerable<ImageDTO> Images { get; set; } = null!;
+    public IEnumerable<CharacteristicDTO> Characteristics { get; set; } = null!;
+    public IEnumerable<QuestionDTO> Questions { get; set; } = null!;
+    public IEnumerable<ReviewDTO> Reviews { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

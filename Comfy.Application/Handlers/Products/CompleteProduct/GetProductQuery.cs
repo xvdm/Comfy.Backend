@@ -48,7 +48,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDT
                 .ThenInclude(x => x.Answers)
             .FirstOrDefaultAsync(x => x.Id == request.ProductId, cancellationToken);
 
-        if (product is null) throw new NotFoundException(nameof(product), nameof(Product));
+        if (product is null) return null!;
 
         var result = _mapper.Map<Product, ProductDTO>(product);
         return result;

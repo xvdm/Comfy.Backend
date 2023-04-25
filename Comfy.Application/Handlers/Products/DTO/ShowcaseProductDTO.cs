@@ -13,7 +13,7 @@ public class ShowcaseProductDTO : IMapWith<Product>
     public double Rating { get; set; }
     public string Url { get; set; } = null!;
 
-    public IList<Image> Images { get; set; } = null!;
+    public IEnumerable<Image> Images { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

@@ -11,7 +11,7 @@ public class QuestionDTO : IMapWith<Question>
     public int NeedlessQuestionCount { get; set; }
     public string Username { get; set; } = null!;
 
-    public ICollection<QuestionAnswerDTO> Answers { get; set; } = null!;
+    public IEnumerable<QuestionAnswerDTO> Answers { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

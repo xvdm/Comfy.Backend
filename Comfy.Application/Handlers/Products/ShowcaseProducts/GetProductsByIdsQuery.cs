@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts;
 
-public class GetProductsByIdsQuery : IRequest<ICollection<ShowcaseProductDTO>>
+public class GetProductsByIdsQuery : IRequest<IEnumerable<ShowcaseProductDTO>>
 {
     public int[] Ids { get; set; }
 
@@ -16,7 +16,7 @@ public class GetProductsByIdsQuery : IRequest<ICollection<ShowcaseProductDTO>>
     }
 }
 
-public class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuery, ICollection<ShowcaseProductDTO>>
+public class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuery, IEnumerable<ShowcaseProductDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -27,13 +27,13 @@ public class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuer
         _mapper = mapper;
     }
 
-    public async Task<ICollection<ShowcaseProductDTO>> Handle(GetProductsByIdsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ShowcaseProductDTO>> Handle(GetProductsByIdsQuery request, CancellationToken cancellationToken)
     {
         var products = await _context.Products
             .Where(x => request.Ids.Contains(x.Id))
             .ToListAsync(cancellationToken);
 
-        var result = _mapper.Map<ICollection<ShowcaseProductDTO>>(products);
+        var result = _mapper.Map<IEnumerable<ShowcaseProductDTO>>(products);
         return result;
     }
 }

@@ -7,7 +7,7 @@ namespace Comfy.Application.Handlers.Categories.DTO;
 public class MainCategoryDTO : IMapWith<MainCategory>
 {
     public string Name { get; set; } = null!;
-    public ICollection<SubcategoryDTO> Categories { get; set; } = null!;
+    public IEnumerable<SubcategoryDTO> Categories { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

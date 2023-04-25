@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.HomepageShowcase;
 
-public class GetShowcaseGroupsQuery : IRequest<ICollection<ShowcaseGroupDTO>>
+public class GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>
 {
 }
 
-public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQuery, ICollection<ShowcaseGroupDTO>>
+public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQuery, IEnumerable<ShowcaseGroupDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -21,14 +21,14 @@ public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQu
         _mapper = mapper;
     }
 
-    public async Task<ICollection<ShowcaseGroupDTO>> Handle(GetShowcaseGroupsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ShowcaseGroupDTO>> Handle(GetShowcaseGroupsQuery request, CancellationToken cancellationToken)
     {
         var groups = await _context.ShowcaseGroups
             .Include(x => x.Products)
                 .ThenInclude(x => x.Images.Take(3))
             .ToListAsync(cancellationToken);
 
-        var result = _mapper.Map<List<ShowcaseGroupDTO>>(groups);
+        var result = _mapper.Map<IEnumerable<ShowcaseGroupDTO>>(groups);
 
         return result;
     }

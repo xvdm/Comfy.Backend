@@ -15,7 +15,7 @@ public class ReviewDTO : IMapWith<Review>
 
     public string Username { get; set; } = null!;
 
-    public ICollection<ReviewAnswerDTO> Answers { get; set; } = null!;
+    public IEnumerable<ReviewAnswerDTO> Answers { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {

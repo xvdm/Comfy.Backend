@@ -32,6 +32,7 @@ public interface IApplicationDbContext
     public DbSet<SubcategoryImage> SubcategoryImages { get; set; }
     public DbSet<SubcategoryFilter> SubcategoryFilters { get; set; }
     public DbSet<ShowcaseGroup> ShowcaseGroups { get; set; }
+    public DbSet<Banner> Banners { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

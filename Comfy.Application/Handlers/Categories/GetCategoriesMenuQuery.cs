@@ -28,7 +28,7 @@ public class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQu
                 .ThenInclude(x => x.Filters)
             .ToListAsync(cancellationToken);
 
-        var dto = _mapper.Map<List<MainCategoryDTO>>(mainCategories);
+        var dto = _mapper.Map<IEnumerable<MainCategoryDTO>>(mainCategories);
 
         var result = new CategoriesMenuDTO()
         {
