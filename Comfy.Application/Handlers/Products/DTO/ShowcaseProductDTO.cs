@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Products.DTO;
 
-public class ShowcaseProductDTO : IMapWith<Product>
+public record ShowcaseProductDTO : IMapWith<Product>
 {
     public string Name { get; set; } = null!;
     public int Price { get; set; }

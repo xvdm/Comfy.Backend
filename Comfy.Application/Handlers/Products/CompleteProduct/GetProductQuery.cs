@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Application.Interfaces;
 using Comfy.Domain;
@@ -8,15 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct;
 
-public class GetProductQuery : IRequest<ProductDTO>
-{
-    public int ProductId { get; set; }
-
-    public GetProductQuery(int productId)
-    {
-        ProductId = productId;
-    }
-}
+public record GetProductQuery(int ProductId) : IRequest<ProductDTO>;
 
 
 public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDTO>

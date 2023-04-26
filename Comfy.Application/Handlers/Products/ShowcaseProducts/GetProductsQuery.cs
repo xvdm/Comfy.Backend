@@ -5,16 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts;
 
-public class GetProductsQuery : IRequest<IEnumerable<Product>>
-{
-    public int CategoryId { get; set; }
-    public Dictionary<string, List<string>> QueryDictionary { get; set; }
-    public GetProductsQuery(int categoryId, Dictionary<string, List<string>> queryDictionary)
-    {
-        CategoryId = categoryId;
-        QueryDictionary = queryDictionary;
-    }
-}
+public record GetProductsQuery(int CategoryId, Dictionary<string, List<string>> QueryDictionary) : IRequest<IEnumerable<Product>>;
 
 
 public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<Product>>

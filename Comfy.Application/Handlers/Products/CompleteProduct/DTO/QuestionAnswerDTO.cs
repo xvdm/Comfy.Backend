@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
-public class QuestionAnswerDTO : IMapWith<QuestionAnswer>
+public record QuestionAnswerDTO : IMapWith<QuestionAnswer>
 {
     public string Username { get; set; } = null!;
     public string Text { get; set; } = null!;

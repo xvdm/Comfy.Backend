@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Categories;
 
-public class GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>
-{
-}
+public record GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>;
 
 public class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQuery, CategoriesMenuDTO>
 {

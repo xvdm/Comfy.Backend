@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Banners;
 
-public class GetBannersQuery : IRequest<IEnumerable<BannerDTO>>
-{
-}
+public record GetBannersQuery : IRequest<IEnumerable<BannerDTO>>;
 
 public class GetBannersQueryHandler : IRequestHandler<GetBannersQuery, IEnumerable<BannerDTO>>
 {

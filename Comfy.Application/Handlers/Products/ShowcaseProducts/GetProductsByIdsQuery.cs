@@ -6,15 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts;
 
-public class GetProductsByIdsQuery : IRequest<IEnumerable<ShowcaseProductDTO>>
-{
-    public int[] Ids { get; set; }
+public record GetProductsByIdsQuery(int[] Ids) : IRequest<IEnumerable<ShowcaseProductDTO>>;
 
-    public GetProductsByIdsQuery(int[] ids)
-    {
-        Ids = ids;
-    }
-}
 
 public class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuery, IEnumerable<ShowcaseProductDTO>>
 {

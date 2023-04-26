@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
-public class ImageDTO : IMapWith<Image>
+public record ImageDTO : IMapWith<Image>
 {
     public string Url { get; set; } = null!;
 

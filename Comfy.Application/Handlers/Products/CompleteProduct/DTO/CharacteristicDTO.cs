@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
-public class CharacteristicDTO : IMapWith<Characteristic>
+public record CharacteristicDTO : IMapWith<Characteristic>
 {
     public string Name { get; set; } = null!;
     public string Value { get; set; } = null!;

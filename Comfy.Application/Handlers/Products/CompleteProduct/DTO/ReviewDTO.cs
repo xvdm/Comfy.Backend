@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
-public class ReviewDTO : IMapWith<Review>
+public record ReviewDTO : IMapWith<Review>
 {
     public string Text { get; set; } = null!;
     public string Advantages { get; set; } = null!;
@@ -12,9 +12,7 @@ public class ReviewDTO : IMapWith<Review>
     public double ProductRating { get; set; }
     public int UsefulReviewCount { get; set; }
     public int NeedlessReviewCount { get; set; }
-
     public string Username { get; set; } = null!;
-
     public IEnumerable<ReviewAnswerDTO> Answers { get; set; } = null!;
 
     public void Mapping(Profile profile)

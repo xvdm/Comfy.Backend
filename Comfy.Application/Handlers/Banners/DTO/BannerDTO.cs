@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Banners.DTO;
 
-public class BannerDTO : IMapWith<Banner>
+public record BannerDTO : IMapWith<Banner>
 {
     public string Name { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;

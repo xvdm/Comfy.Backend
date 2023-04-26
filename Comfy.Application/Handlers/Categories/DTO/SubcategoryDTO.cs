@@ -4,7 +4,7 @@ using Comfy.Domain;
 
 namespace Comfy.Application.Handlers.Categories.DTO;
 
-public class SubcategoryDTO : IMapWith<Subcategory>
+public record SubcategoryDTO : IMapWith<Subcategory>
 {
     public string Name { get; set; } = null!;
     public IEnumerable<SubcategoryFilterDTO> Filters { get; set; } = null!;

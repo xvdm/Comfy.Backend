@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.HomepageShowcase;
 
-public class GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>
-{
-}
+public record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>;
+
 
 public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQuery, IEnumerable<ShowcaseGroupDTO>>
 {
