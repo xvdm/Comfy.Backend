@@ -6,8 +6,8 @@ namespace Comfy.Application.Handlers.Categories.DTO;
 
 public record SubcategoryFilterDTO : IMapWith<SubcategoryFilter>
 {
-    public string Name { get; set; } = null!;
-    public string FilterQuery { get; set; } = null!;
+    public string Name { get; init; } = null!;
+    public string FilterQuery { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

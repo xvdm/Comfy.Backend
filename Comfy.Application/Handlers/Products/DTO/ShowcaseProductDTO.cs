@@ -6,14 +6,14 @@ namespace Comfy.Application.Handlers.Products.DTO;
 
 public record ShowcaseProductDTO : IMapWith<Product>
 {
-    public string Name { get; set; } = null!;
-    public int Price { get; set; }
-    public int DiscountAmount { get; set; }
-    public int Amount { get; set; }
-    public double Rating { get; set; }
-    public string Url { get; set; } = null!;
+    public string Name { get; init; } = null!;
+    public int Price { get; init; }
+    public int DiscountAmount { get; init; }
+    public int Amount { get; init; }
+    public double Rating { get; init; }
+    public string Url { get; init; } = null!;
 
-    public IEnumerable<Image> Images { get; set; } = null!;
+    public IEnumerable<Image> Images { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

@@ -8,6 +8,7 @@ namespace Comfy.Application.Handlers.Banners;
 
 public record GetBannersQuery : IRequest<IEnumerable<BannerDTO>>;
 
+
 public class GetBannersQueryHandler : IRequestHandler<GetBannersQuery, IEnumerable<BannerDTO>>
 {
     private readonly IApplicationDbContext _context;

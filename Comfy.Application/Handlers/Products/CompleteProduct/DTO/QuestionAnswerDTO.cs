@@ -6,10 +6,10 @@ namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
 public record QuestionAnswerDTO : IMapWith<QuestionAnswer>
 {
-    public string Username { get; set; } = null!;
-    public string Text { get; set; } = null!;
-    public int UsefulAnswerCount { get; set; }
-    public int NeedlessAnswerCount { get; set; }
+    public string Username { get; init; } = null!;
+    public string Text { get; init; } = null!;
+    public int UsefulAnswerCount { get; init; }
+    public int NeedlessAnswerCount { get; init; }
 
     public void Mapping(Profile profile)
     {

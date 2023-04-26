@@ -7,9 +7,9 @@ namespace Comfy.Application.Handlers.Products.HomepageShowcase.DTO;
 
 public record ShowcaseGroupDTO : IMapWith<ShowcaseGroup>
 {
-    public string Name { get; set; } = null!;
-    public string QueryString { get; set; } = null!;
-    public IEnumerable<ShowcaseProductDTO> Products { get; set; } = null!;
+    public string Name { get; init; } = null!;
+    public string QueryString { get; init; } = null!;
+    public IEnumerable<ShowcaseProductDTO> Products { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

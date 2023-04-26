@@ -6,9 +6,9 @@ namespace Comfy.Application.Handlers.Banners.DTO;
 
 public record BannerDTO : IMapWith<Banner>
 {
-    public string Name { get; set; } = null!;
-    public string ImageUrl { get; set; } = null!;
-    public string PageUrl { get; set; } = null!;
+    public string Name { get; init; } = null!;
+    public string ImageUrl { get; init; } = null!;
+    public string PageUrl { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

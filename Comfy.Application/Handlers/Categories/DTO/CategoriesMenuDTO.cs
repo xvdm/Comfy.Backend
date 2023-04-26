@@ -2,5 +2,5 @@
 
 public record CategoriesMenuDTO
 {
-    public IEnumerable<MainCategoryDTO> MainCategories { get; set; } = null!;
+    public IEnumerable<MainCategoryDTO> MainCategories { get; init; } = null!;
 }

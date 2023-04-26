@@ -8,6 +8,7 @@ namespace Comfy.Application.Handlers.Categories;
 
 public record GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>;
 
+
 public class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQuery, CategoriesMenuDTO>
 {
     private readonly IApplicationDbContext _context;

@@ -6,8 +6,8 @@ namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
 public record CharacteristicDTO : IMapWith<Characteristic>
 {
-    public string Name { get; set; } = null!;
-    public string Value { get; set; } = null!;
+    public string Name { get; init; } = null!;
+    public string Value { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {
