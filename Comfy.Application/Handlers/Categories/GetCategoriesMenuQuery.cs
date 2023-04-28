@@ -25,6 +25,7 @@ public class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQu
         var mainCategories = await _context.MainCategories
             .Include(x => x.Categories)
                 .ThenInclude(x => x.Filters)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var dto = _mapper.Map<IEnumerable<MainCategoryDTO>>(mainCategories);

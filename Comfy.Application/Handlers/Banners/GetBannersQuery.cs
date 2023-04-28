@@ -23,7 +23,10 @@ public class GetBannersQueryHandler : IRequestHandler<GetBannersQuery, IEnumerab
 
     public async Task<IEnumerable<BannerDTO>> Handle(GetBannersQuery request, CancellationToken cancellationToken)
     {
-        var banners = await _context.Banners.ToListAsync(cancellationToken);
+        var banners = await _context.Banners
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+
         var result = _mapper.Map<IEnumerable<BannerDTO>>(banners);
         return result;
     }

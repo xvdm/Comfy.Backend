@@ -37,6 +37,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDT
                 .ThenInclude(x => x.Answers)
             .Include(x => x.Reviews)
                 .ThenInclude(x => x.Answers)
+            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.ProductId, cancellationToken);
 
         if (product is null) return null!;

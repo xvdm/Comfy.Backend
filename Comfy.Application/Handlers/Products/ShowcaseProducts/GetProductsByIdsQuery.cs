@@ -24,6 +24,7 @@ public class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuer
     {
         var products = await _context.Products
             .Where(x => request.Ids.Contains(x.Id))
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var result = _mapper.Map<IEnumerable<ShowcaseProductDTO>>(products);

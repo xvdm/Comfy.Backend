@@ -25,6 +25,7 @@ public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQu
         var groups = await _context.ShowcaseGroups
             .Include(x => x.Products)
                 .ThenInclude(x => x.Images.Take(3))
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var result = _mapper.Map<IEnumerable<ShowcaseGroupDTO>>(groups);
