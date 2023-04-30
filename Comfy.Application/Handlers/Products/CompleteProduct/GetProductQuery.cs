@@ -7,7 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct;
 
-public record GetProductQuery(int ProductId) : IRequest<ProductDTO>;
+public record GetProductQuery(int ProductId) : IRequest<ProductDTO>, ICacheable
+{
+    public string CacheKey => $"Product-{ProductId}";
+    public double ExpirationHours => 12;
+}
 
 
 public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDTO>

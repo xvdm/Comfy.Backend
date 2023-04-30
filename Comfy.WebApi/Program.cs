@@ -15,7 +15,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
-builder.Services.AddApplication();
+builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
 builder.Services
     .AddControllers()
@@ -59,7 +59,10 @@ app.UseEndpoints(endpoints =>
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(x =>
+    {
+        x.DisplayRequestDuration();
+    });
 }
 
 app.Run();

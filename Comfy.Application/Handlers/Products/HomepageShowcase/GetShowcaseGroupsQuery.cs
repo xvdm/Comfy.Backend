@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.HomepageShowcase;
 
-public record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>;
+public record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>, ICacheable
+{
+    public string CacheKey => "ShowcaseGroups";
+    public double ExpirationHours => 24;
+}
 
 
 public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQuery, IEnumerable<ShowcaseGroupDTO>>
@@ -24,7 +28,7 @@ public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQu
     {
         var groups = await _context.ShowcaseGroups
             .Include(x => x.Products)
-                .ThenInclude(x => x.Images.Take(3))
+                .ThenInclude(x => x.Images.OrderBy(y => y.Id).Take(3))
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
