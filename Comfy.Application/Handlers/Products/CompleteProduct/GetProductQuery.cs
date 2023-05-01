@@ -9,7 +9,7 @@ namespace Comfy.Application.Handlers.Products.CompleteProduct;
 
 public record GetProductQuery(int ProductId) : IRequest<ProductDTO>, ICacheable
 {
-    public string CacheKey => $"Product-{ProductId}";
+    public string CacheKey => $"product:{ProductId}";
     public double ExpirationHours => 12;
 }
 

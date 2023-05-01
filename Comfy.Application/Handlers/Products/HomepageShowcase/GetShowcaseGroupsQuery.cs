@@ -8,7 +8,7 @@ namespace Comfy.Application.Handlers.Products.HomepageShowcase;
 
 public record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>, ICacheable
 {
-    public string CacheKey => "ShowcaseGroups";
+    public string CacheKey => "showcase-groups";
     public double ExpirationHours => 24;
 }
 

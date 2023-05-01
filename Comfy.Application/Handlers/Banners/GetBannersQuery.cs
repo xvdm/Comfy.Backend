@@ -9,7 +9,7 @@ namespace Comfy.Application.Handlers.Banners;
 
 public record GetBannersQuery() : IRequest<IEnumerable<BannerDTO>>, ICacheable
 {
-    public string CacheKey => "Banners";
+    public string CacheKey => "banners";
     public double ExpirationHours => 24;
 }
 
