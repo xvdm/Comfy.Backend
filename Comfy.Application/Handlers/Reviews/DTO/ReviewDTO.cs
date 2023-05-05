@@ -2,17 +2,20 @@
 using Comfy.Application.Common.Mappings;
 using Comfy.Domain;
 
-namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
+namespace Comfy.Application.Handlers.Reviews.DTO;
 
 public record ReviewDTO : IMapWith<Review>
 {
+    public string Username { get; init; } = null!;
+    public int ProductId { get; init; }
+
+    public int Id { get; init; }
     public string Text { get; init; } = null!;
     public string Advantages { get; init; } = null!;
     public string Disadvantages { get; init; } = null!;
     public double ProductRating { get; init; }
     public int UsefulReviewCount { get; init; }
     public int NeedlessReviewCount { get; init; }
-    public string Username { get; init; } = null!;
     public IEnumerable<ReviewAnswerDTO> Answers { get; init; } = null!;
 
     public void Mapping(Profile profile)

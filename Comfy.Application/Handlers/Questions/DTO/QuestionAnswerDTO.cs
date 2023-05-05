@@ -2,11 +2,12 @@
 using Comfy.Application.Common.Mappings;
 using Comfy.Domain;
 
-namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
+namespace Comfy.Application.Handlers.Questions.DTO;
 
 public record QuestionAnswerDTO : IMapWith<QuestionAnswer>
 {
     public string Username { get; init; } = null!;
+
     public string Text { get; init; } = null!;
     public int UsefulAnswerCount { get; init; }
     public int NeedlessAnswerCount { get; init; }

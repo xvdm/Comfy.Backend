@@ -6,6 +6,7 @@ namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
 public record ProductDTO : IMapWith<Product>
 {
+    public int Id { get; init; }
     public string Name { get; init; } = null!;
     public string Description { get; init; } = null!;
     public int Price { get; init; }
@@ -18,8 +19,6 @@ public record ProductDTO : IMapWith<Product>
     public IEnumerable<PriceHistoryDTO> PriceHistory { get; init; } = null!;
     public IEnumerable<ImageDTO> Images { get; init; } = null!;
     public IEnumerable<CharacteristicDTO> Characteristics { get; init; } = null!;
-    public IEnumerable<QuestionDTO> Questions { get; init; } = null!;
-    public IEnumerable<ReviewDTO> Reviews { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

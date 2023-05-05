@@ -10,7 +10,7 @@ namespace Comfy.Application.Handlers.Products.CompleteProduct;
 public record GetProductQuery(int ProductId) : IRequest<ProductDTO>, ICacheable
 {
     public string CacheKey => $"product:{ProductId}";
-    public double ExpirationHours => 12;
+    public double ExpirationHours => 3;
 }
 
 
@@ -37,16 +37,10 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDT
             .Include(x => x.Images)
             .Include(x => x.Model)
             .Include(x => x.PriceHistory)
-            .Include(x => x.Questions)
-                .ThenInclude(x => x.Answers)
-            .Include(x => x.Reviews)
-                .ThenInclude(x => x.Answers)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.ProductId, cancellationToken);
 
-        if (product is null) return null!;
-
-        var result = _mapper.Map<Product, ProductDTO>(product);
+        var result = _mapper.Map<Product, ProductDTO>(product!);
         return result;
     }
 }
