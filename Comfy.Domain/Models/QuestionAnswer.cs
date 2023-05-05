@@ -1,7 +1,7 @@
 ﻿using Comfy.Domain.Base;
 using Comfy.Domain.Identity;
 
-namespace Comfy.Domain;
+namespace Comfy.Domain.Models;
 
 public class QuestionAnswer : Auditable
 {

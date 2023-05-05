@@ -1,4 +1,4 @@
-﻿using Comfy.Domain;
+﻿using Comfy.Domain.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Comfy.Domain.Identity;
 using Comfy.Domain.Logging;
-using Comfy.Domain;
+using Comfy.Domain.Models;
 
 namespace Comfy.Persistence;
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Comfy.Application.Common.Mappings;
-using Comfy.Domain;
+using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 

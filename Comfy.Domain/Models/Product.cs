@@ -1,6 +1,6 @@
 ﻿using Comfy.Domain.Base;
 
-namespace Comfy.Domain;
+namespace Comfy.Domain.Models;
 
 public class Product : Auditable
 {
@@ -11,7 +11,7 @@ public class Product : Auditable
     public int DiscountAmount { get; set; }
     public int Amount { get; set; }
     public int Code { get; set; }
-    public double Rating { get; set; } 
+    public double Rating { get; set; }
     public bool IsActive { get; set; }
     public string Url { get; set; } = null!;
 

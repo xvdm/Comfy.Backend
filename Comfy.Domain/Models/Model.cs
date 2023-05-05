@@ -1,6 +1,6 @@
-﻿namespace Comfy.Domain;
+﻿namespace Comfy.Domain.Models;
 
-public class CharacteristicName
+public class Model
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

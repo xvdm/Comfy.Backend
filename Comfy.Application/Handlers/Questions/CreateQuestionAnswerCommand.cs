@@ -1,5 +1,5 @@
 ﻿using Comfy.Application.Interfaces;
-using Comfy.Domain;
+using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

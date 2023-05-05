@@ -1,4 +1,4 @@
-﻿namespace Comfy.Domain;
+﻿namespace Comfy.Domain.Models;
 
 public class MainCategoryImage
 {

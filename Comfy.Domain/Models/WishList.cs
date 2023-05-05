@@ -1,6 +1,6 @@
 ﻿using Comfy.Domain.Identity;
 
-namespace Comfy.Domain;
+namespace Comfy.Domain.Models;
 
 public class WishList
 {

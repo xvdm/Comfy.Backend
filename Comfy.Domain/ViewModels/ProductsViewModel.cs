@@ -1,4 +1,6 @@
-﻿namespace Comfy.Domain.ViewModels;
+﻿using Comfy.Domain.Models;
+
+namespace Comfy.Domain.ViewModels;
 
 public class ProductsViewModel
 {

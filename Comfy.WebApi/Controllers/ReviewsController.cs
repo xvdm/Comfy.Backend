@@ -26,4 +26,32 @@ public class ReviewsController : BaseController
         await Mediator.Send(command);
         return Ok();
     }
+
+    [HttpPut("like")]
+    public async Task<IActionResult> LikeReview(int reviewId)
+    {
+        await Mediator.Send(new LikeReviewCommand(reviewId));
+        return Ok();
+    }
+
+    [HttpPut("likeAnswer")]
+    public async Task<IActionResult> LikeReviewAnswer(int reviewAnswerId)
+    {
+        await Mediator.Send(new LikeReviewAnswerCommand(reviewAnswerId));
+        return Ok();
+    }
+
+    [HttpPut("dislike")]
+    public async Task<IActionResult> DislikeReview(int reviewId)
+    {
+        await Mediator.Send(new DislikeReviewCommand(reviewId));
+        return Ok();
+    }
+
+    [HttpPut("dislikeAnswer")]
+    public async Task<IActionResult> DislikeReviewAnswer(int reviewAnswerId)
+    {
+        await Mediator.Send(new DislikeReviewAnswerCommand(reviewAnswerId));
+        return Ok();
+    }
 }

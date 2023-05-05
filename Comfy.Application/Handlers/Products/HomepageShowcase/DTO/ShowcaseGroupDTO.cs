@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Comfy.Application.Common.Mappings;
 using Comfy.Application.Handlers.Products.DTO;
-using Comfy.Domain;
+using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.HomepageShowcase.DTO;
 

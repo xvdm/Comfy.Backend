@@ -1,7 +1,7 @@
 ﻿using Comfy.Domain.Base;
 using Comfy.Domain.Identity;
 
-namespace Comfy.Domain;
+namespace Comfy.Domain.Models;
 
 public class Order : Auditable
 {
@@ -15,10 +15,10 @@ public class Order : Auditable
 
     public int AddressId { get; set; }
     public Address Address { get; set; } = null!;
-    
+
     public int PaymentTypeId { get; set; }
     public PaymentType PaymentType { get; set; } = null!;
-    
+
     public int StatusId { get; set; }
     public OrderStatus Status { get; set; } = null!;
 

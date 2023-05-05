@@ -1,7 +1,7 @@
 ﻿using Comfy.Domain.Base;
 using Comfy.Domain.Identity;
 
-namespace Comfy.Domain;
+namespace Comfy.Domain.Models;
 
 public class Review : Auditable
 {
@@ -16,7 +16,7 @@ public class Review : Auditable
 
     public Guid UserId { get; set; }
     public User User { get; set; } = null!;
-    
+
     public int ProductId { get; set; }
     public Product Product { get; set; } = null!;
 

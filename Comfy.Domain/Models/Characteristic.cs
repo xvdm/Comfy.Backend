@@ -1,4 +1,4 @@
-﻿namespace Comfy.Domain;
+﻿namespace Comfy.Domain.Models;
 
 public class Characteristic
 {
@@ -9,7 +9,7 @@ public class Characteristic
 
     public int CharacteristicsNameId { get; set; }
     public CharacteristicName CharacteristicsName { get; set; } = null!;
-    
+
     public int CharacteristicsValueId { get; set; }
     public CharacteristicValue CharacteristicsValue { get; set; } = null!;
 }
