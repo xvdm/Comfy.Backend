@@ -22,4 +22,4 @@ RUN dotnet publish "Comfy.WebApi.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Comfy.WebApi.dll"]
+ENTRYPOINT ["dotnet", "Comfy.WebApi.dll"] 
