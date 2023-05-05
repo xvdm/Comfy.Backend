@@ -34,7 +34,7 @@ public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionComman
             UserId = request.UserId,
             IsActive = false
         };
-        _context.Questions.Add(question);
+        await _context.Questions.AddAsync(question, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

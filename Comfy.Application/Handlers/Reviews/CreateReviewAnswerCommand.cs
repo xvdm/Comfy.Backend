@@ -33,7 +33,7 @@ public class CreateReviewAnswerCommandHandler : IRequestHandler<CreateReviewAnsw
             Text = request.Text,
             UserId = request.UserId
         };
-        _context.ReviewAnswers.Add(answer);
+        await _context.ReviewAnswers.AddAsync(answer, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

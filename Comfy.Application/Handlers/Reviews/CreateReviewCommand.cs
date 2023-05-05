@@ -40,7 +40,7 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand>
             UserId = request.UserId,
             IsActive = false
         };
-        _context.Reviews.Add(review);
+        await _context.Reviews.AddAsync(review, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

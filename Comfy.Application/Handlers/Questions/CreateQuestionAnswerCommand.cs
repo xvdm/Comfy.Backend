@@ -33,7 +33,7 @@ public class CreateQuestionAnswerCommandHandler : IRequestHandler<CreateQuestion
             Text = request.Text,
             UserId = request.UserId
         };
-        _context.QuestionAnswers.Add(answer);
+        await _context.QuestionAnswers.AddAsync(answer, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }
