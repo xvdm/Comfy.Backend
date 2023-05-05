@@ -8,7 +8,4 @@ public class SubcategoryFilter
 
     public int SubcategoryId { get; set; }
     public Subcategory Subcategory { get; set; } = null!;
-
-    public int MainCategoryId { get; set; }
-    public MainCategory MainCategory { get; set; } = null!;
 }
