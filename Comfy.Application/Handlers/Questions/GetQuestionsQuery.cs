@@ -32,6 +32,7 @@ public class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, IEnum
                 .ThenInclude(x => x.User)
             .Where(x => x.ProductId == request.ProductId)
             .Where(x => x.IsActive == true)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var result = _mapper.Map<IEnumerable<QuestionDTO>>(questions);
