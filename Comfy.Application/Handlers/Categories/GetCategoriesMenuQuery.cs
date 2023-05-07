@@ -9,7 +9,7 @@ namespace Comfy.Application.Handlers.Categories;
 public record GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>, ICacheable
 {
     public string CacheKey => "categories-menu";
-    public double ExpirationHours => 24;
+    public double ExpirationHours => 168;
 }
 
 
