@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews;
 
-public record GetReviewsQuery(int ProductId) : IRequest<IEnumerable<ReviewDTO>>;
+public record GetReviewsQuery(int ProductId) : IRequest<IEnumerable<ReviewDTO>>, ICacheable
+{
+    public string CacheKey => $"product-reviews:{ProductId}";
+    public double ExpirationHours => 3;
+}
 
 
 public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, IEnumerable<ReviewDTO>>

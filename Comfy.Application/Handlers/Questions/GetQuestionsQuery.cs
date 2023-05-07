@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions;
 
-public record GetQuestionsQuery(int ProductId) : IRequest<IEnumerable<QuestionDTO>>;
+public record GetQuestionsQuery(int ProductId) : IRequest<IEnumerable<QuestionDTO>>, ICacheable
+{
+    public string CacheKey => $"product-questions:{ProductId}";
+    public double ExpirationHours => 3;
+}
 
 
 public class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, IEnumerable<QuestionDTO>>
