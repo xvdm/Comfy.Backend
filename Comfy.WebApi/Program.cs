@@ -1,11 +1,8 @@
-using Comfy.Application.Common.Mappings;
-using System.Reflection;
-using System.Text.Json.Serialization;
-using Comfy.Application.Interfaces;
 using Comfy.Application;
+using Comfy.Application.Common.Mappings;
+using Comfy.Application.Interfaces;
 using Comfy.Persistence;
-using Comfy.Persistence.Converters;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
