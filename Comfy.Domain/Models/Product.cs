@@ -26,7 +26,7 @@ public class Product : Auditable
     public Model Model { get; set; } = null!;
 
     public ICollection<PriceHistory> PriceHistory { get; set; } = null!;
-    public IList<Image> Images { get; set; } = null!;
+    public ICollection<Image> Images { get; set; } = null!;
 
     public ICollection<Characteristic> Characteristics { get; set; } = null!;
 

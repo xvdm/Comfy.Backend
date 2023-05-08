@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Comfy.Application.Common.Mappings;
+using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.DTO;
@@ -14,7 +15,7 @@ public record ShowcaseProductDTO : IMapWith<Product>
     public int ReviewsNumber { get; set; }
     public string Url { get; init; } = null!;
 
-    public IEnumerable<Image> Images { get; init; } = null!;
+    public IEnumerable<ImageDTO> Images { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

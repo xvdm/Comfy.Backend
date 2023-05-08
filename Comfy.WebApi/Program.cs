@@ -18,13 +18,7 @@ builder.Services.AddAutoMapper(config =>
 builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
 builder.Services
-    .AddControllers()
-    .AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.Converters.Add(new CharacteristicNameConverter());
-    options.JsonSerializerOptions.Converters.Add(new CharacteristicDictionaryConverter());
-});
+    .AddControllers();
 
 
 //todo: allow only for frontend

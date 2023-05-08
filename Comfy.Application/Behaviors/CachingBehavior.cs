@@ -21,7 +21,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         if (string.IsNullOrEmpty(cachedValue))
         {
             response = await next.Invoke();
-            cachedValue = JsonConvert.SerializeObject(response)!;
+            cachedValue = JsonConvert.SerializeObject(response);
             var options = new DistributedCacheEntryOptions()
             {
                 SlidingExpiration = TimeSpan.FromHours(request.ExpirationHours)
