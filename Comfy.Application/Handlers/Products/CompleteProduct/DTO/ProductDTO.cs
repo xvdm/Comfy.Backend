@@ -14,6 +14,7 @@ public record ProductDTO : IMapWith<Product>
     public int Amount { get; init; }
     public int Code { get; init; }
     public double Rating { get; init; }
+    public int ReviewsNumber { get; set; }
     public string Url { get; init; } = null!;
 
     public IEnumerable<PriceHistoryDTO> PriceHistory { get; init; } = null!;

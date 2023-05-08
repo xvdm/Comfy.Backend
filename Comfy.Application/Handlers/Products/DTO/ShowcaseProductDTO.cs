@@ -11,6 +11,7 @@ public record ShowcaseProductDTO : IMapWith<Product>
     public int DiscountAmount { get; init; }
     public int Amount { get; init; }
     public double Rating { get; init; }
+    public int ReviewsNumber { get; set; }
     public string Url { get; init; } = null!;
 
     public IEnumerable<Image> Images { get; init; } = null!;
