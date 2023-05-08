@@ -7,7 +7,6 @@ namespace Comfy.Application.Handlers.Questions.DTO;
 public record QuestionDTO : IMapWith<Question>
 {
     public string Username { get; init; } = null!;
-    public int ProductId { get; init; }
 
     public int Id { get; init; }
     public string Text { get; init; } = null!;

@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews;
 
-public record GetReviewsQuery(int ProductId) : IRequest<IEnumerable<ReviewDTO>>, ICacheable
+public record GetReviewsQuery(int ProductId) : IRequest<ReviewsDTO>, ICacheable
 {
     public string CacheKey => $"product-reviews:{ProductId}";
     public double ExpirationHours => 3;
 }
 
 
-public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, IEnumerable<ReviewDTO>>
+public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, ReviewsDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, IEnumerab
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ReviewDTO>> Handle(GetReviewsQuery request, CancellationToken cancellationToken)
+    public async Task<ReviewsDTO> Handle(GetReviewsQuery request, CancellationToken cancellationToken)
     {
         var reviews = await _context.Reviews
             .Include(x => x.User)
@@ -35,7 +35,13 @@ public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, IEnumerab
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        var result = _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
+        var mappedReviews = _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
+
+        var result = new ReviewsDTO
+        {
+            ProductId = request.ProductId,
+            Reviews = mappedReviews
+        };
         return result;
     }
 }

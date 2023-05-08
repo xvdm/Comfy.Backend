@@ -12,10 +12,15 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
+
 builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
-builder.Services
-    .AddControllers();
+
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        
+    });
 
 
 //todo: allow only for frontend

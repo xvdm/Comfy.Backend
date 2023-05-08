@@ -7,7 +7,6 @@ namespace Comfy.Application.Handlers.Reviews.DTO;
 public record ReviewDTO : IMapWith<Review>
 {
     public string Username { get; init; } = null!;
-    public int ProductId { get; init; }
 
     public int Id { get; init; }
     public string Text { get; init; } = null!;

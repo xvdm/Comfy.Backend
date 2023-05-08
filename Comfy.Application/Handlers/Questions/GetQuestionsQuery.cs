@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions;
 
-public record GetQuestionsQuery(int ProductId) : IRequest<IEnumerable<QuestionDTO>>, ICacheable
+public record GetQuestionsQuery(int ProductId) : IRequest<QuestionsDTO>, ICacheable
 {
     public string CacheKey => $"product-questions:{ProductId}";
     public double ExpirationHours => 3;
 }
 
 
-public class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, IEnumerable<QuestionDTO>>
+public class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, QuestionsDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ public class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, IEnum
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<QuestionDTO>> Handle(GetQuestionsQuery request, CancellationToken cancellationToken)
+    public async Task<QuestionsDTO> Handle(GetQuestionsQuery request, CancellationToken cancellationToken)
     {
         var questions = await _context.Questions
             .Include(x => x.User)
@@ -35,7 +35,14 @@ public class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, IEnum
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        var result = _mapper.Map<IEnumerable<QuestionDTO>>(questions);
+        var questionsDTO = _mapper.Map<IEnumerable<QuestionDTO>>(questions);
+
+        var result = new QuestionsDTO
+        {
+            ProductId = request.ProductId,
+            Questions = questionsDTO
+        };
+
         return result;
     }
 }

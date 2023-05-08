@@ -8,6 +8,7 @@ public record ReviewAnswerDTO : IMapWith<ReviewAnswer>
 {
     public string Username { get; init; } = null!;
 
+    public int Id { get; init; }
     public string Text { get; init; } = null!;
     public int UsefulAnswerCount { get; init; }
     public int NeedlessAnswerCount { get; init; }
