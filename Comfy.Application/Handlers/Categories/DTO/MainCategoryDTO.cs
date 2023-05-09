@@ -6,6 +6,7 @@ namespace Comfy.Application.Handlers.Categories.DTO;
 
 public record MainCategoryDTO : IMapWith<MainCategory>
 {
+    public int Id { get; init; }
     public string Name { get; init; } = null!;
     public IEnumerable<SubcategoryDTO> Categories { get; init; } = null!;
 

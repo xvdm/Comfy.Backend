@@ -5,6 +5,7 @@ using Comfy.Persistence;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using System.Reflection;
+using Comfy.Application.Common.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 

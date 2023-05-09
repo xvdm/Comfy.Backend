@@ -1,6 +1,4 @@
 ﻿using Comfy.Application.Handlers.Questions;
-using Comfy.Application.Handlers.Reviews;
-using Comfy.Domain.Models;
 using Comfy.WebApi.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 

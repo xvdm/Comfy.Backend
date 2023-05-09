@@ -4,7 +4,7 @@ using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Products.ShowcaseProducts;
+namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByIds;
 
 public record GetProductsByIdsQuery(int[] Ids) : IRequest<IEnumerable<ShowcaseProductDTO>>;
 

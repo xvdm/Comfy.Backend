@@ -1,44 +1,9 @@
-﻿using Humanizer;
-using NickBuhro.Translit;
-using System.Text;
+﻿using System.Text;
 
-namespace Comfy.Persistence.Helpers;
+namespace Comfy.Application.Common.Helpers;
 
 public static class ProductUrl
 {
-    public static string Create(string productName, int productCode)
-    {
-        var url = productName
-                .ToLower()
-                .Replace(" ", "-")
-                .Replace(".", "-")
-                .Replace("/", "-")
-                .Replace("\\", "-")
-                .Replace("(", "-")
-                .Replace(")", "-")
-                .Replace("ґ", "г")
-                .Replace("є", "е")
-                .Replace("і", "и")
-                .Replace("ї", "йи")
-                .Replace("[", "-")
-                .Replace("]", "-")
-                .Replace("{", "-")
-                .Replace("}", "-")
-                .Replace("?", "-")
-                .Replace("!", "-")
-                .Replace("----", "-")
-                .Replace("---", "-")
-                .Replace("--", "-")
-                .Dasherize();
-        url = Transliteration.CyrillicToLatin(url)
-            .Replace("`", "");
-
-        if (url.Last() != '-') url += "-";
-        url += $"{productCode}";
-
-        return url;
-    }
-
     public static string GetUrlQuery(Dictionary<string, List<string>> dict)
     {
         var sBuilder = new StringBuilder(10);
@@ -59,11 +24,11 @@ public static class ProductUrl
     public static bool TryRemoveEmptyAndDuplicatesFromQuery(string? query, out Dictionary<string, List<string>> queryDictionary)
     {
         queryDictionary = new Dictionary<string, List<string>>();
-        var queryChanged = false;
         if (string.IsNullOrEmpty(query) || query.Contains('=') == false)
         {
-            return queryChanged;
+            return false;
         }
+        var queryChanged = false;
         var pairs = query.Split('&');
         foreach (var pair in pairs)
         {

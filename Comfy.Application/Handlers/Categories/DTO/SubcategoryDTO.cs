@@ -6,6 +6,7 @@ namespace Comfy.Application.Handlers.Categories.DTO;
 
 public record SubcategoryDTO : IMapWith<Subcategory>
 {
+    public int Id { get; init; }
     public string Name { get; init; } = null!;
     public IEnumerable<SubcategoryFilterDTO> Filters { get; init; } = null!;
 
