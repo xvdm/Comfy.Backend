@@ -2,6 +2,8 @@ using Comfy.Application;
 using Comfy.Application.Common.Mappings;
 using Comfy.Application.Interfaces;
 using Comfy.Persistence;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,11 +15,20 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
 
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = false;
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
 builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
 
 builder.Services.AddControllers();
-
 
 //todo: allow only for frontend
 builder.Services.AddCors(options =>
@@ -40,6 +51,8 @@ app.UseCors("AllowAll");
 
 app.UseAuthentication();;
 app.UseAuthorization();
+
+app.UseResponseCompression();
 
 app.UseEndpoints(endpoints =>
 {
