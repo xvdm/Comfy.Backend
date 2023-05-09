@@ -16,11 +16,7 @@ builder.Services.AddAutoMapper(config =>
 builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
 
-builder.Services.AddControllers()
-    .AddNewtonsoftJson(options =>
-    {
-        
-    });
+builder.Services.AddControllers();
 
 
 //todo: allow only for frontend

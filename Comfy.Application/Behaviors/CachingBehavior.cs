@@ -1,7 +1,7 @@
-﻿using Comfy.Application.Interfaces;
+﻿using System.Text.Json;
+using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
 
 namespace Comfy.Application.Behaviors;
 
@@ -21,7 +21,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         if (string.IsNullOrEmpty(cachedValue))
         {
             response = await next.Invoke();
-            cachedValue = JsonConvert.SerializeObject(response);
+            cachedValue = JsonSerializer.Serialize(response);
             var options = new DistributedCacheEntryOptions()
             {
                 SlidingExpiration = TimeSpan.FromHours(request.ExpirationHours)
@@ -30,7 +30,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
             return response;
         }
 
-        response = JsonConvert.DeserializeObject<TResponse>(cachedValue)!;
+        response = JsonSerializer.Deserialize<TResponse>(cachedValue)!;
         return response;
     }
 }
