@@ -7,9 +7,9 @@ namespace Comfy.WebApi.Controllers;
 public class QuestionsController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> GetQuestions(int productId)
+    public async Task<IActionResult> GetQuestions(int productId, int? pageNumber, int? pageSize)
     {
-        var result = await Mediator.Send(new GetQuestionsQuery(productId));
+        var result = await Mediator.Send(new GetQuestionsQuery(productId, pageNumber, pageSize));
         return Ok(result);
     }
 

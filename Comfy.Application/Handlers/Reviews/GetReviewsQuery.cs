@@ -6,10 +6,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews;
 
-public record GetReviewsQuery(int ProductId) : IRequest<ReviewsDTO>, ICacheable
+public record GetReviewsQuery : IRequest<ReviewsDTO>, ICacheable
 {
-    public string CacheKey => $"product-reviews:{ProductId}";
+    public int ProductId { get; init; }
+
+    public string CacheKey => $"product-reviews:{ProductId}:{PageNumber}:{PageSize}";
     public double ExpirationHours => 3;
+
+    private const int MaxPageSize = 10;
+    private int _pageSize = MaxPageSize;
+    private int _pageNumber = 1;
+
+    public int PageSize
+    {
+        get => _pageSize;
+        set => _pageSize = value is > MaxPageSize or < 1 ? MaxPageSize : value;
+    }
+    public int PageNumber
+    {
+        get => _pageNumber;
+        set => _pageNumber = value < 1 ? 1 : value;
+    }
+
+    public GetReviewsQuery(int productId, int? pageNumber, int? pageSize)
+    {
+        ProductId = productId;
+        if (pageNumber is not null) PageNumber = (int)pageNumber;
+        if (pageSize is not null) PageSize = (int)pageSize;
+    }
 }
 
 
@@ -32,6 +56,8 @@ public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, ReviewsDT
                 .ThenInclude(x => x.User)
             .Where(x => x.ProductId == request.ProductId)
             .Where(x => x.IsActive == true)
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
