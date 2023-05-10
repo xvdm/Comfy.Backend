@@ -26,10 +26,8 @@ public class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQuer
     public async Task<ProductsPageDTO> Handle(GetProductsByQueryString request, CancellationToken cancellationToken)
     {
         var queryString = request.QueryString;
-        if (ProductUrl.TryRemoveEmptyAndDuplicatesFromQuery(queryString, out var queryDictionary))
-        {
-            queryString = ProductUrl.GetUrlQuery(queryDictionary);
-        }
+        var changed = ProductUrl.RemoveEmptyAndDuplicatesFromQuery(queryString, out var queryDictionary);
+        if (changed) queryString = ProductUrl.GetQueryStringFromDictionary(queryDictionary);
 
         var category = await _context.Subcategories
             .Include(x => x.UniqueCharacteristics)
