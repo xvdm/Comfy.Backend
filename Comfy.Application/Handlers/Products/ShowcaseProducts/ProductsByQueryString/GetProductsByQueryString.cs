@@ -9,7 +9,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString;
 
-public record GetProductsByQueryString(int SubcategoryId, string? QueryString) : IRequest<ProductsPageDTO>;
+public record GetProductsByQueryString : IRequest<ProductsPageDTO>
+{
+    public string? QueryString { get; init; }
+    public int SubcategoryId { get; init; }
+
+    private const int MaxPageSize = 50;
+    private int _pageSize = MaxPageSize;
+    private int _pageNumber = 1;
+
+    public int PageSize
+    {
+        get => _pageSize;
+        set => _pageSize = value is > MaxPageSize or < 1 ? MaxPageSize : value;
+    }
+    public int PageNumber
+    {
+        get => _pageNumber;
+        set => _pageNumber = value < 1 ? 1 : value;
+    }
+
+    public GetProductsByQueryString(int subcategoryId, string? queryString, int? pageNumber, int? pageSize)
+    {
+        SubcategoryId = subcategoryId;
+        QueryString = queryString;
+        if (pageNumber is not null) PageNumber = (int)pageNumber;
+        if (pageSize is not null) PageSize = (int)pageSize;
+    }
+}
 
 
 public class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQueryString, ProductsPageDTO>
@@ -70,7 +97,11 @@ public class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQuer
         var characteristics = GetCharacteristicsInCategory(category);
         var brands = category.UniqueBrands.ToList();
 
-        var productsList = await products.ToListAsync(cancellationToken);
+        var productsList = await products
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .ToListAsync(cancellationToken);
+
         var mappedProducts = _mapper.Map<IEnumerable<ShowcaseProductDTO>>(productsList);
         var mappedBrands = _mapper.Map<IEnumerable<BrandDTO>>(brands);
 

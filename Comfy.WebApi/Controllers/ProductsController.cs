@@ -23,9 +23,9 @@ public class ProductsController : BaseController
     }
 
     [HttpGet("byQuery")]
-    public async Task<IActionResult> GetProductsFromQuery(int subcategoryId, string? filterQuery)
+    public async Task<IActionResult> GetProductsFromQuery(int subcategoryId, string? filterQuery, int? pageNumber, int? pageSize)
     {
-        var result = await Mediator.Send(new GetProductsByQueryString(subcategoryId, filterQuery));
+        var result = await Mediator.Send(new GetProductsByQueryString(subcategoryId, filterQuery, pageNumber, pageSize));
         return Ok(result);
     }
 }
