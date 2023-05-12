@@ -7,7 +7,7 @@ public class Order : Auditable
 {
     public int Id { get; set; }
     public string Description { get; set; } = null!;
-    public int TotalSum { get; set; }
+    public decimal TotalSum { get; set; }
     public DateTime ReceivingDate { get; set; }
 
     public Guid UserId { get; set; }

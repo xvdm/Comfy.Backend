@@ -9,7 +9,7 @@ public record ProductDTO : IMapWith<Product>
     public int Id { get; init; }
     public string Name { get; init; } = null!;
     public string Description { get; init; } = null!;
-    public int Price { get; init; }
+    public decimal Price { get; init; }
     public int DiscountAmount { get; init; }
     public int Amount { get; init; }
     public int Code { get; init; }

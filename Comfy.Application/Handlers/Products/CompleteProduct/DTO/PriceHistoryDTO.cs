@@ -6,7 +6,7 @@ namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
 public record PriceHistoryDTO : IMapWith<PriceHistory>
 {
-    public int Price { get; init; }
+    public decimal Price { get; init; }
     public DateTime Date { get; init; }
 
     public void Mapping(Profile profile)

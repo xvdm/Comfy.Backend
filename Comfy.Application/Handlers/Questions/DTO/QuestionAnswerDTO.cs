@@ -10,8 +10,8 @@ public record QuestionAnswerDTO : IMapWith<QuestionAnswer>
 
     public int Id { get; init; }
     public string Text { get; init; } = null!;
-    public int UsefulAnswerCount { get; init; }
-    public int NeedlessAnswerCount { get; init; }
+    public int Likes { get; init; }
+    public int Dislikes { get; init; }
 
     public void Mapping(Profile profile)
     {

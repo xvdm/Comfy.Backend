@@ -20,7 +20,7 @@ public class DislikeReviewCommandHandler : IRequestHandler<DislikeReviewCommand>
     {
         var review = await _context.Reviews.FirstOrDefaultAsync(x => x.Id == request.ReviewId, cancellationToken);
         if (review is null) return;
-        review.NeedlessReviewCount += 1;
+        review.Dislikes += 1;
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

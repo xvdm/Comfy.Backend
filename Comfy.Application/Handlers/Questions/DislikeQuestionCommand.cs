@@ -20,7 +20,7 @@ public class DislikeQuestionCommandHandler : IRequestHandler<DislikeQuestionComm
     {
         var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.QuestionId, cancellationToken);
         if (question is null) return;
-        question.NeedlessQuestionCount += 1;
+        question.Dislikes += 1;
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

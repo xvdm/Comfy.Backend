@@ -8,7 +8,7 @@ namespace Comfy.Application.Handlers.Products.DTO;
 public record ShowcaseProductDTO : IMapWith<Product>
 {
     public string Name { get; init; } = null!;
-    public int Price { get; init; }
+    public decimal Price { get; init; }
     public int DiscountAmount { get; init; }
     public int Amount { get; init; }
     public double Rating { get; init; }

@@ -10,8 +10,8 @@ public class Review : Auditable
     public string Advantages { get; set; } = null!;
     public string Disadvantages { get; set; } = null!;
     public double ProductRating { get; set; }
-    public int UsefulReviewCount { get; set; }
-    public int NeedlessReviewCount { get; set; }
+    public int Likes { get; set; }
+    public int Dislikes { get; set; }
     public bool IsActive { get; set; }
 
     public Guid UserId { get; set; }

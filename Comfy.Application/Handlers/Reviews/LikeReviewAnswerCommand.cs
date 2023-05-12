@@ -20,7 +20,7 @@ public class LikeReviewAnswerCommandHandler : IRequestHandler<LikeReviewAnswerCo
     {
         var answer = await _context.ReviewAnswers.FirstOrDefaultAsync(x => x.Id == request.ReviewAnswerId, cancellationToken);
         if (answer is null) return;
-        answer.UsefulAnswerCount += 1;
+        answer.Likes += 1;
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

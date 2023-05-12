@@ -13,8 +13,8 @@ public record ReviewDTO : IMapWith<Review>
     public string Advantages { get; init; } = null!;
     public string Disadvantages { get; init; } = null!;
     public double ProductRating { get; init; }
-    public int UsefulReviewCount { get; init; }
-    public int NeedlessReviewCount { get; init; }
+    public int Likes { get; init; }
+    public int Dislikes { get; init; }
     public IEnumerable<ReviewAnswerDTO> Answers { get; init; } = null!;
 
     public void Mapping(Profile profile)
