@@ -8,10 +8,17 @@ namespace Comfy.WebApi.Controllers;
 
 public class ProductsController : BaseController
 {
-    [HttpGet]
+    [HttpGet("byId")]
     public async Task<IActionResult> GetProduct(int id)
     {
-        var result = await Mediator.Send(new GetProductQuery(id));
+        var result = await Mediator.Send(new GetProductByIdQuery(id));
+        return Ok(result);
+    }
+
+    [HttpGet("byUrl")]
+    public async Task<IActionResult> GetProduct(string url)
+    {
+        var result = await Mediator.Send(new GetProductByUrlQuery(url));
         return Ok(result);
     }
 
