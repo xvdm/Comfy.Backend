@@ -1,4 +1,6 @@
 ﻿using Comfy.Application.Handlers.Reviews;
+using Comfy.Application.Handlers.Reviews.ReviewAnswers;
+using Comfy.Application.Handlers.Reviews.Reviews;
 using Comfy.WebApi.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,7 @@ public class ReviewsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetReviews(int productId, int? pageNumber, int? pageSize)
     {
-        var result = await Mediator.Send(new GetReviewsQuery(productId, pageNumber, pageSize));
+        var result = await Mediator.Send(new GetReviewsWithAnswersQuery(productId, pageNumber, pageSize));
         return Ok(result);
     }
 

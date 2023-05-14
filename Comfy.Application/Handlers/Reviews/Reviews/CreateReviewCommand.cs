@@ -1,9 +1,8 @@
 ﻿using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Reviews;
+namespace Comfy.Application.Handlers.Reviews.Reviews;
 
 public record CreateReviewCommand : IRequest
 {
@@ -30,7 +29,7 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand>
         var product = await _context.Products.CountAsync(x => x.Id == request.ProductId, cancellationToken);
         if (product <= 0) return;
 
-        var review = new Review()
+        var review = new Domain.Models.Review()
         {
             ProductId = request.ProductId,
             Text = request.Text,

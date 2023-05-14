@@ -3,7 +3,7 @@ using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Questions;
+namespace Comfy.Application.Handlers.Questions.Questions;
 
 public record CreateQuestionCommand : IRequest
 {

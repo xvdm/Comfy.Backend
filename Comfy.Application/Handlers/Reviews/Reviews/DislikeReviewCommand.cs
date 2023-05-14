@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Reviews;
+namespace Comfy.Application.Handlers.Reviews.Reviews;
 
 public record DislikeReviewCommand(int ReviewId) : IRequest;
 

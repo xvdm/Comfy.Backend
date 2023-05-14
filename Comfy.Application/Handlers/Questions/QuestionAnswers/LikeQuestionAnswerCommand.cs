@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Questions;
+namespace Comfy.Application.Handlers.Questions.QuestionAnswers;
 
 public record LikeQuestionAnswerCommand(int QuestionAnswerId) : IRequest;
 

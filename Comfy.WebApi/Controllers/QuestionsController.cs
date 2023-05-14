@@ -1,4 +1,6 @@
 ﻿using Comfy.Application.Handlers.Questions;
+using Comfy.Application.Handlers.Questions.QuestionAnswers;
+using Comfy.Application.Handlers.Questions.Questions;
 using Comfy.WebApi.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,7 @@ public class QuestionsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetQuestions(int productId, int? pageNumber, int? pageSize)
     {
-        var result = await Mediator.Send(new GetQuestionsQuery(productId, pageNumber, pageSize));
+        var result = await Mediator.Send(new GetQuestionsWithAnswersQuery(productId, pageNumber, pageSize));
         return Ok(result);
     }
 

@@ -3,7 +3,7 @@ using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Reviews;
+namespace Comfy.Application.Handlers.Reviews.ReviewAnswers;
 
 public record CreateReviewAnswerCommand : IRequest
 {
