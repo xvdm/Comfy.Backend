@@ -1,4 +1,6 @@
-﻿using Comfy.Application.Interfaces;
+﻿using Comfy.Application.Common.Exceptions;
+using Comfy.Application.Common.LocalizationStrings;
+using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,7 @@ public class LikeQuestionAnswerCommandHandler : IRequestHandler<LikeQuestionAnsw
     public async Task Handle(LikeQuestionAnswerCommand request, CancellationToken cancellationToken)
     {
         var answer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.QuestionAnswerId, cancellationToken);
-        if (answer is null) return;
+        if (answer is null) throw new NotFoundException(LocalizationStrings.QuestionAnswer);
         answer.Likes += 1;
         await _context.SaveChangesAsync(cancellationToken);
     }

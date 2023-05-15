@@ -1,4 +1,6 @@
-﻿using Comfy.Application.Interfaces;
+﻿using Comfy.Application.Common.Exceptions;
+using Comfy.Application.Common.LocalizationStrings;
+using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,7 @@ public class LikeReviewCommandHandler : IRequestHandler<LikeReviewCommand>
     public async Task Handle(LikeReviewCommand request, CancellationToken cancellationToken)
     {
         var review = await _context.Reviews.FirstOrDefaultAsync(x => x.Id == request.ReviewId, cancellationToken);
-        if (review is null) return;
+        if (review is null) throw new NotFoundException(LocalizationStrings.Review);
         review.Likes += 1;
         await _context.SaveChangesAsync(cancellationToken);
     }

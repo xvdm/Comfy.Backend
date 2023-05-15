@@ -1,4 +1,6 @@
-﻿using Comfy.Application.Interfaces;
+﻿using Comfy.Application.Common.Exceptions;
+using Comfy.Application.Common.LocalizationStrings;
+using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,7 @@ public class DislikeReviewAnswerCommandHandler : IRequestHandler<DislikeReviewAn
     public async Task Handle(DislikeReviewAnswerCommand request, CancellationToken cancellationToken)
     {
         var answer = await _context.ReviewAnswers.FirstOrDefaultAsync(x => x.Id == request.ReviewAnswerId, cancellationToken);
-        if (answer is null) return;
+        if (answer is null) throw new NotFoundException(LocalizationStrings.ReviewAnswer);
         answer.Dislikes += 1;
         await _context.SaveChangesAsync(cancellationToken);
     }

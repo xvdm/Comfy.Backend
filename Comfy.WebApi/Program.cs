@@ -5,8 +5,11 @@ using Comfy.Persistence;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using System.Reflection;
+using Comfy.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
 IConfiguration configuration = builder.Configuration;
 builder.Services.AddAutoMapper(config =>
@@ -53,6 +56,8 @@ app.UseAuthentication();;
 app.UseAuthorization();
 
 app.UseResponseCompression();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseEndpoints(endpoints =>
 {

@@ -3,7 +3,7 @@ using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Comfy.Application.Behaviors;
+namespace Comfy.Application.Common.Behaviors;
 
 public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ICacheable
 {

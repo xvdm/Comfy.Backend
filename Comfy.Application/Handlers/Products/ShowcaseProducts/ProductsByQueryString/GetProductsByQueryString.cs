@@ -64,7 +64,13 @@ public class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQuer
             .Include(x => x.UniqueBrands)
             .FirstOrDefaultAsync(x => x.Id == request.SubcategoryId, cancellationToken);
 
-        if (category is null) throw new HttpRequestException("No such category");
+        var result = new ProductsPageDTO
+        {
+            SubcategoryId = request.SubcategoryId,
+            QueryString = queryString
+        };
+
+        if (category is null) return result;
 
         var products = _context.Products
             .Where(x => x.CategoryId == request.SubcategoryId)
@@ -105,7 +111,7 @@ public class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQuer
         var mappedProducts = _mapper.Map<IEnumerable<ShowcaseProductDTO>>(productsList);
         var mappedBrands = _mapper.Map<IEnumerable<BrandDTO>>(brands);
 
-        var result = new ProductsPageDTO()
+        result = new ProductsPageDTO
         {
             SubcategoryId = category.Id,
             QueryString = queryString,
