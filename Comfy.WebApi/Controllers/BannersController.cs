@@ -1,15 +1,20 @@
 ﻿using Comfy.Application.Handlers.Banners;
 using Comfy.WebApi.Controllers.Base;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
 public class BannersController : BaseController
 {
+    public BannersController(ISender sender) : base(sender)
+    {
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetBanners()
     {
-        var result = await Mediator.Send(new GetBannersQuery());
+        var result = await Sender.Send(new GetBannersQuery());
         return Ok(result);
     }
 }

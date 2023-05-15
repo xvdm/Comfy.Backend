@@ -7,17 +7,14 @@ namespace Comfy.WebApi.Controllers;
 
 public class ShowcaseController : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public ShowcaseController(IMediator mediator)
+    public ShowcaseController(ISender sender) : base(sender)
     {
-        _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetShowcaseGroups()
     {
-        var result = await _mediator.Send(new GetShowcaseGroupsQuery());
+        var result = await Sender.Send(new GetShowcaseGroupsQuery());
         return Ok(result);
     }
 }

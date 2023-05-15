@@ -7,17 +7,14 @@ namespace Comfy.WebApi.Controllers;
 
 public class CategoriesMenuController : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public CategoriesMenuController(IMediator mediator)
+    public CategoriesMenuController(ISender sender) : base(sender)
     {
-        _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetCategoriesMenu()
     {
-        var result = await _mediator.Send(new GetCategoriesMenuQuery());
+        var result = await Sender.Send(new GetCategoriesMenuQuery());
         return Ok(result);
     }
 }

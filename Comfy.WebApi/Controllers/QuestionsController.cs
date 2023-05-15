@@ -1,59 +1,63 @@
-﻿using Comfy.Application.Handlers.Questions;
-using Comfy.Application.Handlers.Questions.QuestionAnswers;
+﻿using Comfy.Application.Handlers.Questions.QuestionAnswers;
 using Comfy.Application.Handlers.Questions.Questions;
 using Comfy.WebApi.Controllers.Base;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
 public class QuestionsController : BaseController
 {
+    public QuestionsController(ISender sender) : base(sender)
+    {
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetQuestions(int productId, int? pageNumber, int? pageSize)
     {
-        var result = await Mediator.Send(new GetQuestionsWithAnswersQuery(productId, pageNumber, pageSize));
+        var result = await Sender.Send(new GetQuestionsWithAnswersQuery(productId, pageNumber, pageSize));
         return Ok(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateQuestion(CreateQuestionCommand command)
     {
-        await Mediator.Send(command);
+        await Sender.Send(command);
         return Ok();
     }
 
     [HttpPost("answer")]
     public async Task<IActionResult> CreateQuestionAnswer(CreateQuestionAnswerCommand command)
     {
-        await Mediator.Send(command);
+        await Sender.Send(command);
         return Ok();
     }
 
     [HttpPut("like")]
     public async Task<IActionResult> LikeQuestion(int questionId)
     {
-        await Mediator.Send(new LikeQuestionCommand(questionId));
+        await Sender.Send(new LikeQuestionCommand(questionId));
         return Ok();
     }
 
     [HttpPut("likeAnswer")]
     public async Task<IActionResult> LikeQuestionAnswer(int questionAnswerId)
     {
-        await Mediator.Send(new LikeQuestionAnswerCommand(questionAnswerId));
+        await Sender.Send(new LikeQuestionAnswerCommand(questionAnswerId));
         return Ok();
     }
 
     [HttpPut("dislike")]
     public async Task<IActionResult> DislikeQuestion(int questionId)
     {
-        await Mediator.Send(new DislikeQuestionCommand(questionId));
+        await Sender.Send(new DislikeQuestionCommand(questionId));
         return Ok();
     }
 
     [HttpPut("dislikeAnswer")]
     public async Task<IActionResult> DislikeQuestionAnswer(int questionAnswerId)
     {
-        await Mediator.Send(new DislikeQuestionAnswerCommand(questionAnswerId));
+        await Sender.Send(new DislikeQuestionAnswerCommand(questionAnswerId));
         return Ok();
     }
 }

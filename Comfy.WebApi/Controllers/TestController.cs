@@ -1,9 +1,14 @@
 ﻿using Comfy.WebApi.Controllers.Base;
+using MediatR;
 
 namespace Comfy.WebApi.Controllers;
 
 public class TestController : BaseController
 {
+    public TestController(ISender sender) : base(sender)
+    {
+    }
+
     //private readonly IApplicationDbContext _context;
     //public TestController(IApplicationDbContext context)
     //{
