@@ -4,7 +4,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString.DTO;
 
-public record BrandDTO : IMapWith<Brand>
+public sealed record BrandDTO : IMapWith<Brand>
 {
     public int Id { get; init; }
     public string Name { get; init; } = null!;

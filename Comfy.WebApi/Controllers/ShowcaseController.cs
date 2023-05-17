@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
-public class ShowcaseController : BaseController
+public sealed class ShowcaseController : BaseController
 {
     public ShowcaseController(ISender sender) : base(sender)
     {

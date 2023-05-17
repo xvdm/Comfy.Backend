@@ -4,7 +4,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Categories.DTO;
 
-public record MainCategoryDTO : IMapWith<MainCategory>
+public sealed record MainCategoryDTO : IMapWith<MainCategory>
 {
     public int Id { get; init; }
     public string Name { get; init; } = null!;

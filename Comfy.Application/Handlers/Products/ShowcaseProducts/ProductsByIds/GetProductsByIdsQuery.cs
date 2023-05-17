@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByIds;
 
-public record GetProductsByIdsQuery(int[] Ids) : IRequest<IEnumerable<ShowcaseProductDTO>>;
+public sealed record GetProductsByIdsQuery(int[] Ids) : IRequest<IEnumerable<ShowcaseProductDTO>>;
 
 
-public class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuery, IEnumerable<ShowcaseProductDTO>>
+public sealed class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsByIdsQuery, IEnumerable<ShowcaseProductDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

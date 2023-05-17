@@ -4,7 +4,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
-public record PriceHistoryDTO : IMapWith<PriceHistory>
+public sealed record PriceHistoryDTO : IMapWith<PriceHistory>
 {
     public decimal Price { get; init; }
     public DateTime Date { get; init; }

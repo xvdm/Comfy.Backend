@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Reviews.Reviews.Validators;
 
-public class GetReviewsWithAnswersQueryValidator : AbstractValidator<GetReviewsWithAnswersQuery>
+public sealed class GetReviewsWithAnswersQueryValidator : AbstractValidator<GetReviewsWithAnswersQuery>
 {
     public GetReviewsWithAnswersQueryValidator()
     {

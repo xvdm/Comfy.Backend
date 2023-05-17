@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Questions.QuestionAnswers.Validators;
 
-public class LikeQuestionAnswerCommandValidator : AbstractValidator<LikeQuestionAnswerCommand>
+public sealed class LikeQuestionAnswerCommandValidator : AbstractValidator<LikeQuestionAnswerCommand>
 {
     public LikeQuestionAnswerCommandValidator()
     {

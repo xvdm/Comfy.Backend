@@ -1,6 +1,6 @@
 ﻿namespace Comfy.Application.Common.LocalizationStrings;
 
-public class LocalizationStrings
+public sealed class LocalizationStrings
 {
     public const string Product = "Товар";
     public const string Brand = "Бренд";

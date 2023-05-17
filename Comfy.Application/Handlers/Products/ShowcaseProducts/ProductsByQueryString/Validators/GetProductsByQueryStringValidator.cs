@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString.Validators;
 
-public class GetProductsByQueryStringValidator : AbstractValidator<GetProductsByQueryString>
+public sealed class GetProductsByQueryStringValidator : AbstractValidator<GetProductsByQueryString>
 {
     public GetProductsByQueryStringValidator()
     {

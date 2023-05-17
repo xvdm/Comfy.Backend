@@ -5,7 +5,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.DTO;
 
-public record ShowcaseProductDTO : IMapWith<Product>
+public sealed record ShowcaseProductDTO : IMapWith<Product>
 {
     public string Name { get; init; } = null!;
     public decimal Price { get; init; }

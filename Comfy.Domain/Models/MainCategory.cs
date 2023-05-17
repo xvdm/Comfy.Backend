@@ -1,6 +1,6 @@
 ﻿namespace Comfy.Domain.Models;
 
-public class MainCategory
+public sealed class MainCategory
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

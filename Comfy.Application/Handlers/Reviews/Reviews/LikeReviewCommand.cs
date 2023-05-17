@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.Reviews;
 
-public record LikeReviewCommand(int ReviewId) : IRequest;
+public sealed record LikeReviewCommand(int ReviewId) : IRequest;
 
 
-public class LikeReviewCommandHandler : IRequestHandler<LikeReviewCommand>
+public sealed class LikeReviewCommandHandler : IRequestHandler<LikeReviewCommand>
 {
     private readonly IApplicationDbContext _context;
 

@@ -2,6 +2,6 @@
 
 namespace Comfy.Domain.Identity;
 
-public class ApplicationRole : IdentityRole<Guid>
+public sealed class ApplicationRole : IdentityRole<Guid>
 {
 }

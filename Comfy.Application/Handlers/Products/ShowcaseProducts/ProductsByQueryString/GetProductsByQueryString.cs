@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString;
 
-public record GetProductsByQueryString : IRequest<ProductsPageDTO>
+public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
 {
     public string? QueryString { get; init; }
     public int SubcategoryId { get; init; }
@@ -39,7 +39,7 @@ public record GetProductsByQueryString : IRequest<ProductsPageDTO>
 }
 
 
-public class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQueryString, ProductsPageDTO>
+public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQueryString, ProductsPageDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

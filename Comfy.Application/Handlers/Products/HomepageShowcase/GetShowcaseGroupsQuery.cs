@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.HomepageShowcase;
 
-public record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>, ICacheable
+public sealed record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroupDTO>>, ICacheable
 {
     public string CacheKey => "showcase-groups";
     public double ExpirationHours => 168;

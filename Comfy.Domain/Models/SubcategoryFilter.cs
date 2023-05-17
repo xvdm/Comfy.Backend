@@ -1,6 +1,6 @@
 ﻿namespace Comfy.Domain.Models;
 
-public class SubcategoryFilter
+public sealed class SubcategoryFilter
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

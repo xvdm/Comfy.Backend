@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Questions.Questions.Validators;
 
-public class GetQuestionsWithAnswersQueryValidator : AbstractValidator<GetQuestionsWithAnswersQuery>
+public sealed class GetQuestionsWithAnswersQueryValidator : AbstractValidator<GetQuestionsWithAnswersQuery>
 {
     public GetQuestionsWithAnswersQueryValidator()
     {

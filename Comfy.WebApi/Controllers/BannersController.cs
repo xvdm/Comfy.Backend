@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
-public class BannersController : BaseController
+public sealed class BannersController : BaseController
 {
     public BannersController(ISender sender) : base(sender)
     {

@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace Comfy.WebApi.Middlewares;
 
-public class GlobalExceptionHandlingMiddleware : IMiddleware
+public sealed class GlobalExceptionHandlingMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString.DTO;
 
-public record ProductsPageDTO
+public sealed record ProductsPageDTO
 {
     public int SubcategoryId { get; set; }
     public string? QueryString { get; set; }

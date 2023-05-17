@@ -4,7 +4,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 
-public record ProductDTO : IMapWith<Product>
+public sealed record ProductDTO : IMapWith<Product>
 {
     public int Id { get; init; }
     public string Name { get; init; } = null!;

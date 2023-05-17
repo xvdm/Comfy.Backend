@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions.Questions;
 
-public record GetQuestionsWithAnswersQuery : IRequest<QuestionsDTO>, ICacheable
+public sealed record GetQuestionsWithAnswersQuery : IRequest<QuestionsDTO>, ICacheable
 {
     public int ProductId { get; init; }
 
@@ -37,7 +37,7 @@ public record GetQuestionsWithAnswersQuery : IRequest<QuestionsDTO>, ICacheable
 }
 
 
-public class GetQuestionsWithAnswersQueryHandler : IRequestHandler<GetQuestionsWithAnswersQuery, QuestionsDTO>
+public sealed class GetQuestionsWithAnswersQueryHandler : IRequestHandler<GetQuestionsWithAnswersQuery, QuestionsDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

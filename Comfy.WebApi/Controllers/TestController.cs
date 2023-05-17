@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Comfy.WebApi.Controllers;
 
-public class TestController : BaseController
+public sealed class TestController : BaseController
 {
     public TestController(ISender sender) : base(sender)
     {

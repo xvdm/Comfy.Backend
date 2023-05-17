@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Questions.Questions.Validators;
 
-public class DislikeQuestionCommandValidator : AbstractValidator<DislikeQuestionCommand>
+public sealed class DislikeQuestionCommandValidator : AbstractValidator<DislikeQuestionCommand>
 {
     public DislikeQuestionCommandValidator()
     {

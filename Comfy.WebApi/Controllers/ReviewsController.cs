@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
-public class ReviewsController : BaseController
+public sealed class ReviewsController : BaseController
 {
     public ReviewsController(ISender sender) : base(sender)
     {

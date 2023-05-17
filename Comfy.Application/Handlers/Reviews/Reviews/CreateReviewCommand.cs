@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.Reviews;
 
-public record CreateReviewCommand : IRequest
+public sealed record CreateReviewCommand : IRequest
 {
     public int ProductId { get; init; }
     public string Text { get; init; } = null!;
@@ -17,7 +17,7 @@ public record CreateReviewCommand : IRequest
 }
 
 
-public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand>
+public sealed class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand>
 {
     private readonly IApplicationDbContext _context;
 

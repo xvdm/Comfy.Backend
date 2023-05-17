@@ -2,7 +2,7 @@
 
 namespace Comfy.Domain.Models;
 
-public class Product : Auditable
+public sealed class Product : Auditable
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

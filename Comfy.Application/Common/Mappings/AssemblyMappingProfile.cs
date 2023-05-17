@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Comfy.Application.Common.Mappings;
 
-public class AssemblyMappingProfile : Profile
+public sealed class AssemblyMappingProfile : Profile
 {
     public AssemblyMappingProfile(Assembly assembly)
     {

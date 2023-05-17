@@ -2,7 +2,7 @@
 
 namespace Comfy.Domain.Logging;
 
-public class UserLog
+public sealed class UserLog
 {
     public int Id { get; set; }
     public Guid UserId { get; set; }

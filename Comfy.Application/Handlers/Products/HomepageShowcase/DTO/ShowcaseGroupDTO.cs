@@ -5,7 +5,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Products.HomepageShowcase.DTO;
 
-public record ShowcaseGroupDTO : IMapWith<ShowcaseGroup>
+public sealed record ShowcaseGroupDTO : IMapWith<ShowcaseGroup>
 {
     public string Name { get; init; } = null!;
     public string QueryString { get; init; } = null!;

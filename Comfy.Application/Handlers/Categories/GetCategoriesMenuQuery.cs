@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Categories;
 
-public record GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>, ICacheable
+public sealed record GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>, ICacheable
 {
     public string CacheKey => "categories-menu";
     public double ExpirationHours => 168;
 }
 
 
-public class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQuery, CategoriesMenuDTO>
+public sealed class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQuery, CategoriesMenuDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

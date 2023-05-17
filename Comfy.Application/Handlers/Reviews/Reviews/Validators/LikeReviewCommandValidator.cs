@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Reviews.Reviews.Validators;
 
-public class LikeReviewCommandValidator : AbstractValidator<LikeReviewCommand>
+public sealed class LikeReviewCommandValidator : AbstractValidator<LikeReviewCommand>
 {
     public LikeReviewCommandValidator()
     {

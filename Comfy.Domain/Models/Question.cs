@@ -3,7 +3,7 @@ using Comfy.Domain.Identity;
 
 namespace Comfy.Domain.Models;
 
-public class Question : Auditable
+public sealed class Question : Auditable
 {
     public int Id { get; set; }
     public string Text { get; set; } = null!;

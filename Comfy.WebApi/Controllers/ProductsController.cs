@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
-public class ProductsController : BaseController
+public sealed class ProductsController : BaseController
 {
     public ProductsController(ISender sender) : base(sender)
     {

@@ -4,7 +4,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Reviews.DTO;
 
-public record ReviewDTO : IMapWith<Review>
+public sealed record ReviewDTO : IMapWith<Review>
 {
     public string Username { get; init; } = null!;
 

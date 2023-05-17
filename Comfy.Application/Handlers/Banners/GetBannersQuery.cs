@@ -7,14 +7,14 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace Comfy.Application.Handlers.Banners;
 
-public record GetBannersQuery : IRequest<IEnumerable<BannerDTO>>, ICacheable
+public sealed record GetBannersQuery : IRequest<IEnumerable<BannerDTO>>, ICacheable
 {
     public string CacheKey => "banners";
     public double ExpirationHours => 24;
 }
 
 
-public class GetBannersQueryHandler : IRequestHandler<GetBannersQuery, IEnumerable<BannerDTO>>
+public sealed class GetBannersQueryHandler : IRequestHandler<GetBannersQuery, IEnumerable<BannerDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

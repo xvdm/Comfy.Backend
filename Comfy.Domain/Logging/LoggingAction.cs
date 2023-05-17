@@ -1,6 +1,6 @@
 ﻿namespace Comfy.Domain.Logging;
 
-public class LoggingAction
+public sealed class LoggingAction
 {
     public int Id { get; set; }
 

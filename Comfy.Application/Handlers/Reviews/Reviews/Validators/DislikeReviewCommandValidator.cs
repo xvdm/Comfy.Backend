@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Reviews.Reviews.Validators;
 
-public class DislikeReviewCommandValidator : AbstractValidator<DislikeReviewCommand>
+public sealed class DislikeReviewCommandValidator : AbstractValidator<DislikeReviewCommand>
 {
     public DislikeReviewCommandValidator()
     {

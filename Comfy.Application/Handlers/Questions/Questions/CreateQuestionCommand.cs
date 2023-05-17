@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions.Questions;
 
-public record CreateQuestionCommand : IRequest
+public sealed record CreateQuestionCommand : IRequest
 {
     public int ProductId { get; init; }
     public string Text { get; init; } = null!;
@@ -15,7 +15,7 @@ public record CreateQuestionCommand : IRequest
 }
 
 
-public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand>
+public sealed class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand>
 {
     private readonly IApplicationDbContext _context;
 

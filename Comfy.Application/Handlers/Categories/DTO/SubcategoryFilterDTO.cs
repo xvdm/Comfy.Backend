@@ -4,7 +4,7 @@ using Comfy.Domain.Models;
 
 namespace Comfy.Application.Handlers.Categories.DTO;
 
-public record SubcategoryFilterDTO : IMapWith<SubcategoryFilter>
+public sealed record SubcategoryFilterDTO : IMapWith<SubcategoryFilter>
 {
     public string Name { get; init; } = null!;
     public string FilterQuery { get; init; } = null!;

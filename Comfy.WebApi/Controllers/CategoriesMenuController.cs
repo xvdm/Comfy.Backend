@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
-public class CategoriesMenuController : BaseController
+public sealed class CategoriesMenuController : BaseController
 {
     public CategoriesMenuController(ISender sender) : base(sender)
     {

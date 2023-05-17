@@ -1,6 +1,6 @@
 ﻿namespace Comfy.Domain.Models;
 
-public class Characteristic
+public sealed class Characteristic
 {
     public int Id { get; set; }
 

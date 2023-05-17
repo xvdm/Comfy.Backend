@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.Reviews;
 
-public record GetReviewsWithAnswersQuery : IRequest<ReviewsDTO>, ICacheable
+public sealed record GetReviewsWithAnswersQuery : IRequest<ReviewsDTO>, ICacheable
 {
     public int ProductId { get; init; }
 
@@ -37,7 +37,7 @@ public record GetReviewsWithAnswersQuery : IRequest<ReviewsDTO>, ICacheable
 }
 
 
-public class GetReviewsWithAnswersQueryHandler : IRequestHandler<GetReviewsWithAnswersQuery, ReviewsDTO>
+public sealed class GetReviewsWithAnswersQueryHandler : IRequestHandler<GetReviewsWithAnswersQuery, ReviewsDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

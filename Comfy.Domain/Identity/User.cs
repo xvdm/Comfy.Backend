@@ -2,6 +2,6 @@
 
 namespace Comfy.Domain.Identity;
 
- public class User : IdentityUser<Guid>
+public sealed class User : IdentityUser<Guid>
  {
  }

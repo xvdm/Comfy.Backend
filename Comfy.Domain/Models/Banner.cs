@@ -1,6 +1,6 @@
 ﻿namespace Comfy.Domain.Models;
 
-public class Banner
+public sealed class Banner
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;
