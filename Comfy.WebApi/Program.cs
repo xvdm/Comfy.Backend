@@ -2,10 +2,12 @@ using Comfy.Application;
 using Comfy.Application.Common.Mappings;
 using Comfy.Application.Interfaces;
 using Comfy.Persistence;
+using Comfy.WebApi.Middlewares;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.OpenApi.Models;
 using System.IO.Compression;
 using System.Reflection;
-using Comfy.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
     options.Level = CompressionLevel.Fastest;
 });
 
+
 builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
 
@@ -44,7 +47,32 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 var app = builder.Build();
 

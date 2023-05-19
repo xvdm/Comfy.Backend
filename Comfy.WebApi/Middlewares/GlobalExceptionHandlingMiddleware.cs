@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using FluentValidation;
+using System.Security.Authentication;
 
 namespace Comfy.WebApi.Middlewares;
 
@@ -28,7 +29,7 @@ public sealed class GlobalExceptionHandlingMiddleware : IMiddleware
         {
             NotFoundException => StatusCodes.Status404NotFound,
             UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
-            ArgumentException or InvalidOperationException or ValidationException => StatusCodes.Status400BadRequest,
+            ArgumentException or InvalidOperationException or ValidationException or BadCredentialsException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
 
