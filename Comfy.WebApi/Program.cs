@@ -4,7 +4,6 @@ using Comfy.Application.Interfaces;
 using Comfy.Persistence;
 using Comfy.WebApi.Middlewares;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.OpenApi.Models;
 using System.IO.Compression;
 using System.Reflection;
@@ -52,9 +51,9 @@ builder.Services.AddSwaggerGen(options =>
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
-        Description = "Please enter a valid token",
-        Name = "Authorization",
         Type = SecuritySchemeType.Http,
+        Description = "Enter a valid token",
+        Name = "Authorization",
         BearerFormat = "JWT",
         Scheme = "Bearer"
     });
@@ -65,11 +64,11 @@ builder.Services.AddSwaggerGen(options =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
-            new string[]{}
+            Array.Empty<string>()
         }
     });
 });

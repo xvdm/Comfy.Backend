@@ -21,7 +21,7 @@ public sealed class AuthController : BaseController
     }
 
     [HttpGet("getInfoForUser")]
-    [Authorize(Policy = PoliciesNames.User)]
+    [Authorize(Policy = RoleNames.User)]
     public async Task<IActionResult> AuthUser()
     {
         await Task.CompletedTask;
@@ -29,7 +29,7 @@ public sealed class AuthController : BaseController
     }
 
     [HttpGet("getInfoForAdmin")]
-    [Authorize(Policy = PoliciesNames.Administrator)]
+    [Authorize(Policy = RoleNames.Administrator)]
     public async Task<IActionResult> AuthAdmin()
     {
         await Task.CompletedTask;
@@ -40,8 +40,12 @@ public sealed class AuthController : BaseController
     public async Task<IActionResult> Register(CreateUserCommand command)
     {
         var result = await Sender.Send(command);
-        var jwt = await Sender.Send(new SignInByPasswordQuery { Username = command.Username, Password = command.Password });
-        return Ok($"{jwt}");
+        var resultJwt = "";
+        if (result != Guid.Empty)
+        {
+            resultJwt = await Sender.Send(new SignInByPasswordQuery { Username = command.Username, Password = command.Password });
+        }
+        return Ok($"{resultJwt}");
     }
 
     [HttpPost("signIn")]

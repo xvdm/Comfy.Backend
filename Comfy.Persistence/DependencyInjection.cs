@@ -38,11 +38,12 @@ public static class DependencyInjection
             .AddJwtBearer(options =>
             {
                 options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
                     ValidAudience = configuration["JWT:ValidAudience"],
                     ValidIssuer = configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
@@ -52,20 +53,20 @@ public static class DependencyInjection
 
         services.AddAuthorization(options =>
         {
-            options.AddPolicy(PoliciesNames.User, policyBuilder =>
+            options.AddPolicy(RoleNames.Administrator, policyBuilder =>
             {
                 policyBuilder.RequireAssertion(x =>
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.User) ||
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.Administrator) ||
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.SeniorAdministrator) ||
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.Owner));
+                    x.User.IsInRole(RoleNames.Administrator) ||
+                    x.User.IsInRole(RoleNames.SeniorAdministrator) ||
+                    x.User.IsInRole(RoleNames.Owner));
             });
-            options.AddPolicy(PoliciesNames.Administrator, policyBuilder =>
+            options.AddPolicy(RoleNames.User, policyBuilder =>
             {
                 policyBuilder.RequireAssertion(x =>
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.Administrator) ||
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.SeniorAdministrator) ||
-                    x.User.HasClaim(ClaimTypes.Role, PoliciesNames.Owner));
+                    x.User.IsInRole(RoleNames.User) ||
+                    x.User.IsInRole(RoleNames.Administrator) ||
+                    x.User.IsInRole(RoleNames.SeniorAdministrator) ||
+                    x.User.IsInRole(RoleNames.Owner));
             });
         });
 

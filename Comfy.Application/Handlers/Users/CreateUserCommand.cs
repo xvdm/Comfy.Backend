@@ -33,7 +33,7 @@ public sealed record CreateUserCommandHandler : IRequestHandler<CreateUserComman
         var result = await _userManager.CreateAsync(user, request.Password);
         if (result.Succeeded == false) return Guid.Empty;
 
-        await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, PoliciesNames.User));
+        await _userManager.AddToRoleAsync(user, RoleNames.User);
 
         return user.Id;
     }
