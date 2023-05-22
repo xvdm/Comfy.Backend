@@ -19,6 +19,7 @@ public sealed class UserController : BaseController
     public async Task<IActionResult> GetUserInfo(Guid id)
     {
         await Sender.Send(new ValidateUserIdQuery(id));
+        await Sender.Send(new ValidateUserSecurityStampQuery(id));
 
         var result = await Sender.Send(new GetUserQuery(id));
         return Ok(result);

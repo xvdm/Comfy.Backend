@@ -38,6 +38,7 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
         var userClaims = await _userManager.GetClaimsAsync(user);
         userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
         userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
+        userClaims.Add(new Claim(ClaimTypes.Sid, user.SecurityStamp));
 
         var roles = await _userManager.GetRolesAsync(user);
         foreach (var role in roles)

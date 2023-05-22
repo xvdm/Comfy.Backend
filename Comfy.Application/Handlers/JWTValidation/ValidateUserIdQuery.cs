@@ -19,6 +19,8 @@ public sealed class ValidateUserIdQueryHandler : IRequestHandler<ValidateUserIdQ
 
     public async Task Handle(ValidateUserIdQuery request, CancellationToken cancellationToken)
     {
+        await Task.CompletedTask;
+
         if (_contextAccessor.HttpContext is null) throw new UnauthorizedException();
 
         var sub = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub)?.Value;
