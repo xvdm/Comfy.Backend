@@ -28,7 +28,7 @@ public sealed class GlobalExceptionHandlingMiddleware : IMiddleware
         context.Response.StatusCode = exception switch
         {
             NotFoundException => StatusCodes.Status404NotFound,
-            UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+            UnauthorizedAccessException or UnauthorizedException => StatusCodes.Status401Unauthorized,
             ArgumentException or InvalidOperationException or ValidationException or BadCredentialsException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };

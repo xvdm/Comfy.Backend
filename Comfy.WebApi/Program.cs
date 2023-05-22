@@ -5,6 +5,7 @@ using Comfy.Persistence;
 using Comfy.WebApi.Middlewares;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO.Compression;
 using System.Reflection;
 
@@ -29,6 +30,7 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
     options.Level = CompressionLevel.Fastest;
 });
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddApplication(configuration);
 builder.Services.AddPersistence(configuration);
@@ -79,6 +81,7 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 app.UseAuthentication();;
 app.UseAuthorization();
 

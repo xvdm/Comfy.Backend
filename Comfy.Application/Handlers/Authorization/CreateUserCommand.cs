@@ -1,10 +1,10 @@
-﻿using System.Security.Claims;
+﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Common.Helpers;
 using Comfy.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Comfy.Application.Handlers.Users;
+namespace Comfy.Application.Handlers.Authorization;
 
 public sealed record CreateUserCommand : IRequest<Guid>
 {
@@ -13,25 +13,23 @@ public sealed record CreateUserCommand : IRequest<Guid>
 }
 
 
-public sealed record CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
+public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
 {
-    private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;
 
-    public CreateUserCommandHandler(SignInManager<User> signInManager, UserManager<User> userManager)
+    public CreateUserCommandHandler(UserManager<User> userManager)
     {
-        _signInManager = signInManager;
         _userManager = userManager;
     }
 
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = new User
-        {
-            UserName = request.Username
-        };
+        var userWithName = await _userManager.FindByNameAsync(request.Username);
+        if (userWithName is not null) throw new UserWithGivenNameAlreadyExistsException();
+
+        var user = new User { UserName = request.Username };
         var result = await _userManager.CreateAsync(user, request.Password);
-        if (result.Succeeded == false) return Guid.Empty;
+        if (result.Succeeded == false) throw new SomethingWrongException();
 
         await _userManager.AddToRoleAsync(user, RoleNames.User);
 

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Comfy.Application.Handlers.Users.Validators;
+namespace Comfy.Application.Handlers.Authorization.Validators;
 
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {

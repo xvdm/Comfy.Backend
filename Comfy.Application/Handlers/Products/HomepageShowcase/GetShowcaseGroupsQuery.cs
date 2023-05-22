@@ -13,7 +13,7 @@ public sealed record GetShowcaseGroupsQuery : IRequest<IEnumerable<ShowcaseGroup
 }
 
 
-public class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQuery, IEnumerable<ShowcaseGroupDTO>>
+public sealed class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseGroupsQuery, IEnumerable<ShowcaseGroupDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

@@ -1,23 +1,23 @@
-﻿using System.Globalization;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Common.Helpers;
+using Comfy.Application.Handlers.Authorization.DTO;
 using Comfy.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace Comfy.Application.Handlers.Users;
+namespace Comfy.Application.Handlers.Authorization;
 
-public sealed record SignInByPasswordQuery : IRequest<string>
+public sealed record SignInByPasswordQuery : IRequest<SignInDTO>
 {
     public string Username { get; init; } = null!;
     public string Password { get; init; } = null!;
 }
 
-public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPasswordQuery, string>
+public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPasswordQuery, SignInDTO>
 {
     private readonly UserManager<User> _userManager;
     private readonly IConfiguration _configuration;
@@ -28,7 +28,7 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
         _configuration = configuration;
     }
 
-    public async Task<string> Handle(SignInByPasswordQuery request, CancellationToken cancellationToken)
+    public async Task<SignInDTO> Handle(SignInByPasswordQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByNameAsync(request.Username);
         if (user is null) throw new BadCredentialsException();
@@ -47,6 +47,12 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
 
         var token = new JwtSecurityTokenHandler().WriteToken(JwtHelper.CreateToken(_configuration, userClaims));
 
-        return token;
+
+        var result = new SignInDTO
+        {
+            UserId = user.Id,
+            AccessToken = token
+        };
+        return result;
     }
 }
