@@ -25,11 +25,4 @@ public sealed class AuthController : BaseController
         var result = await Sender.Send(query);
         return Ok(result);
     }
-
-    [HttpPost("signOut")]
-    public async Task<IActionResult> LogOut()
-    {
-        //await Sender.Send(new SignOutQuery());
-        return Ok("Signed out");
-    }
 }
