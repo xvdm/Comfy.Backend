@@ -1,14 +1,13 @@
-﻿using System.Security.Claims;
+﻿using Comfy.Application.Common.Helpers;
 using Comfy.Application.Interfaces;
 using Comfy.Domain.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Comfy.Application.Common.Helpers;
 
 namespace Comfy.Persistence;
 
@@ -19,9 +18,10 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("ComfyDbContextConnection")
             ?? throw new InvalidOperationException("Connection string 'ComfyDbContextConnection' not found.");
 
-        services.AddDbContext<ApplicationDbContext>(config => 
+        services.AddDbContext<ApplicationDbContext>(config =>
         {
-            config.UseNpgsql(connectionString);
+            config.UseNpgsql(connectionString, 
+                opt => opt.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>()!);
