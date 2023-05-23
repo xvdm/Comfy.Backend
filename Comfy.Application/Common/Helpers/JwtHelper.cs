@@ -16,7 +16,7 @@ public sealed class JwtHelper
             issuer: configuration["JWT:ValidIssuer"],
             audience: configuration["JWT:ValidAudience"],
             claims: authClaims,
-            expires: DateTime.Now.AddMinutes(10),
+            expires: DateTime.UtcNow.AddMinutes(5),
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
         );
 

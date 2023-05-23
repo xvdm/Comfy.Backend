@@ -1,31 +1,29 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Comfy.Application.Common.Exceptions;
-using Comfy.Application.Common.Helpers;
+﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Handlers.Authorization.DTO;
+using Comfy.Application.Interfaces;
+using Comfy.Application.Services.JwtAccessToken;
 using Comfy.Domain.Identity;
+using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
+using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Authorization;
 
-public sealed record SignInByPasswordQuery : IRequest<SignInDTO>
-{
-    public string Username { get; init; } = null!;
-    public string Password { get; init; } = null!;
-}
+public sealed record SignInByPasswordQuery(string Username, string Password) : IRequest<SignInDTO>;
+
 
 public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPasswordQuery, SignInDTO>
 {
     private readonly UserManager<User> _userManager;
-    private readonly IConfiguration _configuration;
+    private readonly IApplicationDbContext _context;
+    private readonly ICreateJwtAccessTokenService _createJwtAccessTokenService;
 
-    public SignInByPasswordQueryHandler(UserManager<User> userManager, IConfiguration configuration)
+    public SignInByPasswordQueryHandler(UserManager<User> userManager, IApplicationDbContext context, ICreateJwtAccessTokenService createJwtAccessTokenService)
     {
         _userManager = userManager;
-        _configuration = configuration;
+        _context = context;
+        _createJwtAccessTokenService = createJwtAccessTokenService;
     }
 
     public async Task<SignInDTO> Handle(SignInByPasswordQuery request, CancellationToken cancellationToken)
@@ -35,24 +33,30 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
         var isValidPassword = await _userManager.CheckPasswordAsync(user, request.Password);
         if (isValidPassword == false) throw new BadCredentialsException();
 
-        var userClaims = await _userManager.GetClaimsAsync(user);
-        userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-        userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
-        userClaims.Add(new Claim(ClaimTypes.Sid, user.SecurityStamp));
+        var accessToken = await _createJwtAccessTokenService.CreateToken(user);
 
-        var roles = await _userManager.GetRolesAsync(user);
-        foreach (var role in roles)
+        var newRefreshToken = new RefreshToken
         {
-            userClaims.Add(new Claim(ClaimTypes.Role, role));
+            ExpirationDate = DateTime.UtcNow.AddDays(7),
+            Invalidated = false,
+            Token = Guid.NewGuid(),
+            UserId = user.Id
+        };
+        var refreshToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.UserId == user.Id, cancellationToken);
+        if (refreshToken is null) _context.RefreshTokens.Add(newRefreshToken);
+        else
+        {
+            refreshToken.ExpirationDate = newRefreshToken.ExpirationDate;
+            refreshToken.Token = newRefreshToken.Token;
         }
 
-        var token = new JwtSecurityTokenHandler().WriteToken(JwtHelper.CreateToken(_configuration, userClaims));
-
+        await _context.SaveChangesAsync(cancellationToken);
 
         var result = new SignInDTO
         {
             UserId = user.Id,
-            AccessToken = token
+            AccessToken = accessToken,
+            RefreshToken = newRefreshToken.Token
         };
         return result;
     }

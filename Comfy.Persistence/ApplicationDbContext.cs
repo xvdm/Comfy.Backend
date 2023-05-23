@@ -43,6 +43,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, ApplicationRo
     public DbSet<SubcategoryFilter> SubcategoryFilters { get; set; } = null!;
     public DbSet<ShowcaseGroup> ShowcaseGroups { get; set; } = null!;
     public DbSet<Banner> Banners { get; set; } = null!;
+    public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
