@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.ReviewAnswers;
 
-public sealed record LikeReviewAnswerCommand(int ReviewAnswerId) : IRequest;
-
+public sealed record LikeReviewAnswerCommand(int ReviewAnswerId, Guid UserId) : IRequest, IJwtValidation;
 
 public sealed class LikeReviewAnswerCommandHandler : IRequestHandler<LikeReviewAnswerCommand>
 {

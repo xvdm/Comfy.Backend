@@ -34,30 +34,30 @@ public sealed class ReviewsController : BaseController
     }
 
     [HttpPut("like")]
-    public async Task<IActionResult> LikeReview(int reviewId)
+    public async Task<IActionResult> LikeReview(int reviewId, Guid userId)
     {
-        await Sender.Send(new LikeReviewCommand(reviewId));
+        await Sender.Send(new LikeReviewCommand(reviewId, userId));
         return Ok();
     }
 
     [HttpPut("likeAnswer")]
-    public async Task<IActionResult> LikeReviewAnswer(int reviewAnswerId)
+    public async Task<IActionResult> LikeReviewAnswer(int reviewAnswerId, Guid userId)
     {
-        await Sender.Send(new LikeReviewAnswerCommand(reviewAnswerId));
+        await Sender.Send(new LikeReviewAnswerCommand(reviewAnswerId, userId));
         return Ok();
     }
 
     [HttpPut("dislike")]
-    public async Task<IActionResult> DislikeReview(int reviewId)
+    public async Task<IActionResult> DislikeReview(int reviewId, Guid userId)
     {
-        await Sender.Send(new DislikeReviewCommand(reviewId));
+        await Sender.Send(new DislikeReviewCommand(reviewId, userId));
         return Ok();
     }
 
     [HttpPut("dislikeAnswer")]
-    public async Task<IActionResult> DislikeReviewAnswer(int reviewAnswerId)
+    public async Task<IActionResult> DislikeReviewAnswer(int reviewAnswerId, Guid userId)
     {
-        await Sender.Send(new DislikeReviewAnswerCommand(reviewAnswerId));
+        await Sender.Send(new DislikeReviewAnswerCommand(reviewAnswerId, userId));
         return Ok();
     }
 }

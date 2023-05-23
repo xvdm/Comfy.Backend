@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions.Questions;
 
-public sealed record DislikeQuestionCommand(int QuestionId) : IRequest;
+public sealed record DislikeQuestionCommand(int QuestionId, Guid UserId) : IRequest, IJwtValidation;
 
 
 public sealed class DislikeQuestionCommandHandler : IRequestHandler<DislikeQuestionCommand>

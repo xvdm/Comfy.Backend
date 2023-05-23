@@ -1,5 +1,6 @@
 ﻿using Comfy.Application.Handlers.Questions.QuestionAnswers;
 using Comfy.Application.Handlers.Questions.Questions;
+using Comfy.Domain.Identity;
 using Comfy.WebApi.Controllers.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,30 +35,30 @@ public sealed class QuestionsController : BaseController
     }
 
     [HttpPut("like")]
-    public async Task<IActionResult> LikeQuestion(int questionId)
+    public async Task<IActionResult> LikeQuestion(int questionId, Guid userId)
     {
-        await Sender.Send(new LikeQuestionCommand(questionId));
+        await Sender.Send(new LikeQuestionCommand(questionId, userId));
         return Ok();
     }
 
     [HttpPut("likeAnswer")]
-    public async Task<IActionResult> LikeQuestionAnswer(int questionAnswerId)
+    public async Task<IActionResult> LikeQuestionAnswer(int questionAnswerId, Guid userId)
     {
-        await Sender.Send(new LikeQuestionAnswerCommand(questionAnswerId));
+        await Sender.Send(new LikeQuestionAnswerCommand(questionAnswerId, userId));
         return Ok();
     }
 
     [HttpPut("dislike")]
-    public async Task<IActionResult> DislikeQuestion(int questionId)
+    public async Task<IActionResult> DislikeQuestion(int questionId, Guid userId)
     {
-        await Sender.Send(new DislikeQuestionCommand(questionId));
+        await Sender.Send(new DislikeQuestionCommand(questionId, userId));
         return Ok();
     }
 
     [HttpPut("dislikeAnswer")]
-    public async Task<IActionResult> DislikeQuestionAnswer(int questionAnswerId)
+    public async Task<IActionResult> DislikeQuestionAnswer(int questionAnswerId, Guid userId)
     {
-        await Sender.Send(new DislikeQuestionAnswerCommand(questionAnswerId));
+        await Sender.Send(new DislikeQuestionAnswerCommand(questionAnswerId, userId));
         return Ok();
     }
 }

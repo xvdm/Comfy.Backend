@@ -17,7 +17,7 @@ public sealed class UserController : BaseController
     [Authorize(Policy = RoleNames.User)]
     public async Task<IActionResult> GetUserInfo(Guid id)
     {
-        var result = await Sender.Send(new GetUserQuery { UserId = id });
+        var result = await Sender.Send(new GetUserQuery(id));
         return Ok(result);
     }
 }

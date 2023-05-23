@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Comfy.Application.Handlers.Users;
 
-public sealed record GetUserQuery : IRequest<UserDTO>, IJwtValidation
-{
-    public Guid UserId { get; init; }
-}
+public sealed record GetUserQuery(Guid UserId) : IRequest<UserDTO>, IJwtValidation;
+
 
 public sealed class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDTO>
 {
