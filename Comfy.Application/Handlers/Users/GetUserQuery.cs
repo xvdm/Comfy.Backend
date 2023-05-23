@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using Comfy.Application.Handlers.Users.DTO;
+using Comfy.Application.Interfaces;
 using Comfy.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace Comfy.Application.Handlers.Users;
 
-public sealed record GetUserQuery(Guid Id) : IRequest<UserDTO>;
-
+public sealed record GetUserQuery(Guid Id) : IRequest<UserDTO>, IJwtValidation
+{
+    public Guid UserId => Id;
+}
 
 public sealed class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDTO>
 {

@@ -1,5 +1,4 @@
 ﻿using Comfy.Application.Common.Helpers;
-using Comfy.Application.Handlers.JWTValidation;
 using Comfy.Application.Handlers.Users;
 using Comfy.WebApi.Controllers.Base;
 using MediatR;
@@ -18,8 +17,8 @@ public sealed class UserController : BaseController
     [Authorize(Policy = RoleNames.User)]
     public async Task<IActionResult> GetUserInfo(Guid id)
     {
-        await Sender.Send(new ValidateUserIdQuery(id));
-        await Sender.Send(new ValidateUserSecurityStampQuery(id));
+        //await Sender.Send(new ValidateUserIdQuery(id));
+        //await Sender.Send(new ValidateUserSecurityStampQuery(id));
 
         var result = await Sender.Send(new GetUserQuery(id));
         return Ok(result);
