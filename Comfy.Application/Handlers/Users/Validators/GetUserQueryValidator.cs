@@ -6,6 +6,6 @@ public sealed class GetUserQueryValidator : AbstractValidator<GetUserQuery>
 {
     public GetUserQueryValidator()
     {
-        RuleFor(x => x.Id).NotEmpty().NotEqual(Guid.Empty);
+        RuleFor(x => x.UserId).NotEmpty().NotEqual(Guid.Empty);
     }
 }

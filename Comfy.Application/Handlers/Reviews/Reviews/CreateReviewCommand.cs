@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.Reviews;
 
-public sealed record CreateReviewCommand : IRequest
+public sealed record CreateReviewCommand : IRequest, IJwtValidation
 {
     public int ProductId { get; init; }
     public string Text { get; init; } = null!;

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions.Questions;
 
-public sealed record CreateQuestionCommand : IRequest
+public sealed record CreateQuestionCommand : IRequest, IJwtValidation
 {
     public int ProductId { get; init; }
     public string Text { get; init; } = null!;

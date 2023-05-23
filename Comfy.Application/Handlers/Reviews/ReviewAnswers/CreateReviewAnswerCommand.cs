@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.ReviewAnswers;
 
-public sealed record CreateReviewAnswerCommand : IRequest
+public sealed record CreateReviewAnswerCommand : IRequest, IJwtValidation
 {
     public int ReviewId { get; init; }
     public Guid UserId { get; init; }

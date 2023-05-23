@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Comfy.Application.Handlers.Users;
 
-public sealed record GetUserQuery(Guid Id) : IRequest<UserDTO>, IJwtValidation
+public sealed record GetUserQuery : IRequest<UserDTO>, IJwtValidation
 {
-    public Guid UserId => Id;
+    public Guid UserId { get; init; }
 }
 
 public sealed class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDTO>
@@ -25,7 +25,7 @@ public sealed class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDTO>
 
     public async Task<UserDTO> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(request.Id.ToString());
+        var user = await _userManager.FindByIdAsync(request.UserId.ToString());
         var userDTO = _mapper.Map<UserDTO>(user);
         return userDTO;
     }
