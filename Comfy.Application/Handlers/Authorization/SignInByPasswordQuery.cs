@@ -7,6 +7,7 @@ using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Comfy.Application.Handlers.Authorization;
 
@@ -18,12 +19,14 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
     private readonly UserManager<User> _userManager;
     private readonly IApplicationDbContext _context;
     private readonly ICreateJwtAccessTokenService _createJwtAccessTokenService;
+    private readonly IConfiguration _configuration;
 
-    public SignInByPasswordQueryHandler(UserManager<User> userManager, IApplicationDbContext context, ICreateJwtAccessTokenService createJwtAccessTokenService)
+    public SignInByPasswordQueryHandler(UserManager<User> userManager, IApplicationDbContext context, ICreateJwtAccessTokenService createJwtAccessTokenService, IConfiguration configuration)
     {
         _userManager = userManager;
         _context = context;
         _createJwtAccessTokenService = createJwtAccessTokenService;
+        _configuration = configuration;
     }
 
     public async Task<SignInDTO> Handle(SignInByPasswordQuery request, CancellationToken cancellationToken)
@@ -37,7 +40,7 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
 
         var newRefreshToken = new RefreshToken
         {
-            ExpirationDate = DateTime.UtcNow.AddDays(7),
+            ExpirationDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["RefreshToken:Lifetime"])),
             Invalidated = false,
             Token = Guid.NewGuid(),
             UserId = user.Id
