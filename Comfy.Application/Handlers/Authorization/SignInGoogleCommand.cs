@@ -1,4 +1,5 @@
 ﻿using Comfy.Application.Common.Exceptions;
+using Comfy.Application.Common.Helpers;
 using Comfy.Application.Handlers.Authorization.DTO;
 using Comfy.Application.Interfaces;
 using Comfy.Application.Services.JwtAccessToken;
@@ -8,20 +9,21 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace Comfy.Application.Handlers.Authorization;
 
-public sealed record SignInByPasswordQuery(string Email, string Password) : IRequest<SignInDTO>;
+public sealed record SignInGoogleCommand(string Email, bool EmailVerified, string Name, string Subject) : IRequest<SignInDTO>;
 
 
-public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPasswordQuery, SignInDTO>
+public sealed class SignInGoogleCommandHandler : IRequestHandler<SignInGoogleCommand, SignInDTO>
 {
     private readonly UserManager<User> _userManager;
     private readonly IApplicationDbContext _context;
     private readonly ICreateJwtAccessTokenService _createJwtAccessTokenService;
     private readonly IConfiguration _configuration;
 
-    public SignInByPasswordQueryHandler(UserManager<User> userManager, IApplicationDbContext context, ICreateJwtAccessTokenService createJwtAccessTokenService, IConfiguration configuration)
+    public SignInGoogleCommandHandler(UserManager<User> userManager, IApplicationDbContext context, ICreateJwtAccessTokenService createJwtAccessTokenService, IConfiguration configuration)
     {
         _userManager = userManager;
         _context = context;
@@ -29,12 +31,25 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
         _configuration = configuration;
     }
 
-    public async Task<SignInDTO> Handle(SignInByPasswordQuery request, CancellationToken cancellationToken)
+    public async Task<SignInDTO> Handle(SignInGoogleCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
-        if (user is null) throw new BadCredentialsException();
-        var isValidPassword = await _userManager.CheckPasswordAsync(user, request.Password);
-        if (isValidPassword == false) throw new BadCredentialsException();
+        var user = await _userManager.FindByLoginAsync(ExternalProviders.Google, request.Subject);
+        if (user is null)
+        {
+            user = new User
+            {
+                UserName = Guid.NewGuid().ToString(),
+                Email = request.Email,
+                Name = request.Name,
+                EmailConfirmed = request.EmailVerified
+            };
+            var userCreateResult = await _userManager.CreateAsync(user);
+            if (userCreateResult.Succeeded == false) throw new SomethingWrongException();
+
+            var loginInfo = new ExternalLoginInfo(new ClaimsPrincipal(), ExternalProviders.Google, request.Subject, ExternalProviders.Google);
+            await _userManager.AddLoginAsync(user, loginInfo);
+            await _userManager.AddToRoleAsync(user, RoleNames.User);
+        }
 
         var accessToken = await _createJwtAccessTokenService.CreateToken(user);
 
@@ -63,4 +78,4 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
         };
         return result;
     }
-}
+} 
