@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Comfy.Application.Handlers.Authorization;
 
-public sealed record SignInByPasswordQuery(string Username, string Password) : IRequest<SignInDTO>;
+public sealed record SignInByPasswordQuery(string Email, string Password) : IRequest<SignInDTO>;
 
 
 public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPasswordQuery, SignInDTO>
@@ -31,7 +31,7 @@ public sealed class SignInByPasswordQueryHandler : IRequestHandler<SignInByPassw
 
     public async Task<SignInDTO> Handle(SignInByPasswordQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByNameAsync(request.Username);
+        var user = await _userManager.FindByEmailAsync(request.Email);
         if (user is null) throw new BadCredentialsException();
         var isValidPassword = await _userManager.CheckPasswordAsync(user, request.Password);
         if (isValidPassword == false) throw new BadCredentialsException();

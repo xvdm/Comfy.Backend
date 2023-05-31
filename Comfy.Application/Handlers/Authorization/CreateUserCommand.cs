@@ -8,7 +8,8 @@ namespace Comfy.Application.Handlers.Authorization;
 
 public sealed record CreateUserCommand : IRequest<Guid>
 {
-    public string Username { get; init; } = null!;
+    public string Name { get; init; } = null!;
+    public string Email { get; init; } = null!;
     public string Password { get; init; } = null!;
 }
 
@@ -24,10 +25,15 @@ public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand
 
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var userWithName = await _userManager.FindByNameAsync(request.Username);
-        if (userWithName is not null) throw new UserWithGivenNameAlreadyExistsException();
+        var userWithEmail = await _userManager.FindByEmailAsync(request.Email);
+        if (userWithEmail is not null) throw new UserWithGivenNameAlreadyExistsException();
 
-        var user = new User { UserName = request.Username };
+        var user = new User
+        {
+            Email = request.Email,
+            Name = request.Name,
+            UserName = Guid.NewGuid().ToString()
+        };
         var result = await _userManager.CreateAsync(user, request.Password);
         if (result.Succeeded == false) throw new SomethingWrongException();
 

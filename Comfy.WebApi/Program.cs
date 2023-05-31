@@ -82,7 +82,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-app.UseAuthentication();;
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseResponseCompression();
