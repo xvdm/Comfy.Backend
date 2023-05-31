@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using Comfy.Application.Services.JwtAccessToken;
+using Comfy.Application.Services.RefreshTokens;
 
 namespace Comfy.Application;
 
@@ -25,6 +26,7 @@ public static class DependencyInjection
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
         services.AddTransient<ICreateJwtAccessTokenService, CreateJwtAccessTokenService>();
+        services.AddTransient<ICreateRefreshTokenService, CreateRefreshTokenService>();
 
         ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("uk");
 

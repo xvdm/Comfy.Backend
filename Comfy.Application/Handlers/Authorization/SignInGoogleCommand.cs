@@ -1,14 +1,11 @@
 ﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Common.Helpers;
 using Comfy.Application.Handlers.Authorization.DTO;
-using Comfy.Application.Interfaces;
 using Comfy.Application.Services.JwtAccessToken;
+using Comfy.Application.Services.RefreshTokens;
 using Comfy.Domain.Identity;
-using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 
 namespace Comfy.Application.Handlers.Authorization;
@@ -19,16 +16,14 @@ public sealed record SignInGoogleCommand(string Email, bool EmailVerified, strin
 public sealed class SignInGoogleCommandHandler : IRequestHandler<SignInGoogleCommand, SignInDTO>
 {
     private readonly UserManager<User> _userManager;
-    private readonly IApplicationDbContext _context;
     private readonly ICreateJwtAccessTokenService _createJwtAccessTokenService;
-    private readonly IConfiguration _configuration;
+    private readonly ICreateRefreshTokenService _createRefreshTokenService;
 
-    public SignInGoogleCommandHandler(UserManager<User> userManager, IApplicationDbContext context, ICreateJwtAccessTokenService createJwtAccessTokenService, IConfiguration configuration)
+    public SignInGoogleCommandHandler(UserManager<User> userManager, ICreateJwtAccessTokenService createJwtAccessTokenService, ICreateRefreshTokenService createRefreshTokenService)
     {
         _userManager = userManager;
-        _context = context;
         _createJwtAccessTokenService = createJwtAccessTokenService;
-        _configuration = configuration;
+        _createRefreshTokenService = createRefreshTokenService;
     }
 
     public async Task<SignInDTO> Handle(SignInGoogleCommand request, CancellationToken cancellationToken)
@@ -52,29 +47,12 @@ public sealed class SignInGoogleCommandHandler : IRequestHandler<SignInGoogleCom
         }
 
         var accessToken = await _createJwtAccessTokenService.CreateToken(user);
-
-        var newRefreshToken = new RefreshToken
-        {
-            ExpirationDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["RefreshToken:Lifetime"])),
-            Invalidated = false,
-            Token = Guid.NewGuid(),
-            UserId = user.Id
-        };
-        var refreshToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.UserId == user.Id, cancellationToken);
-        if (refreshToken is null) _context.RefreshTokens.Add(newRefreshToken);
-        else
-        {
-            refreshToken.ExpirationDate = newRefreshToken.ExpirationDate;
-            refreshToken.Token = newRefreshToken.Token;
-        }
-
-        await _context.SaveChangesAsync(cancellationToken);
-
+        var refreshToken = await _createRefreshTokenService.CreateToken(user.Id, cancellationToken);
         var result = new SignInDTO
         {
             UserId = user.Id,
             AccessToken = accessToken,
-            RefreshToken = newRefreshToken.Token
+            RefreshToken = refreshToken
         };
         return result;
     }
