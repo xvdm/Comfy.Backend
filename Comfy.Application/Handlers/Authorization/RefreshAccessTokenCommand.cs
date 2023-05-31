@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Comfy.Application.Handlers.Authorization;
 
-public sealed record RefreshAccessTokenCommand(Guid UserId, string AccessToken, Guid RefreshToken) : IRequest<string>;
+public sealed record RefreshAccessTokenCommand(Guid UserId, Guid RefreshToken, string AccessToken) : IRequest<string>;
 
 
 public sealed class RefreshAccessTokenCommandHandler : IRequestHandler<RefreshAccessTokenCommand, string>
