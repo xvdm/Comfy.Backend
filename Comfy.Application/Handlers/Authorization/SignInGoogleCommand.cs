@@ -46,6 +46,12 @@ public sealed class SignInGoogleCommandHandler : IRequestHandler<SignInGoogleCom
             await _userManager.AddToRoleAsync(user, RoleNames.User);
         }
 
+        if (user.Name != request.Name)
+        {
+            user.Name = request.Name;
+            await _userManager.UpdateAsync(user);
+        }
+
         var accessToken = await _createJwtAccessTokenService.CreateToken(user);
         var refreshToken = await _createRefreshTokenService.CreateToken(user.Id, cancellationToken);
         var result = new SignInDTO
