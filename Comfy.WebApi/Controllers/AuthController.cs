@@ -1,21 +1,15 @@
 ﻿using Comfy.Application.Handlers.Authorization;
-using Comfy.Domain.Identity;
 using Comfy.WebApi.Controllers.Base;
 using Google.Apis.Auth;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Comfy.WebApi.Controllers;
 
 public sealed class AuthController : BaseController
 {
-    private readonly SignInManager<User> _signInManager;
-    private readonly IConfiguration _configuration;
-    public AuthController(ISender sender, SignInManager<User> signInManager, IConfiguration configuration) : base(sender)
+    public AuthController(ISender sender) : base(sender)
     {
-        _signInManager = signInManager;
-        _configuration = configuration;
     }
 
     [HttpPost("register")]
