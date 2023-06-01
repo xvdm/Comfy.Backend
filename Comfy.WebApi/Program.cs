@@ -3,13 +3,20 @@ using Comfy.Application.Common.Mappings;
 using Comfy.Application.Interfaces;
 using Comfy.Persistence;
 using Comfy.WebApi.Middlewares;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO.Compression;
 using System.Reflection;
+using Comfy.Application.Common.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("ComfyDbContextConnection"))
+    .AddRedis(builder.Configuration.GetConnectionString("Redis"));
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
@@ -102,5 +109,10 @@ if (app.Environment.IsDevelopment())
         x.DisplayRequestDuration();
     });
 }
+
+app.MapHealthChecks("/api/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+}).RequireAuthorization(policyNames: new[] { RoleNames.Administrator });
 
 app.Run();
