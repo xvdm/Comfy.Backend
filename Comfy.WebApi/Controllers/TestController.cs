@@ -15,11 +15,11 @@ public sealed class TestController : BaseController
         _userManager = userManager;
     }
 
-    //[HttpDelete]
-    //public async Task<IActionResult> DeleteUser(Guid id)
-    //{
-    //    var user = await _userManager.FindByIdAsync(id.ToString());
-    //    await _userManager.DeleteAsync(user);
-    //    return Ok();
-    //}
+    [HttpDelete]
+    public async Task<IActionResult> DeleteUser(Guid id)
+    {
+        var user = await _userManager.FindByIdAsync(id.ToString());
+        await _userManager.DeleteAsync(user);
+        return Ok();
+    }
 }
