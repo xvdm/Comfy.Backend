@@ -1,8 +1,7 @@
 ﻿using Comfy.Application.Common.Exceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using FluentValidation;
-using System.Security.Authentication;
 
 namespace Comfy.WebApi.Middlewares;
 
