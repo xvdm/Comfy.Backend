@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comfy.WebApi", "Comfy.WebAp
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4DCC23AE-6B45-4B5A-A39F-9F21EFA39328}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comfy.Tests", "..\Comfy.Tests\Comfy.Tests.csproj", "{792E0104-9081-408B-A53C-4E39B94D010D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{4DCC23AE-6B45-4B5A-A39F-9F21EFA39328}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DCC23AE-6B45-4B5A-A39F-9F21EFA39328}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DCC23AE-6B45-4B5A-A39F-9F21EFA39328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{792E0104-9081-408B-A53C-4E39B94D010D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{792E0104-9081-408B-A53C-4E39B94D010D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{792E0104-9081-408B-A53C-4E39B94D010D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{792E0104-9081-408B-A53C-4E39B94D010D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{EDB00B00-AAEE-4A6D-A490-28A218D3264E} = {56217F64-976A-4FFD-8E02-165B2104EA0C}
 		{0B73213A-28B6-4C33-A707-AC0C20FFC12B} = {10D38216-3B36-4B58-AB41-67E4524F0E9F}
 		{C43B6FC1-0D97-4136-8010-9EBCD941B8DF} = {E7C75B5F-44E1-4972-BC1F-EB6144630380}
+		{792E0104-9081-408B-A53C-4E39B94D010D} = {F039227B-313E-492E-B791-8F2B77117AD2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D61609B6-761D-432D-81DA-0C6520C615CE}

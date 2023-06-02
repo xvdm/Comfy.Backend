@@ -3,7 +3,6 @@ using Comfy.Application.Handlers.Banners.DTO;
 using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
 
 namespace Comfy.Application.Handlers.Banners;
 
@@ -19,7 +18,7 @@ public sealed class GetBannersQueryHandler : IRequestHandler<GetBannersQuery, IE
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetBannersQueryHandler(IApplicationDbContext context, IMapper mapper, IDistributedCache distributedCache)
+    public GetBannersQueryHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
