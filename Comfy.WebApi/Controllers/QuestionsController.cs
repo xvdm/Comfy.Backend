@@ -1,6 +1,5 @@
 ﻿using Comfy.Application.Handlers.Questions.QuestionAnswers;
 using Comfy.Application.Handlers.Questions.Questions;
-using Comfy.Domain.Identity;
 using Comfy.WebApi.Controllers.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
