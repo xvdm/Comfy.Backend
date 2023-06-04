@@ -1,4 +1,5 @@
 using Comfy.Application;
+using Comfy.Application.Common.Helpers;
 using Comfy.Application.Common.Mappings;
 using Comfy.Application.Interfaces;
 using Comfy.Persistence;
@@ -9,8 +10,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO.Compression;
-using System.Reflection;
-using Comfy.Application.Common.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +22,6 @@ builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 IConfiguration configuration = builder.Configuration;
 builder.Services.AddAutoMapper(config =>
 {
-    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
 });
 
