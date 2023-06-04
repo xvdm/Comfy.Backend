@@ -43,9 +43,6 @@ public sealed class GetCategoriesMenuQueryHandlerTests
         };
         var mainCategoriesMock = mainCategories.AsQueryable().BuildMockDbSet();
         _contextMock.Setup(x => x.MainCategories).Returns(mainCategoriesMock.Object);
-        
-        var subcategoriesMock = subcategories.AsQueryable().BuildMockDbSet();
-        _contextMock.Setup(x => x.Subcategories).Returns(subcategoriesMock.Object);
 
         var query = new GetCategoriesMenuQuery();
         var handler = new GetCategoriesMenuQueryHandler(_contextMock.Object, _mapper);
