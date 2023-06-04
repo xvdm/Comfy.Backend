@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using Comfy.Application.Handlers.Reviews.DTO;
+using Comfy.Application.Handlers.Questions.DTO;
 using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Reviews.Reviews;
+namespace Comfy.Application.Handlers.Questions.Questions;
 
-public sealed record GetReviewsWithAnswersQuery : IRequest<ReviewsDTO>, ICacheable
+public sealed record GetQuestionsQuery : IRequest<QuestionsDTO>, ICacheable
 {
     public int ProductId { get; init; }
 
-    public string CacheKey => $"product-reviews:{ProductId}:{PageNumber}:{PageSize}";
+    public string CacheKey => $"product-questions:{ProductId}:{PageNumber}:{PageSize}";
     public double ExpirationHours => 3;
 
     private const int MaxPageSize = 10;
@@ -28,7 +28,7 @@ public sealed record GetReviewsWithAnswersQuery : IRequest<ReviewsDTO>, ICacheab
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetReviewsWithAnswersQuery(int productId, int? pageNumber, int? pageSize)
+    public GetQuestionsQuery(int productId, int? pageNumber, int? pageSize)
     {
         ProductId = productId;
         if (pageNumber is not null) PageNumber = (int)pageNumber;
@@ -37,20 +37,20 @@ public sealed record GetReviewsWithAnswersQuery : IRequest<ReviewsDTO>, ICacheab
 }
 
 
-public sealed class GetReviewsWithAnswersQueryHandler : IRequestHandler<GetReviewsWithAnswersQuery, ReviewsDTO>
+public sealed class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery, QuestionsDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetReviewsWithAnswersQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetQuestionsQueryHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
 
-    public async Task<ReviewsDTO> Handle(GetReviewsWithAnswersQuery request, CancellationToken cancellationToken)
+    public async Task<QuestionsDTO> Handle(GetQuestionsQuery request, CancellationToken cancellationToken)
     {
-        var reviews = await _context.Reviews
+        var questions = await _context.Questions
             .Include(x => x.User)
             .Include(x => x.Answers.Where(y => y.IsActive == true))
                 .ThenInclude(x => x.User)
@@ -61,13 +61,14 @@ public sealed class GetReviewsWithAnswersQueryHandler : IRequestHandler<GetRevie
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        var mappedReviews = _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
+        var questionsDTO = _mapper.Map<IEnumerable<QuestionDTO>>(questions);
 
-        var result = new ReviewsDTO
+        var result = new QuestionsDTO
         {
             ProductId = request.ProductId,
-            Reviews = mappedReviews
+            Questions = questionsDTO
         };
+
         return result;
     }
 }

@@ -15,7 +15,7 @@ public sealed class QuestionsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetQuestions(int productId, int? pageNumber, int? pageSize)
     {
-        var result = await Sender.Send(new GetQuestionsWithAnswersQuery(productId, pageNumber, pageSize));
+        var result = await Sender.Send(new GetQuestionsQuery(productId, pageNumber, pageSize));
         return Ok(result);
     }
 

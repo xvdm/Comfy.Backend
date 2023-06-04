@@ -15,7 +15,7 @@ public sealed class ReviewsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetReviews(int productId, int? pageNumber, int? pageSize)
     {
-        var result = await Sender.Send(new GetReviewsWithAnswersQuery(productId, pageNumber, pageSize));
+        var result = await Sender.Send(new GetReviewsQuery(productId, pageNumber, pageSize));
         return Ok(result);
     }
 

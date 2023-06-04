@@ -33,8 +33,8 @@ public class GetReviewsQueryHandlerTests
         var reviewsMock = reviews.AsQueryable().BuildMockDbSet();
         _contextMock.Setup(x => x.Reviews).Returns(reviewsMock.Object);
 
-        var query = new GetReviewsWithAnswersQuery(productId, null, null);
-        var handler = new GetReviewsWithAnswersQueryHandler(_contextMock.Object, _mapper);
+        var query = new GetReviewsQuery(productId, null, null);
+        var handler = new GetReviewsQueryHandler(_contextMock.Object, _mapper);
 
         // Act
         var result = await handler.Handle(query, default);
@@ -57,8 +57,8 @@ public class GetReviewsQueryHandlerTests
         var reviewsMock = reviews.AsQueryable().BuildMockDbSet();
         _contextMock.Setup(x => x.Reviews).Returns(reviewsMock.Object);
 
-        var query = new GetReviewsWithAnswersQuery(productId, null, null);
-        var handler = new GetReviewsWithAnswersQueryHandler(_contextMock.Object, _mapper);
+        var query = new GetReviewsQuery(productId, null, null);
+        var handler = new GetReviewsQueryHandler(_contextMock.Object, _mapper);
 
         // Act
         var result = await handler.Handle(query, default);
