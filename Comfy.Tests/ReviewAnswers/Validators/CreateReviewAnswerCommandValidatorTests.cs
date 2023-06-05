@@ -1,17 +1,17 @@
-﻿using Comfy.Application.Handlers.Questions.Questions;
-using Comfy.Application.Handlers.Questions.Questions.Validators;
+﻿using Comfy.Application.Handlers.Reviews.ReviewAnswers;
+using Comfy.Application.Handlers.Reviews.ReviewAnswers.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.Questions.Validation;
+namespace Comfy.Tests.ReviewAnswers.Validators;
 
-public sealed class CreateQuestionCommandValidationTests
+public sealed class CreateReviewAnswerCommandValidatorTests
 {
-    private readonly CreateQuestionCommand _baseCommand;
-    public CreateQuestionCommandValidationTests()
+    private readonly CreateReviewAnswerCommand _baseCommand;
+    public CreateReviewAnswerCommandValidatorTests()
     {
-        _baseCommand = new CreateQuestionCommand
+        _baseCommand = new CreateReviewAnswerCommand
         {
-            ProductId = 47,
+            ReviewId = 47,
             Text = "text",
             UserId = Guid.NewGuid()
         };
@@ -22,7 +22,7 @@ public sealed class CreateQuestionCommandValidationTests
     public async Task Handle_Should_ReturnTrue_WhenUserIdIsGuid(Guid userId)
     {
         // Arrange
-        var validator = new CreateQuestionCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator();
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -37,7 +37,7 @@ public sealed class CreateQuestionCommandValidationTests
     public async Task Handle_Should_ReturnFalse_WhenUserIdIsGuidEmpty(Guid userId)
     {
         // Arrange
-        var validator = new CreateQuestionCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator();
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -50,11 +50,11 @@ public sealed class CreateQuestionCommandValidationTests
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue_WhenProductIdIsGreaterThanZero(int productId)
+    public async Task Handle_Should_ReturnTrue_WhenReviewIdIsGreaterThanZero(int reviewId)
     {
         // Arrange
-        var validator = new CreateQuestionCommandValidator();
-        var command = _baseCommand with { ProductId = productId };
+        var validator = new CreateReviewAnswerCommandValidator();
+        var command = _baseCommand with { ReviewId = reviewId };
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -66,11 +66,11 @@ public sealed class CreateQuestionCommandValidationTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse_WhenProductIdIsLessThanZero(int productId)
+    public async Task Handle_Should_ReturnFalse_WhenReviewIdIsLessThanZero(int reviewId)
     {
         // Arrange
-        var validator = new CreateQuestionCommandValidator();
-        var command = _baseCommand with { ProductId = productId };
+        var validator = new CreateReviewAnswerCommandValidator();
+        var command = _baseCommand with { ReviewId = reviewId };
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -85,7 +85,7 @@ public sealed class CreateQuestionCommandValidationTests
     public async Task Handle_Should_ReturnTrue_WhenTextIsNotEmpty(string text)
     {
         // Arrange
-        var validator = new CreateQuestionCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator();
         var command = _baseCommand with { Text = text };
 
         // Act
@@ -101,7 +101,7 @@ public sealed class CreateQuestionCommandValidationTests
     public async Task Handle_Should_ReturnFalse_WhenTextIsEmpty(string text)
     {
         // Arrange
-        var validator = new CreateQuestionCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator();
         var command = _baseCommand with { Text = text };
 
         // Act

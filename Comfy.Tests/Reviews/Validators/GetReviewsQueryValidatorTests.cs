@@ -2,21 +2,21 @@
 using Comfy.Application.Handlers.Reviews.Reviews.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.ReviewAnswers.Validation;
+namespace Comfy.Tests.Reviews.Validators;
 
-public sealed class LikeReviewAnswerCommandValidationTests
+public sealed class GetReviewsQueryValidatorTests
 {
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue(int userId)
+    public async Task Handle_Should_ReturnTrue(int productId)
     {
         // Arrange
-        var validator = new LikeReviewCommandValidator();
-        var command = new LikeReviewCommand(userId, Guid.Empty);
+        var validator = new GetReviewsQueryValidator();
+        var query = new GetReviewsQuery(productId, null, null);
 
         // Act
-        var validationResult = await validator.ValidateAsync(command);
+        var validationResult = await validator.ValidateAsync(query);
 
         // Assert
         validationResult.IsValid.Should().Be(true);
@@ -25,11 +25,11 @@ public sealed class LikeReviewAnswerCommandValidationTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse(int userId)
+    public async Task Handle_Should_ReturnFalse(int productId)
     {
         // Arrange
-        var validator = new LikeReviewCommandValidator();
-        var command = new LikeReviewCommand(userId, Guid.Empty);
+        var validator = new GetReviewsQueryValidator();
+        var command = new GetReviewsQuery(productId, null, null);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);

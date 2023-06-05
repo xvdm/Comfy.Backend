@@ -1,13 +1,13 @@
-﻿using Comfy.Application.Handlers.Reviews.Reviews.Validators;
-using Comfy.Application.Handlers.Reviews.Reviews;
+﻿using Comfy.Application.Handlers.Reviews.Reviews;
+using Comfy.Application.Handlers.Reviews.Reviews.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.Reviews.Validation;
+namespace Comfy.Tests.Reviews.Validators;
 
-public sealed class CreateReviewCommandValidationTests
+public sealed class CreateReviewCommandValidatorTests
 {
     private readonly CreateReviewCommand _baseCommand;
-    public CreateReviewCommandValidationTests()
+    public CreateReviewCommandValidatorTests()
     {
         _baseCommand = new CreateReviewCommand
         {

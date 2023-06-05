@@ -1,10 +1,10 @@
-﻿using Comfy.Application.Handlers.Reviews.Reviews.Validators;
-using Comfy.Application.Handlers.Reviews.Reviews;
+﻿using Comfy.Application.Handlers.Questions.Questions;
+using Comfy.Application.Handlers.Questions.Questions.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.Reviews.Validation;
+namespace Comfy.Tests.Questions.Validators;
 
-public sealed class GetReviewsQueryValidationTests
+public sealed class GetQuestionsQueryValidatorTests
 {
     [Theory]
     [InlineData(1)]
@@ -12,8 +12,8 @@ public sealed class GetReviewsQueryValidationTests
     public async Task Handle_Should_ReturnTrue(int productId)
     {
         // Arrange
-        var validator = new GetReviewsQueryValidator();
-        var query = new GetReviewsQuery(productId, null, null);
+        var validator = new GetQuestionsQueryValidator();
+        var query = new GetQuestionsQuery(productId, null, null);
 
         // Act
         var validationResult = await validator.ValidateAsync(query);
@@ -28,8 +28,8 @@ public sealed class GetReviewsQueryValidationTests
     public async Task Handle_Should_ReturnFalse(int productId)
     {
         // Arrange
-        var validator = new GetReviewsQueryValidator();
-        var command = new GetReviewsQuery(productId, null, null);
+        var validator = new GetQuestionsQueryValidator();
+        var command = new GetQuestionsQuery(productId, null, null);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);

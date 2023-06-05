@@ -2,12 +2,12 @@
 using Comfy.Application.Handlers.Questions.QuestionAnswers.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.QuestionAnswers.Validation;
+namespace Comfy.Tests.QuestionAnswers.Validators;
 
-public sealed class CreateQuestionAnswerCommandValidationTests
+public sealed class CreateQuestionAnswerCommandValidatorTests
 {
     private readonly CreateQuestionAnswerCommand _baseCommand;
-    public CreateQuestionAnswerCommandValidationTests()
+    public CreateQuestionAnswerCommandValidatorTests()
     {
         _baseCommand = new CreateQuestionAnswerCommand
         {

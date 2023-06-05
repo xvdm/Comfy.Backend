@@ -1,10 +1,10 @@
-﻿using Comfy.Application.Handlers.Reviews.Reviews;
-using Comfy.Application.Handlers.Reviews.Reviews.Validators;
+﻿using Comfy.Application.Handlers.Reviews.ReviewAnswers;
+using Comfy.Application.Handlers.Reviews.ReviewAnswers.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.Reviews.Validation;
+namespace Comfy.Tests.ReviewAnswers.Validators;
 
-public sealed class LikeReviewCommandValidationTests
+public sealed class DislikeReviewAnswerCommandValidatorTests
 {
     [Theory]
     [InlineData(1)]
@@ -12,8 +12,8 @@ public sealed class LikeReviewCommandValidationTests
     public async Task Handle_Should_ReturnTrue(int userId)
     {
         // Arrange
-        var validator = new LikeReviewCommandValidator();
-        var command = new LikeReviewCommand(userId, Guid.Empty);
+        var validator = new DislikeReviewAnswerCommandValidator();
+        var command = new DislikeReviewAnswerCommand(userId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -28,8 +28,8 @@ public sealed class LikeReviewCommandValidationTests
     public async Task Handle_Should_ReturnFalse(int userId)
     {
         // Arrange
-        var validator = new LikeReviewCommandValidator();
-        var command = new LikeReviewCommand(userId, Guid.Empty);
+        var validator = new DislikeReviewAnswerCommandValidator();
+        var command = new DislikeReviewAnswerCommand(userId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);

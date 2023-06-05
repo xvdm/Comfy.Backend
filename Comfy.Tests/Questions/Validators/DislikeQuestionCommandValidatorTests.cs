@@ -2,9 +2,9 @@
 using Comfy.Application.Handlers.Questions.Questions.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.Questions.Validation;
+namespace Comfy.Tests.Questions.Validators;
 
-public sealed class DislikeQuestionCommandValidationTests
+public sealed class DislikeQuestionCommandValidatorTests
 {
     [Theory]
     [InlineData(1)]

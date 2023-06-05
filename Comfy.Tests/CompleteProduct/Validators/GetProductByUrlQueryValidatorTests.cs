@@ -1,10 +1,10 @@
-﻿using Comfy.Application.Handlers.Products.CompleteProduct.Validators;
-using Comfy.Application.Handlers.Products.CompleteProduct;
+﻿using Comfy.Application.Handlers.Products.CompleteProduct;
+using Comfy.Application.Handlers.Products.CompleteProduct.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.CompleteProduct.Validation;
+namespace Comfy.Tests.CompleteProduct.Validators;
 
-public sealed class GetProductByUrlQueryValidationTests
+public sealed class GetProductByUrlQueryValidatorTests
 {
     [Theory]
     [InlineData("u")]

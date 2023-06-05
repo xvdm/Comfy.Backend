@@ -2,9 +2,9 @@
 using Comfy.Application.Handlers.Products.CompleteProduct.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.CompleteProduct.Validation;
+namespace Comfy.Tests.CompleteProduct.Validators;
 
-public sealed class GetProductByIdQueryValidationTests
+public sealed class GetProductByIdQueryValidatorTests
 {
     [Theory]
     [InlineData(1)]
