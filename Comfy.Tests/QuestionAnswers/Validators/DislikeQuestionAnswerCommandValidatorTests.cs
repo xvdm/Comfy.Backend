@@ -9,11 +9,11 @@ public sealed class DislikeQuestionAnswerCommandValidatorTests
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue(int userId)
+    public async Task Handle_Should_ReturnTrue_WhenQuestionAnswerIdIsGreaterThanZero(int questionAnswerId)
     {
         // Arrange
         var validator = new DislikeQuestionAnswerCommandValidator();
-        var command = new DislikeQuestionAnswerCommand(userId, Guid.Empty);
+        var command = new DislikeQuestionAnswerCommand(questionAnswerId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -25,11 +25,11 @@ public sealed class DislikeQuestionAnswerCommandValidatorTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse(int userId)
+    public async Task Handle_Should_ReturnFalse_WhenQuestionAnswerIdIsNotGreaterThanZero(int questionAnswerId)
     {
         // Arrange
         var validator = new DislikeQuestionAnswerCommandValidator();
-        var command = new DislikeQuestionAnswerCommand(userId, Guid.Empty);
+        var command = new DislikeQuestionAnswerCommand(questionAnswerId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);

@@ -9,11 +9,11 @@ public sealed class LikeReviewCommandValidatorTests
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue(int userId)
+    public async Task Handle_Should_ReturnTrue_WhenReviewIdIsGreaterThanZero(int reviewId)
     {
         // Arrange
         var validator = new LikeReviewCommandValidator();
-        var command = new LikeReviewCommand(userId, Guid.Empty);
+        var command = new LikeReviewCommand(reviewId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -25,11 +25,11 @@ public sealed class LikeReviewCommandValidatorTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse(int userId)
+    public async Task Handle_Should_ReturnFalse_WhenReviewIdIsNotGreaterThanZero(int reviewId)
     {
         // Arrange
         var validator = new LikeReviewCommandValidator();
-        var command = new LikeReviewCommand(userId, Guid.Empty);
+        var command = new LikeReviewCommand(reviewId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);

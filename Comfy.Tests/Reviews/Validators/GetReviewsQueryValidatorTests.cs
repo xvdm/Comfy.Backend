@@ -9,7 +9,7 @@ public sealed class GetReviewsQueryValidatorTests
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue(int productId)
+    public async Task Handle_Should_ReturnTrue_WhenProductIdIsGreaterThanZero(int productId)
     {
         // Arrange
         var validator = new GetReviewsQueryValidator();
@@ -25,7 +25,7 @@ public sealed class GetReviewsQueryValidatorTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse(int productId)
+    public async Task Handle_Should_ReturnFalse_WhenProductIdIsNotGreaterThanZero(int productId)
     {
         // Arrange
         var validator = new GetReviewsQueryValidator();

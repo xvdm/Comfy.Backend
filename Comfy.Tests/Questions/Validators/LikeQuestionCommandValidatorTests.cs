@@ -9,11 +9,11 @@ public sealed class LikeQuestionCommandValidatorTests
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue(int userId)
+    public async Task Handle_Should_ReturnTrue_WhenQuestionIdIsGreaterThanZero(int questionId)
     {
         // Arrange
         var validator = new LikeQuestionCommandValidator();
-        var command = new LikeQuestionCommand(userId, Guid.Empty);
+        var command = new LikeQuestionCommand(questionId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -25,11 +25,11 @@ public sealed class LikeQuestionCommandValidatorTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse(int userId)
+    public async Task Handle_Should_ReturnFalse_WhenQuestionIdIsNotGreaterThanZero(int questionId)
     {
         // Arrange
         var validator = new LikeQuestionCommandValidator();
-        var command = new LikeQuestionCommand(userId, Guid.Empty);
+        var command = new LikeQuestionCommand(questionId, Guid.Empty);
 
         // Act
         var validationResult = await validator.ValidateAsync(command);

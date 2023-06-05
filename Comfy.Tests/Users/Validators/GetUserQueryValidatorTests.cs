@@ -7,7 +7,7 @@ namespace Comfy.Tests.Users.Validators;
 public sealed class GetUserQueryValidatorTests
 {
     [Fact]
-    public async Task Handle_Should_ReturnTrue()
+    public async Task Handle_Should_ReturnTrue_WhenUserIdIsGuid()
     {
         // Arrange
         var userId = Guid.NewGuid();
@@ -22,7 +22,7 @@ public sealed class GetUserQueryValidatorTests
     }
 
     [Fact]
-    public async Task Handle_Should_ReturnFalse()
+    public async Task Handle_Should_ReturnFalse_WhenUserIdIsGuidEmpty()
     {
         // Arrange
         var userId = Guid.Empty;
