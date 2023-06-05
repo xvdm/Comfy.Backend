@@ -1,17 +1,17 @@
-﻿using Comfy.Application.Handlers.Reviews.ReviewAnswers;
-using Comfy.Application.Handlers.Reviews.ReviewAnswers.Validators;
+﻿using Comfy.Application.Handlers.Questions.QuestionAnswers;
+using Comfy.Application.Handlers.Questions.QuestionAnswers.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.ReviewAnswers.Validation;
+namespace Comfy.Tests.QuestionAnswers.Validation;
 
-public sealed class CreateReviewAnswerCommandValidationTests
+public sealed class CreateQuestionAnswerCommandValidationTests
 {
-    private readonly CreateReviewAnswerCommand _baseCommand;
-    public CreateReviewAnswerCommandValidationTests()
+    private readonly CreateQuestionAnswerCommand _baseCommand;
+    public CreateQuestionAnswerCommandValidationTests()
     {
-        _baseCommand = new CreateReviewAnswerCommand
+        _baseCommand = new CreateQuestionAnswerCommand
         {
-            ReviewId = 47,
+            QuestionId = 47,
             Text = "text",
             UserId = Guid.NewGuid()
         };
@@ -22,7 +22,7 @@ public sealed class CreateReviewAnswerCommandValidationTests
     public async Task Handle_Should_ReturnTrue_WhenUserIdIsGuid(Guid userId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator();
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -37,7 +37,7 @@ public sealed class CreateReviewAnswerCommandValidationTests
     public async Task Handle_Should_ReturnFalse_WhenUserIdIsGuidEmpty(Guid userId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator();
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -50,11 +50,11 @@ public sealed class CreateReviewAnswerCommandValidationTests
     [Theory]
     [InlineData(1)]
     [InlineData(2222)]
-    public async Task Handle_Should_ReturnTrue_WhenReviewIdIsGreaterThanZero(int reviewId)
+    public async Task Handle_Should_ReturnTrue_WhenQuestionIdIsGreaterThanZero(int questionId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
-        var command = _baseCommand with { ReviewId = reviewId };
+        var validator = new CreateQuestionAnswerCommandValidator();
+        var command = _baseCommand with { QuestionId = questionId };
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -66,11 +66,11 @@ public sealed class CreateReviewAnswerCommandValidationTests
     [Theory]
     [InlineData(0)]
     [InlineData(-2222)]
-    public async Task Handle_Should_ReturnFalse_WhenReviewIdIsLessThanZero(int reviewId)
+    public async Task Handle_Should_ReturnFalse_WhenQuestionIdIsLessThanZero(int questionId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
-        var command = _baseCommand with { ReviewId = reviewId };
+        var validator = new CreateQuestionAnswerCommandValidator();
+        var command = _baseCommand with { QuestionId = questionId };
 
         // Act
         var validationResult = await validator.ValidateAsync(command);
@@ -85,7 +85,7 @@ public sealed class CreateReviewAnswerCommandValidationTests
     public async Task Handle_Should_ReturnTrue_WhenTextIsNotEmpty(string text)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator();
         var command = _baseCommand with { Text = text };
 
         // Act
@@ -101,7 +101,7 @@ public sealed class CreateReviewAnswerCommandValidationTests
     public async Task Handle_Should_ReturnFalse_WhenTextIsEmpty(string text)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator();
         var command = _baseCommand with { Text = text };
 
         // Act
