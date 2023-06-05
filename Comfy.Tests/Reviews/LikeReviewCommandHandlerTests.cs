@@ -7,10 +7,10 @@ using Moq;
 
 namespace Comfy.Tests.Reviews;
 
-public sealed class LikeReviewsCommandHandlerTests
+public sealed class LikeReviewCommandHandlerTests
 {
     private readonly Mock<IApplicationDbContext> _contextMock;
-    public LikeReviewsCommandHandlerTests()
+    public LikeReviewCommandHandlerTests()
     {
         _contextMock = new Mock<IApplicationDbContext>();
     }
