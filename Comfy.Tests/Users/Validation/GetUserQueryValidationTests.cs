@@ -2,7 +2,7 @@
 using Comfy.Application.Handlers.Users.Validators;
 using FluentAssertions;
 
-namespace Comfy.Tests.Users;
+namespace Comfy.Tests.Users.Validation;
 
 public class GetUserQueryValidationTests
 {
