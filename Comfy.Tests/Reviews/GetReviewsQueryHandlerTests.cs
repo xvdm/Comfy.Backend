@@ -21,7 +21,7 @@ public class GetReviewsQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Should_ReturnReviewsDTO()
+    public async Task Handle_Should_HaveCountAsInList_WhenEveryReviewIsActive()
     {
         // Arrange
         var productId = 1;
@@ -43,9 +43,8 @@ public class GetReviewsQueryHandlerTests
         result.Reviews.Should().HaveCount(reviews.Count);
     }
 
-
     [Fact]
-    public async Task Handle_Should_NotReturnReviewsDTO_WhenIsActiveEqualsFalse()
+    public async Task Handle_Should_NotHaveCountAsInList_WhenEveryReviewIsActive()
     {
         // Arrange
         var productId = 1;

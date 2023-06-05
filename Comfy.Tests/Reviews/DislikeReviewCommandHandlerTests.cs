@@ -35,7 +35,7 @@ public class DislikeReviewCommandHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Should_DecreaseLikesNumber()
+    public async Task Handle_Should_IncreaseDislikesNumber()
     {
         // Arrange
         var dislikes = 5;
