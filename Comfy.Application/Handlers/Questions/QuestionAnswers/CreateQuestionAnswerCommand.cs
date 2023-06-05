@@ -29,7 +29,7 @@ public sealed class CreateQuestionAnswerCommandHandler : IRequestHandler<CreateQ
         var question = await _context.Questions.CountAsync(x => x.Id == request.QuestionId, cancellationToken);
         if (question <= 0) throw new NotFoundException(LocalizationStrings.Question);
 
-        var answer = new QuestionAnswer()
+        var answer = new QuestionAnswer
         {
             QuestionId = request.QuestionId,
             Text = request.Text,

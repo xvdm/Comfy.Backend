@@ -29,7 +29,7 @@ public sealed class CreateReviewAnswerCommandHandler : IRequestHandler<CreateRev
         var review = await _context.Reviews.CountAsync(x => x.Id == request.ReviewId, cancellationToken);
         if (review <= 0) throw new NotFoundException(LocalizationStrings.Review);
 
-        var answer = new ReviewAnswer()
+        var answer = new ReviewAnswer
         {
             ReviewId = request.ReviewId,
             Text = request.Text,

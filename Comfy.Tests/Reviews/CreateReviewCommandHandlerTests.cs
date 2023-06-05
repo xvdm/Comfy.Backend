@@ -26,7 +26,7 @@ public sealed class CreateReviewCommandHandlerTests
         var productsMock = products.AsQueryable().BuildMockDbSet();
         _contextMock.Setup(x => x.Products).Returns(productsMock.Object);
 
-        var command = new CreateReviewCommand();
+        var command = new CreateReviewCommand { ProductId = 47 };
         var handler = new CreateReviewCommandHandler(_contextMock.Object);
 
         // Act

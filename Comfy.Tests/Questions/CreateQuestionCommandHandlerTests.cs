@@ -26,7 +26,7 @@ public sealed class CreateQuestionCommandHandlerTests
         var productsMock = products.AsQueryable().BuildMockDbSet();
         _contextMock.Setup(x => x.Products).Returns(productsMock.Object);
 
-        var command = new CreateQuestionCommand();
+        var command = new CreateQuestionCommand { ProductId = 47 };
         var handler = new CreateQuestionCommandHandler(_contextMock.Object);
 
         // Act
