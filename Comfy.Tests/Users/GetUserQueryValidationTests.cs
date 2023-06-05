@@ -12,7 +12,6 @@ public class GetUserQueryValidationTests
         // Arrange
         var userId = Guid.NewGuid();
         var validator = new GetUserQueryValidator();
-
         var query = new GetUserQuery(userId);
 
         // Act
@@ -28,7 +27,6 @@ public class GetUserQueryValidationTests
         // Arrange
         var userId = Guid.Empty;
         var validator = new GetUserQueryValidator();
-
         var query = new GetUserQuery(userId);
 
         // Act

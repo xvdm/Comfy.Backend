@@ -2,9 +2,9 @@
 
 namespace Comfy.Application.Handlers.Reviews.Reviews.Validators;
 
-public sealed class GetReviewsWithAnswersQueryValidator : AbstractValidator<GetReviewsQuery>
+public sealed class GetReviewsQueryValidator : AbstractValidator<GetReviewsQuery>
 {
-    public GetReviewsWithAnswersQueryValidator()
+    public GetReviewsQueryValidator()
     {
         RuleFor(x => x.ProductId).GreaterThan(0);
     }

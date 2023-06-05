@@ -2,9 +2,9 @@
 
 namespace Comfy.Application.Handlers.Questions.Questions.Validators;
 
-public sealed class GetQuestionsWithAnswersQueryValidator : AbstractValidator<GetQuestionsQuery>
+public sealed class GetQuestionsQueryValidator : AbstractValidator<GetQuestionsQuery>
 {
-    public GetQuestionsWithAnswersQueryValidator()
+    public GetQuestionsQueryValidator()
     {
         RuleFor(x => x.ProductId).GreaterThan(0);
     }
