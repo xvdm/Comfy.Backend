@@ -7,7 +7,7 @@ using Moq;
 
 namespace Comfy.Tests.ReviewAnswers;
 
-public class DislikeReviewAnswerCommandHandlerTests
+public sealed class DislikeReviewAnswerCommandHandlerTests
 {
     private readonly Mock<IApplicationDbContext> _contextMock;
     public DislikeReviewAnswerCommandHandlerTests()

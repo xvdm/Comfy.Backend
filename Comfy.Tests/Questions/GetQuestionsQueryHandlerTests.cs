@@ -9,7 +9,7 @@ using Moq;
 
 namespace Comfy.Tests.Questions;
 
-public class GetQuestionsQueryHandlerTests
+public sealed class GetQuestionsQueryHandlerTests
 {
     private readonly Mock<IApplicationDbContext> _contextMock;
     private readonly IMapper _mapper;

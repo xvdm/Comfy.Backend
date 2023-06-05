@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Comfy.Tests.Reviews.Validation;
 
-public class CreateReviewCommandValidationTests
+public sealed class CreateReviewCommandValidationTests
 {
     private readonly CreateReviewCommand _baseCommand;
     public CreateReviewCommandValidationTests()

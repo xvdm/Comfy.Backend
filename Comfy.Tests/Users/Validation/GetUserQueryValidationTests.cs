@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Comfy.Tests.Users.Validation;
 
-public class GetUserQueryValidationTests
+public sealed class GetUserQueryValidationTests
 {
     [Fact]
     public async Task Handle_Should_ReturnTrue()

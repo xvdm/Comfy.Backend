@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Comfy.Tests.ReviewAnswers.Validation;
 
-public class LikeReviewAnswerCommandValidationTests
+public sealed class LikeReviewAnswerCommandValidationTests
 {
     [Theory]
     [InlineData(1)]

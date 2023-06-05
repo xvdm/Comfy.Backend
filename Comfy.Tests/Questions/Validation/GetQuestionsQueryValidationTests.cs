@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Comfy.Tests.Questions.Validation;
 
-public class GetQuestionsQueryValidationTests
+public sealed class GetQuestionsQueryValidationTests
 {
     [Theory]
     [InlineData(1)]
