@@ -22,7 +22,7 @@ public sealed class GetShowcaseGroupsQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnProductDTO()
+    public async Task Handle_ShouldReturnShowcaseGroupDTO()
     {
         // Arrange
         var showcaseGroup = new List<ShowcaseGroup>
