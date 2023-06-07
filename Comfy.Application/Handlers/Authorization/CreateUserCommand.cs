@@ -26,7 +26,7 @@ public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var userWithEmail = await _userManager.FindByEmailAsync(request.Email);
-        if (userWithEmail is not null) throw new UserWithGivenNameAlreadyExistsException();
+        if (userWithEmail is not null) throw new UserWithGivenEmailAlreadyExistsException();
 
         var user = new User
         {
