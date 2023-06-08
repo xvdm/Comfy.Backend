@@ -13,6 +13,10 @@ public sealed class UserController : BaseController
     {
     }
 
+    /// <summary>
+    /// Returns information about the user || JwtValidation
+    /// </summary>
+    /// <param name="id"></param>
     [HttpGet]
     [Authorize(Policy = RoleNames.User)]
     public async Task<IActionResult> GetUserInfo(Guid id)

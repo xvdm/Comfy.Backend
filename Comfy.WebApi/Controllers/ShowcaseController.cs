@@ -11,6 +11,9 @@ public sealed class ShowcaseController : BaseController
     {
     }
 
+    /// <summary>
+    /// Returns product groups for a showcase with showcase product information for each group
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetShowcaseGroups()
     {

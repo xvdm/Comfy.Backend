@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO.Compression;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,17 @@ builder.Services.AddSwaggerGen(options =>
             Array.Empty<string>()
         }
     });
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Description = "JwtValidation tag - request must contain 'Authorization' header with JWT access token. " +
+                      "The header should look like this: 'Bearer jwt', where 'Bearer' is a constant and 'jwt' is the actual jwt token." +
+                      "<br/> <br/>" +
+                      "If the response contains 'Token-Expired' header with value 'true', it means that JWT access token is expired. You need to refresh it and make the request again."
+    });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();

@@ -12,6 +12,9 @@ public sealed class QuestionsController : BaseController
     {
     }
 
+    /// <summary>
+    /// Returns questions for the product
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetQuestions(int productId, int? pageNumber, int? pageSize)
     {
@@ -19,6 +22,9 @@ public sealed class QuestionsController : BaseController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Creates a question for the product || JwtValidation
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> CreateQuestion(CreateQuestionCommand command)
     {
@@ -26,6 +32,9 @@ public sealed class QuestionsController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Creates an answer to the question || JwtValidation
+    /// </summary>
     [HttpPost("answer")]
     public async Task<IActionResult> CreateQuestionAnswer(CreateQuestionAnswerCommand command)
     {
@@ -33,6 +42,9 @@ public sealed class QuestionsController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Increases the number of likes on the question || JwtValidation
+    /// </summary>
     [HttpPut("like")]
     public async Task<IActionResult> LikeQuestion(int questionId, Guid userId)
     {
@@ -40,6 +52,9 @@ public sealed class QuestionsController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Increases the number of likes on the answer to the question || JwtValidation
+    /// </summary>
     [HttpPut("likeAnswer")]
     public async Task<IActionResult> LikeQuestionAnswer(int questionAnswerId, Guid userId)
     {
@@ -47,6 +62,9 @@ public sealed class QuestionsController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Increases the number of dislikes on the question || JwtValidation
+    /// </summary>
     [HttpPut("dislike")]
     public async Task<IActionResult> DislikeQuestion(int questionId, Guid userId)
     {
@@ -54,6 +72,9 @@ public sealed class QuestionsController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Increases the number of dislikes on the answer to the question || JwtValidation
+    /// </summary>
     [HttpPut("dislikeAnswer")]
     public async Task<IActionResult> DislikeQuestionAnswer(int questionAnswerId, Guid userId)
     {

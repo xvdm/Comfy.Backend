@@ -11,6 +11,9 @@ public sealed class CategoriesMenuController : BaseController
     {
     }
 
+    /// <summary>
+    /// Returns main categories, subcategories and filters for each subcategory
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetCategoriesMenu()
     {

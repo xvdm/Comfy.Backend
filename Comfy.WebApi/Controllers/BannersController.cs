@@ -11,6 +11,9 @@ public sealed class BannersController : BaseController
     {
     }
 
+    /// <summary>
+    /// Returns banners for the home page carousel
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetBanners()
     {

@@ -13,6 +13,9 @@ public sealed class ProductsController : BaseController
     {
     }
 
+    /// <summary>
+    /// Returns all information about the product
+    /// </summary>
     [HttpGet("byId")]
     public async Task<IActionResult> GetProduct(int id)
     {
@@ -20,6 +23,9 @@ public sealed class ProductsController : BaseController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Returns all information about the product
+    /// </summary>
     [HttpGet("byUrl")]
     public async Task<IActionResult> GetProduct(string url)
     {
@@ -27,6 +33,9 @@ public sealed class ProductsController : BaseController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Returns showcase information about the products (for recently watched products)
+    /// </summary>
     [HttpGet("byIds")]
     public async Task<IActionResult> GetProducts([FromQuery]int[] id)
     {
@@ -34,6 +43,9 @@ public sealed class ProductsController : BaseController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Returns showcase information about the products (products in specific subcategory, with filtering by characteristics)
+    /// </summary>
     [HttpGet("byQuery")]
     public async Task<IActionResult> GetProductsFromQuery(int subcategoryId, string? filterQuery, int? pageNumber, int? pageSize)
     {
