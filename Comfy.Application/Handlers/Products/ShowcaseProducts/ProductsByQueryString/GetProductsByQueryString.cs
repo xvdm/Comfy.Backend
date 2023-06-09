@@ -92,7 +92,7 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
 
             if (pair.Key == "brand")
             {
-                products = products.Where(x => ids.Contains(x.Brand.Id));
+                products = products.Where(x => ids.Contains(x.BrandId));
             }
             else
             {
