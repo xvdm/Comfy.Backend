@@ -8,6 +8,7 @@ namespace Comfy.Application.Handlers.Products.HomepageShowcase.DTO;
 public sealed record ShowcaseGroupDTO : IMapWith<ShowcaseGroup>
 {
     public string Name { get; init; } = null!;
+    public string SubcategoryId { get; init; } = null!;
     public string QueryString { get; init; } = null!;
     public IEnumerable<ShowcaseProductDTO> Products { get; init; } = null!;
 
