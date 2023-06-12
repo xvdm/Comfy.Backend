@@ -4,7 +4,7 @@ using Comfy.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comfy.Application.Handlers.Authorization;
+namespace Comfy.Application.Handlers.Email;
 
 public sealed record ConfirmEmailCommand(string Email, string ConfirmationCode) : IRequest<bool>;
 
