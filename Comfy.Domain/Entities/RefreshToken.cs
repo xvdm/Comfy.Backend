@@ -1,6 +1,6 @@
 ﻿using Comfy.Domain.Identity;
 
-namespace Comfy.Domain.Models;
+namespace Comfy.Domain.Entities;
 
 public sealed class RefreshToken
 {

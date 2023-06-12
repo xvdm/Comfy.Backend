@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Comfy.Application.Handlers.Banners;
 using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 using Comfy.Tests.Mock;
 using FluentAssertions;
 using MockQueryable.Moq;

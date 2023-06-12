@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

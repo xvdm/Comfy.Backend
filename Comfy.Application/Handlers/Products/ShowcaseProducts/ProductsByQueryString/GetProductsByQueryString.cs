@@ -3,7 +3,7 @@ using Comfy.Application.Common.Helpers;
 using Comfy.Application.Handlers.Products.DTO;
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString.DTO;
 using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

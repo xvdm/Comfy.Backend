@@ -1,4 +1,4 @@
-﻿namespace Comfy.Domain.Models;
+﻿namespace Comfy.Domain.Entities;
 
 public sealed class OrderStatus
 {

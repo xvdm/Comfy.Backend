@@ -1,5 +1,5 @@
 ﻿using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

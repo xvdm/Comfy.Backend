@@ -1,7 +1,7 @@
 ﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Handlers.Questions.QuestionAnswers;
 using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 using MockQueryable.Moq;
 using Moq;
 

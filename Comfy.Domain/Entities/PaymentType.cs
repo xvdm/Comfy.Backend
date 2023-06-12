@@ -1,6 +1,6 @@
-﻿namespace Comfy.Domain.Models;
+﻿namespace Comfy.Domain.Entities;
 
-public sealed class AddressType
+public sealed class PaymentType
 {
     public int Id { get; set; }
     public string Type { get; set; } = null!;

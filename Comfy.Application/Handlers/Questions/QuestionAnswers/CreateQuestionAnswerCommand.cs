@@ -1,7 +1,7 @@
 ﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Common.LocalizationStrings;
 using Comfy.Application.Interfaces;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

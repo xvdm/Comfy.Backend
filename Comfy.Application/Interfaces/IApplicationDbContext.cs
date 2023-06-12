@@ -1,5 +1,5 @@
-﻿using Comfy.Domain.Logging;
-using Comfy.Domain.Models;
+﻿using Comfy.Domain.Entities;
+using Comfy.Domain.Logging;
 using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Interfaces;

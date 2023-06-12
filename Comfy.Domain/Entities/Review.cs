@@ -1,7 +1,7 @@
 ﻿using Comfy.Domain.Base;
 using Comfy.Domain.Identity;
 
-namespace Comfy.Domain.Models;
+namespace Comfy.Domain.Entities;
 
 public sealed class Review : Auditable
 {

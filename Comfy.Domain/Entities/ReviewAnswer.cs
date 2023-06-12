@@ -1,9 +1,9 @@
 ﻿using Comfy.Domain.Base;
 using Comfy.Domain.Identity;
 
-namespace Comfy.Domain.Models;
+namespace Comfy.Domain.Entities;
 
-public sealed class QuestionAnswer : Auditable
+public sealed class ReviewAnswer : Auditable
 {
     public int Id { get; set; }
 
@@ -15,6 +15,6 @@ public sealed class QuestionAnswer : Auditable
     public int Dislikes { get; set; }
     public bool IsActive { get; set; }
 
-    public int QuestionId { get; set; }
-    public Question Question { get; set; } = null!;
+    public int ReviewId { get; set; }
+    public Review Review { get; set; } = null!;
 }

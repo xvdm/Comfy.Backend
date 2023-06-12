@@ -1,7 +1,7 @@
 ﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Interfaces;
+using Comfy.Domain.Entities;
 using Comfy.Domain.Identity;
-using Comfy.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

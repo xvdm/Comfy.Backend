@@ -3,9 +3,9 @@ using Comfy.Domain.Base;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Comfy.Domain.Entities;
 using Comfy.Domain.Identity;
 using Comfy.Domain.Logging;
-using Comfy.Domain.Models;
 
 namespace Comfy.Persistence;
 

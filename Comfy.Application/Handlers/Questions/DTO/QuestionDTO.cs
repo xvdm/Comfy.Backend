@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Comfy.Application.Common.Mappings;
-using Comfy.Domain.Models;
+using Comfy.Domain.Entities;
 
 namespace Comfy.Application.Handlers.Questions.DTO;
 
