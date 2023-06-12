@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
+using Comfy.Application.Services.Email;
 using Comfy.Application.Services.JwtAccessToken;
 using Comfy.Application.Services.RefreshTokens;
 
@@ -27,6 +28,8 @@ public static class DependencyInjection
 
         services.AddTransient<ICreateJwtAccessTokenService, CreateJwtAccessTokenService>();
         services.AddTransient<ICreateRefreshTokenService, CreateRefreshTokenService>();
+
+        services.AddTransient<IEmailService, EmailService>();
 
         ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("uk");
 

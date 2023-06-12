@@ -34,6 +34,7 @@ public interface IApplicationDbContext
     public DbSet<ShowcaseGroup> ShowcaseGroups { get; set; }
     public DbSet<Banner> Banners { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<PendingUser> PendingUsers { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

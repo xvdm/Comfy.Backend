@@ -84,7 +84,15 @@ builder.Services.AddSwaggerGen(options =>
         Description = "JwtValidation tag - request must contain 'Authorization' header with JWT access token. " +
                       "The header should look like this: 'Bearer jwt', where 'Bearer' is a constant and 'jwt' is the actual jwt token." +
                       "<br/> <br/>" +
-                      "If the response contains 'Token-Expired' header with value 'true', it means that JWT access token is expired. You need to refresh it and make the request again."
+                      "If the response contains 'Token-Expired' header with value 'true', it means that JWT access token is expired. You need to refresh it and make the request again." +
+                      "<br/> <br/>" +
+                      "Registration flow: <br/>" +
+                      "1. Send confirmation code to email (Email/sendRegistrationEmail) <br/>" +
+                      "2. Confirm email (Email/confirmEmail) <br/>" +
+                      "3. Register a user (Auth/register) <br/>" +
+                      "<br/><br/>" +
+                      "Registration via Google:<br/>" +
+                      "1. Register using Google Id Token that was obtained on the frontend (Auth/signIn-Google)"
     });
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

@@ -1,4 +1,5 @@
 ﻿using Comfy.Application.Handlers.Authorization;
+using Comfy.Application.Handlers.Email;
 using Comfy.WebApi.Controllers.Base;
 using Google.Apis.Auth;
 using MediatR;
@@ -16,7 +17,7 @@ public sealed class AuthController : BaseController
     /// Registers a new user with given credentials
     /// </summary>
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] CreateUserCommand command)
+    public async Task<IActionResult> RegisterUser([FromBody] CreateUserCommand command)
     {
         await Sender.Send(command);
         var result = await Sender.Send(new SignInByPasswordCommand(command.Email, command.Password));
