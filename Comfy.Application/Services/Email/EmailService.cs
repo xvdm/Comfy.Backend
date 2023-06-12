@@ -23,4 +23,12 @@ public sealed class EmailService : IEmailService
         //await client.SendAsync(emailMessage);
         //await client.DisconnectAsync(true);
     }
+
+    public async Task<string> GenerateEmailConfirmationCodeAsync()
+    {
+        await Task.CompletedTask;
+        var guid = Guid.NewGuid().ToString();
+        var confirmationCode = guid.Substring(0, guid.IndexOf('-'));
+        return confirmationCode;
+    }
 }

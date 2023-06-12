@@ -1,5 +1,6 @@
 ﻿using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Interfaces;
+using Comfy.Application.Services.Email;
 using Comfy.Domain.Entities;
 using Comfy.Domain.Identity;
 using MediatR;
@@ -15,11 +16,13 @@ public sealed class CreatePendingUserCommandHandler : IRequestHandler<CreatePend
 {
     private readonly UserManager<User> _userManager;
     private readonly IApplicationDbContext _context;
+    private readonly IEmailService _emailService;
 
-    public CreatePendingUserCommandHandler(UserManager<User> userManager, IApplicationDbContext context)
+    public CreatePendingUserCommandHandler(UserManager<User> userManager, IApplicationDbContext context, IEmailService emailService)
     {
         _userManager = userManager;
         _context = context;
+        _emailService = emailService;
     }
 
     public async Task<string> Handle(CreatePendingUserCommand request, CancellationToken cancellationToken)
@@ -29,9 +32,8 @@ public sealed class CreatePendingUserCommandHandler : IRequestHandler<CreatePend
 
         var pendingUsersCount = await _context.PendingUsers.CountAsync(x => x.Email == request.Email, cancellationToken);
         if (pendingUsersCount > 0) throw new UserWithGivenEmailAlreadyExistsException();
-        
-        var guid = Guid.NewGuid().ToString();
-        var confirmationCode = guid.Substring(0, guid.IndexOf('-'));
+
+        var confirmationCode = await _emailService.GenerateEmailConfirmationCodeAsync();
 
         var user = new PendingUser
         {
