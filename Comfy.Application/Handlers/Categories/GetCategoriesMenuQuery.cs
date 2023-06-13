@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Categories;
 
-public sealed record GetCategoriesMenuQuery : IRequest<CategoriesMenuDTO>, ICacheable
+public sealed record GetCategoriesMenuQuery : IRequest<IEnumerable<MainCategoryDTO>>, ICacheable
 {
     public string CacheKey => "categories-menu";
     public double ExpirationHours => 168;
 }
 
 
-public sealed class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQuery, CategoriesMenuDTO>
+public sealed class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategoriesMenuQuery, IEnumerable<MainCategoryDTO>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ public sealed class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategorie
         _mapper = mapper;
     }
 
-    public async Task<CategoriesMenuDTO> Handle(GetCategoriesMenuQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MainCategoryDTO>> Handle(GetCategoriesMenuQuery request, CancellationToken cancellationToken)
     {
         var mainCategories = await _context.MainCategories
             .Include(x => x.Categories)
@@ -32,12 +32,7 @@ public sealed class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategorie
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        var dto = _mapper.Map<IEnumerable<MainCategoryDTO>>(mainCategories);
-
-        var result = new CategoriesMenuDTO()
-        {
-            MainCategories = dto
-        };
+        var result = _mapper.Map<IEnumerable<MainCategoryDTO>>(mainCategories);
         return result;
     }
 }
