@@ -51,7 +51,7 @@ public sealed class GetCategoriesMenuQueryHandlerTests
         var result = await handler.Handle(query, default);
 
         // Assert
-        var main = result.MainCategories.ToList();
+        var main = result.ToList();
         var sub = main.FirstOrDefault()?.Categories.ToList();
         var filters = sub?.FirstOrDefault()?.Filters;
         main.Should().HaveCount(mainCategories.Count);
