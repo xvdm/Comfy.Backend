@@ -89,10 +89,20 @@ builder.Services.AddSwaggerGen(options =>
                       "Registration flow: <br/>" +
                       "1. Send confirmation code to email (Email/sendRegistrationEmail) <br/>" +
                       "2. Confirm email (Email/confirmEmail) <br/>" +
-                      "3. Register a user (Auth/register) <br/>" +
+                      "3. Register a user (Auth/register)" +
+                      "<br/><br/>" +
+                      "Sign in flow:<br/>" +
+                      "1. Check credentials (Auth/checkCredentialsAndTwoFactor)<br/>" +
+                      "2. If two-factor is disabled (false) - sign in with (Auth/signIn-Password)<br/>" +
+                      "2.1. If two-factor is enabled (true):<br/>" +
+                      "3. Verify authentication code with (TwoFactorAuth/verifyCode)<br/>" +
+                      "4. If code is verified (true) - sign in with (Auth/signIn-Password)" +
                       "<br/><br/>" +
                       "Registration via Google:<br/>" +
-                      "1. Register using Google Id Token that was obtained on the frontend (Auth/signIn-Google)"
+                      "1. Register using Google Id Token that was obtained on the frontend (Auth/signIn-Google)" +
+                      "<br/><br/>" +
+                      "Sign in via Google:<br/>" +
+                      "1. Sign in using Google Id Token that was obtained on the frontend (Auth/signIn-Google)"
     });
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
