@@ -38,7 +38,17 @@ public sealed class AuthController : BaseController
     /// Returns JWT access token, refresh token and user id for the signed in user
     /// </summary>
     [HttpPost("signIn-Password")]
-    public async Task<IActionResult> SignInPassword([FromBody] SignInByPasswordCommand query)
+    public async Task<IActionResult> SignInPassword([FromBody] SignInByPasswordCommand command)
+    {
+        var result = await Sender.Send(command);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Checks if given credentials are correct (email + password) and check if two-factor is enabled
+    /// </summary>
+    [HttpPost("checkCredentialsAndTwoFactor")]
+    public async Task<IActionResult> CheckCredentialsAndTwoFactor([FromBody] CheckCredentialsAndTwoFactorQuery query)
     {
         var result = await Sender.Send(query);
         return Ok(result);
