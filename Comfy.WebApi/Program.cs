@@ -81,28 +81,44 @@ builder.Services.AddSwaggerGen(options =>
     });
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Description = "JwtValidation tag - request must contain 'Authorization' header with JWT access token. " +
+        Description = "JwtValidation tag - request must contain 'Authorization' header with JWT access token.<br>" +
                       "The header should look like this: 'Bearer jwt', where 'Bearer' is a constant and 'jwt' is the actual jwt token." +
-                      "<br/> <br/>" +
+                      "<br> <br>" +
+
                       "If the response contains 'Token-Expired' header with value 'true', it means that JWT access token is expired. You need to refresh it and make the request again." +
-                      "<br/> <br/>" +
-                      "Registration flow: <br/>" +
-                      "1. Send confirmation code to email (Email/sendRegistrationEmail) <br/>" +
-                      "2. Confirm email (Email/confirmEmail) <br/>" +
+                      "<br> <br>" +
+
+                      "Registration flow: <br>" +
+                      "1. Send confirmation code to email (Email/sendRegistrationEmail) <br>" +
+                      "2. Confirm email (Email/confirmEmail) <br>" +
                       "3. Register a user (Auth/register)" +
-                      "<br/><br/>" +
+                      "<br><br>" +
+
                       "Sign in flow:<br/>" +
-                      "1. Check credentials (Auth/checkCredentialsAndTwoFactor)<br/>" +
-                      "2. If two-factor is disabled (false) - sign in with (Auth/signIn-Password)<br/>" +
-                      "2.1. If two-factor is enabled (true):<br/>" +
-                      "3. Verify authentication code with (TwoFactorAuth/verifyCode)<br/>" +
-                      "4. If code is verified (true) - sign in with (Auth/signIn-Password)" +
-                      "<br/><br/>" +
+                      "1. Check credentials (Auth/checkCredentialsAndTwoFactor)<br>" +
+                      "2. If two-factor is disabled - sign in with (Auth/signIn-Password)<br>" +
+                      "2.1. If two-factor is enabled:<br>" +
+                      "3. Verify authentication code with (TwoFactorAuth/verifyCode)<br>" +
+                      "4. If code is verified - sign in with (Auth/signIn-Password)" +
+                      "<br><br>" +
+
                       "Registration via Google:<br/>" +
                       "1. Register using Google Id Token that was obtained on the frontend (Auth/signIn-Google)" +
-                      "<br/><br/>" +
+                      "<br><br>" +
+
                       "Sign in via Google:<br/>" +
-                      "1. Sign in using Google Id Token that was obtained on the frontend (Auth/signIn-Google)"
+                      "1. Sign in using Google Id Token that was obtained on the frontend (Auth/signIn-Google)" +
+                      "<br><br>" +
+
+                      "Enable two-factor authentication:<br>" +
+                      "1. Get auth setup info and display to the user (TwoFactorAuth/getAuthSetupInfo)" +
+                      "2. Verify authentication code (TwoFactorAuth/verifyCode)<br>" +
+                      "3. If code is verified, than enable two-factor auth (TwoFactorAuth/enableTwoFactor)"+
+                      "<br><br>" +
+
+                      "Disable two-factor authentication:<br>" +
+                      "1. Verify authentication code (TwoFactorAuth/verifyCode)<br>" +
+                      "2. If code is verified, than disable two-factor auth (TwoFactorAuth/disableTwoFactor)"
     });
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
