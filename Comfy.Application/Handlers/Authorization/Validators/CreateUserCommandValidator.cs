@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Authorization.Validators;
 
-public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
     public CreateUserCommandValidator()
     {

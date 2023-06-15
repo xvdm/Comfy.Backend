@@ -2,7 +2,7 @@
 
 namespace Comfy.Application.Handlers.Authorization.Validators;
 
-public class SignInGoogleCommandValidator : AbstractValidator<SignInGoogleCommand>
+public sealed class SignInGoogleCommandValidator : AbstractValidator<SignInGoogleCommand>
 {
     public SignInGoogleCommandValidator()
     {
