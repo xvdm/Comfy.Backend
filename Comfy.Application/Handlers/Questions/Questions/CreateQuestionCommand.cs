@@ -1,9 +1,6 @@
-﻿using Comfy.Application.Common.Constants;
-using Comfy.Application.Common.Exceptions;
-using Comfy.Application.Interfaces;
+﻿using Comfy.Application.Interfaces;
 using Comfy.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions.Questions;
 
@@ -26,9 +23,6 @@ public sealed class CreateQuestionCommandHandler : IRequestHandler<CreateQuestio
 
     public async Task Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
     {
-        var product = await _context.Products.CountAsync(x => x.Id == request.ProductId, cancellationToken);
-        if (product <= 0) throw new NotFoundException(LocalizationStrings.Product);
-
         var question = new Question
         {
             ProductId = request.ProductId,
