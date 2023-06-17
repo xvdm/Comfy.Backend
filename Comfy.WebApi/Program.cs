@@ -85,7 +85,8 @@ builder.Services.AddSwaggerGen(options =>
                       "The header should look like this: 'Bearer jwt', where 'Bearer' is a constant and 'jwt' is the actual jwt token." +
                       "<br> <br>" +
 
-                      "If the response contains 'Token-Expired' header with value 'true', it means that JWT access token is expired. You need to refresh it and make the request again." +
+                      "If the response contains 'Token-Expired' header with value 'true', it means that JWT access token is expired.<br>" +
+                      "You need to refresh it and make the request again. (Auth/refreshAccessToken)" +
                       "<br> <br>" +
 
                       "Registration flow: <br>" +
@@ -111,7 +112,7 @@ builder.Services.AddSwaggerGen(options =>
                       "<br><br>" +
 
                       "Enable two-factor authentication:<br>" +
-                      "1. Get auth setup info and display to the user (TwoFactorAuth/getAuthSetupInfo)<br>" +
+                      "1. Get authentication setup information and display to the user (TwoFactorAuth/getAuthSetupInfo)<br>" +
                       "2. Verify authentication code (TwoFactorAuth/verifyCode)<br>" +
                       "3. If code is verified, than enable two-factor auth (TwoFactorAuth/enableTwoFactor)"+
                       "<br><br>" +
