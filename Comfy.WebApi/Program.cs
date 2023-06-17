@@ -111,7 +111,7 @@ builder.Services.AddSwaggerGen(options =>
                       "<br><br>" +
 
                       "Enable two-factor authentication:<br>" +
-                      "1. Get auth setup info and display to the user (TwoFactorAuth/getAuthSetupInfo)" +
+                      "1. Get auth setup info and display to the user (TwoFactorAuth/getAuthSetupInfo)<br>" +
                       "2. Verify authentication code (TwoFactorAuth/verifyCode)<br>" +
                       "3. If code is verified, than enable two-factor auth (TwoFactorAuth/enableTwoFactor)"+
                       "<br><br>" +
