@@ -1,5 +1,5 @@
-﻿using Comfy.Application.Common.Exceptions;
-using Comfy.Application.Common.LocalizationStrings;
+﻿using Comfy.Application.Common.Constants;
+using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Handlers.TwoFactorAuthentication.DTO;
 using Comfy.Application.Interfaces;
 using Comfy.Domain.Identity;

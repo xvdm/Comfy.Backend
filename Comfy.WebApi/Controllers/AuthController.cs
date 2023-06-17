@@ -1,5 +1,4 @@
 ﻿using Comfy.Application.Handlers.Authorization;
-using Comfy.Application.Handlers.Email;
 using Comfy.WebApi.Controllers.Base;
 using Google.Apis.Auth;
 using MediatR;
