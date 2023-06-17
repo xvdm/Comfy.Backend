@@ -1,9 +1,6 @@
-﻿using Comfy.Application.Common.Constants;
-using Comfy.Application.Common.Exceptions;
-using Comfy.Application.Interfaces;
+﻿using Comfy.Application.Interfaces;
 using Comfy.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.ReviewAnswers;
 
@@ -26,9 +23,6 @@ public sealed class CreateReviewAnswerCommandHandler : IRequestHandler<CreateRev
 
     public async Task Handle(CreateReviewAnswerCommand request, CancellationToken cancellationToken)
     {
-        var review = await _context.Reviews.CountAsync(x => x.Id == request.ReviewId, cancellationToken);
-        if (review <= 0) throw new NotFoundException(LocalizationStrings.Review);
-
         var answer = new ReviewAnswer
         {
             ReviewId = request.ReviewId,

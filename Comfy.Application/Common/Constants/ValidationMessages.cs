@@ -7,4 +7,5 @@ public sealed record ValidationMessages
     public const string ConfirmationCodeWasAlreadySent = "На вказаний email вже надіслано код підтверждення.";
     public const string QuestionWasNotFound = "Питання не знайдено.";
     public const string QuestionAnswerWasNotFound = "Відповідь на питання не знайдено.";
+    public const string ReviewWasNotFound = "Відгук не знайдено.";
 }
