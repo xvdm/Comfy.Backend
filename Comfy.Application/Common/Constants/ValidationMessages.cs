@@ -8,4 +8,5 @@ public sealed record ValidationMessages
     public const string QuestionWasNotFound = "Питання не знайдено.";
     public const string QuestionAnswerWasNotFound = "Відповідь на питання не знайдено.";
     public const string ReviewWasNotFound = "Відгук не знайдено.";
+    public const string ReviewAnswerWasNotFound = "Відповідь на відгук не знайдено.";
 }

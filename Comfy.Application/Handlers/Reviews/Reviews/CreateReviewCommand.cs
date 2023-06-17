@@ -1,9 +1,6 @@
-﻿using Comfy.Application.Common.Constants;
-using Comfy.Application.Common.Exceptions;
-using Comfy.Application.Interfaces;
+﻿using Comfy.Application.Interfaces;
 using Comfy.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.Reviews;
 
@@ -29,9 +26,6 @@ public sealed class CreateReviewCommandHandler : IRequestHandler<CreateReviewCom
 
     public async Task Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
-        var product = await _context.Products.CountAsync(x => x.Id == request.ProductId, cancellationToken);
-        if (product <= 0) throw new NotFoundException(LocalizationStrings.Product);
-
         var review = new Review
         {
             ProductId = request.ProductId,
