@@ -24,6 +24,7 @@ public sealed class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsBy
     {
         var products = await _context.Products
             .Where(x => request.Ids.Contains(x.Id))
+            .Where(x => x.IsActive == true)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Comfy.Application.Common.Constants;
+using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Application.Interfaces;
 using Comfy.Domain.Entities;
@@ -38,7 +40,7 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
             .Include(x => x.Model)
             .Include(x => x.PriceHistory)
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == request.ProductId, cancellationToken);
+            .FirstOrDefaultAsync(x => x.Id == request.ProductId && x.IsActive == true, cancellationToken);
 
         var result = _mapper.Map<Product, ProductDTO>(product!);
         return result;

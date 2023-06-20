@@ -38,7 +38,7 @@ public sealed class GetProductByUrlQueryHandler : IRequestHandler<GetProductByUr
             .Include(x => x.Model)
             .Include(x => x.PriceHistory)
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Url == request.Url, cancellationToken);
+            .FirstOrDefaultAsync(x => x.Url == request.Url && x.IsActive == true, cancellationToken);
 
         var result = _mapper.Map<Product, ProductDTO>(product!);
         return result;

@@ -74,6 +74,7 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
 
         var products = _context.Products
             .Where(x => x.CategoryId == request.SubcategoryId)
+            .Where(x => x.IsActive == true)
             .AsNoTracking()
             .AsQueryable();
 
