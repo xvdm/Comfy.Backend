@@ -81,7 +81,7 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
         if (queryDictionary.Any())
         {
             products = products
-                .Include(x => x.Images.Take(3))
+                .Include(x => x.Images.OrderBy(y => y.Id).Take(3))
                 .Include(x => x.Model)
                 .Include(x => x.Category)
                 .Include(x => x.Brand)
