@@ -95,6 +95,10 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
             {
                 products = products.Where(x => ids.Contains(x.BrandId));
             }
+            else if (pair.Key == "model")
+            {
+                products = products.Where(x => ids.Contains(x.ModelId));
+            }
             else
             {
                 products = products.Where(x => x.Characteristics.Any(c => ids.Contains(c.CharacteristicsValueId)));
