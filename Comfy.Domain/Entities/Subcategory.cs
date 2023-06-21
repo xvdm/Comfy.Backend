@@ -4,12 +4,10 @@ public sealed class Subcategory
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;
+    public string? ImageUrl { get; set; }
 
     public int MainCategoryId { get; set; }
     public MainCategory MainCategory { get; set; } = null!;
-
-    public int? ImageId { get; set; }
-    public SubcategoryImage? Image { get; set; } = null!;
 
     public ISet<Characteristic> UniqueCharacteristics { get; set; } = null!;
     public ISet<Brand> UniqueBrands { get; set; } = null!;
