@@ -47,9 +47,9 @@ public sealed class ProductsController : BaseController
     /// Returns showcase information about the products (products in specific subcategory, with filtering by characteristics)
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetProductsFromQuery(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? filterQuery, int? pageNumber, int? pageSize)
+    public async Task<IActionResult> GetProductsWithFilteringAndSorting(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? filterQuery, int? pageNumber, int? pageSize)
     {
-        var result = await Sender.Send(new GetProductsByQueryString(subcategoryId, searchTerm, sortColumn, sortOrder, filterQuery, pageNumber, pageSize));
+        var result = await Sender.Send(new GetProductsQuery(subcategoryId, searchTerm, sortColumn, sortOrder, filterQuery, pageNumber, pageSize));
         return Ok(result);
     }
 }

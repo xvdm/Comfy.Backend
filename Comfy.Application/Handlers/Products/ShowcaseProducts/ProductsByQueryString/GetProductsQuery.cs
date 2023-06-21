@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString;
 
-public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
+public sealed record GetProductsQuery : IRequest<ProductsPageDTO>
 {
     public string? SearchTerm { get; init; }
     public string? QueryString { get; init; }
@@ -33,7 +33,7 @@ public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetProductsByQueryString(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
+    public GetProductsQuery(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
     {
         SubcategoryId = subcategoryId;
         SearchTerm = searchTerm?.Trim();
@@ -46,18 +46,18 @@ public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
 }
 
 
-public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProductsByQueryString, ProductsPageDTO>
+public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, ProductsPageDTO>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetProductsByQueryStringHandler(IApplicationDbContext context, IMapper mapper)
+    public GetProductsQueryHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
 
-    public async Task<ProductsPageDTO> Handle(GetProductsByQueryString request, CancellationToken cancellationToken)
+    public async Task<ProductsPageDTO> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
         var queryString = request.QueryString;
         var changed = ProductUrl.RemoveEmptyAndDuplicatesFromQuery(queryString, out var queryDictionary);
@@ -151,7 +151,7 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
     }
 
 
-    private static Expression<Func<Product, object>> GetSortProperty(GetProductsByQueryString request)
+    private static Expression<Func<Product, object>> GetSortProperty(GetProductsQuery request)
     {
         return request.SortColumn switch
         {
