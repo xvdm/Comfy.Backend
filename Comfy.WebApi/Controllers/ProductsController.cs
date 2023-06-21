@@ -44,8 +44,13 @@ public sealed class ProductsController : BaseController
     }
 
     /// <summary>
-    /// Returns showcase information about the products (products in specific subcategory, with filtering by characteristics)
+    /// Returns showcase information about the products (products in specific subcategory, with sorting, searching by name and filtering by characteristics, models and brands)
     /// </summary>
+    /// <param name="searchTerm">Needed for searching by products names</param>
+    /// <param name="sortColumn">Needed for determining the column by which sorting is applied. Possible values: 'name', 'price', 'rating'</param>
+    /// <param name="sortOrder">Needed for determining the sort ordering. Possible values: 'desc' for descending order. For ascending order - anything else, including null</param>
+    /// <param name="filterQuery">Needed for filtering products by their brand, model or characteristics</param>
+
     [HttpGet]
     public async Task<IActionResult> GetProductsWithFilteringAndSorting(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? filterQuery, int? pageNumber, int? pageSize)
     {
