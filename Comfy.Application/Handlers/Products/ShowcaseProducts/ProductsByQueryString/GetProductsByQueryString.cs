@@ -11,6 +11,7 @@ namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQuerySt
 
 public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
 {
+    public string? SearchTerm { get; init; }
     public string? QueryString { get; init; }
     public int SubcategoryId { get; init; }
 
@@ -29,9 +30,10 @@ public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetProductsByQueryString(int subcategoryId, string? queryString, int? pageNumber, int? pageSize)
+    public GetProductsByQueryString(int subcategoryId, string? searchTerm, string? queryString, int? pageNumber, int? pageSize)
     {
         SubcategoryId = subcategoryId;
+        SearchTerm = searchTerm;
         QueryString = queryString;
         if (pageNumber is not null) PageNumber = (int)pageNumber;
         if (pageSize is not null) PageSize = (int)pageSize;
@@ -71,17 +73,22 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
         };
 
         if (category is null) return result;
-
+        
         var products = _context.Products
+            .Include(x => x.Images.OrderBy(y => y.Id).Take(3))
             .Where(x => x.CategoryId == request.SubcategoryId)
             .Where(x => x.IsActive == true)
             .AsNoTracking()
             .AsQueryable();
 
+        if (string.IsNullOrEmpty(request.SearchTerm) == false)
+        {
+            products = products.Where(x => x.Name.Contains(request.SearchTerm));
+        }
+
         if (queryDictionary.Any())
         {
             products = products
-                .Include(x => x.Images.OrderBy(y => y.Id).Take(3))
                 .Include(x => x.Model)
                 .Include(x => x.Category)
                 .Include(x => x.Brand)
