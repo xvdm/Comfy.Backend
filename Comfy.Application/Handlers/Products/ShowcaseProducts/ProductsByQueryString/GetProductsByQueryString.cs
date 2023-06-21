@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using Comfy.Application.Common.Helpers;
 using Comfy.Application.Handlers.Products.DTO;
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString.DTO;
@@ -13,6 +14,8 @@ public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
 {
     public string? SearchTerm { get; init; }
     public string? QueryString { get; init; }
+    public string? SortColumn { get; init; }
+    public string? SortOrder { get; init; }
     public int SubcategoryId { get; init; }
 
     private const int MaxPageSize = 50;
@@ -30,11 +33,13 @@ public sealed record GetProductsByQueryString : IRequest<ProductsPageDTO>
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetProductsByQueryString(int subcategoryId, string? searchTerm, string? queryString, int? pageNumber, int? pageSize)
+    public GetProductsByQueryString(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
     {
         SubcategoryId = subcategoryId;
-        SearchTerm = searchTerm;
-        QueryString = queryString;
+        SearchTerm = searchTerm?.Trim();
+        QueryString = queryString?.ToLower();
+        SortColumn = sortColumn?.Trim().ToLower();
+        SortOrder = sortOrder?.Trim().ToLower();
         if (pageNumber is not null) PageNumber = (int)pageNumber;
         if (pageSize is not null) PageSize = (int)pageSize;
     }
@@ -84,6 +89,15 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
         if (string.IsNullOrEmpty(request.SearchTerm) == false)
         {
             products = products.Where(x => x.Name.Contains(request.SearchTerm));
+        }
+
+        if (request.SortOrder == "desc")
+        {
+            products = products.OrderByDescending(GetSortProperty(request));
+        }
+        else
+        {
+            products = products.OrderBy(GetSortProperty(request));
         }
 
         if (queryDictionary.Any())
@@ -136,6 +150,17 @@ public sealed class GetProductsByQueryStringHandler : IRequestHandler<GetProduct
         return result;
     }
 
+
+    private static Expression<Func<Product, object>> GetSortProperty(GetProductsByQueryString request)
+    {
+        return request.SortColumn switch
+        {
+            "name" => x => x.Name,
+            "price" => x => x.Price,
+            "rating" => x => x.Rating,
+            _ => x => x.Id
+        };
+    }
 
 
     private IEnumerable<CharacteristicDTO> GetCharacteristicsInCategory(Subcategory category)
