@@ -1,12 +1,15 @@
 ﻿using Comfy.Application.Handlers.Reviews.ReviewAnswers;
 using Comfy.Application.Handlers.Reviews.ReviewAnswers.Validators;
+using Comfy.Application.Interfaces;
 using FluentAssertions;
+using Moq;
 
 namespace Comfy.Tests.ReviewAnswers.Validators;
 
 public sealed class CreateReviewAnswerCommandValidatorTests
 {
     private readonly CreateReviewAnswerCommand _baseCommand;
+    private readonly Mock<IApplicationDbContext> _contextMock;
     public CreateReviewAnswerCommandValidatorTests()
     {
         _baseCommand = new CreateReviewAnswerCommand
@@ -15,6 +18,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
             Text = "text",
             UserId = Guid.NewGuid()
         };
+        _contextMock = new Mock<IApplicationDbContext>();
     }
 
     [Theory]
@@ -22,7 +26,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenUserIdIsGuid(Guid userId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -37,7 +41,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenUserIdIsGuidEmpty(Guid userId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -53,7 +57,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenReviewIdIsGreaterThanZero(int reviewId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { ReviewId = reviewId };
 
         // Act
@@ -69,7 +73,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenReviewIdIsLessThanZero(int reviewId)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { ReviewId = reviewId };
 
         // Act
@@ -85,7 +89,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenTextIsNotEmpty(string text)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Text = text };
 
         // Act
@@ -101,7 +105,7 @@ public sealed class CreateReviewAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenTextIsEmpty(string text)
     {
         // Arrange
-        var validator = new CreateReviewAnswerCommandValidator();
+        var validator = new CreateReviewAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Text = text };
 
         // Act

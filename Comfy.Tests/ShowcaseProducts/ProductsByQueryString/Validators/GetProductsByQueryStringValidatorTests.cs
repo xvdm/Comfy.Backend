@@ -13,7 +13,7 @@ public sealed class GetProductsByQueryStringValidatorTests
     {
         // Arrange
         var validator = new GetProductsByQueryStringValidator();
-        var query = new GetProductsByQueryString(subcategoryId, null, null, null);
+        var query = new GetProductsQuery(subcategoryId, null, null, null, null, null, null);
 
         // Act
         var validationResult = await validator.ValidateAsync(query);
@@ -29,7 +29,7 @@ public sealed class GetProductsByQueryStringValidatorTests
     {
         // Arrange
         var validator = new GetProductsByQueryStringValidator();
-        var query = new GetProductsByQueryString(subcategoryId, null, null, null);
+        var query = new GetProductsQuery(subcategoryId, null, null, null, null, null, null);
 
         // Act
         var validationResult = await validator.ValidateAsync(query);

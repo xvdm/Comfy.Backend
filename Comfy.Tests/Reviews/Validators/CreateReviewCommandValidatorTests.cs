@@ -1,12 +1,15 @@
 ﻿using Comfy.Application.Handlers.Reviews.Reviews;
 using Comfy.Application.Handlers.Reviews.Reviews.Validators;
+using Comfy.Application.Interfaces;
 using FluentAssertions;
+using Moq;
 
 namespace Comfy.Tests.Reviews.Validators;
 
 public sealed class CreateReviewCommandValidatorTests
 {
     private readonly CreateReviewCommand _baseCommand;
+    private readonly Mock<IApplicationDbContext> _contextMock;
     public CreateReviewCommandValidatorTests()
     {
         _baseCommand = new CreateReviewCommand
@@ -18,6 +21,7 @@ public sealed class CreateReviewCommandValidatorTests
             Text = "text",
             UserId = Guid.NewGuid()
         };
+        _contextMock = new Mock<IApplicationDbContext>();
     }
 
     [Theory]
@@ -25,7 +29,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenUserIdIsGuid(Guid userId)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -40,7 +44,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenUserIdIsGuidEmpty(Guid userId)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -56,7 +60,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenProductIdIsGreaterThanZero(int productId)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { ProductId = productId };
 
         // Act
@@ -72,7 +76,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenProductIdIsLessThanZero(int productId)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { ProductId = productId };
 
         // Act
@@ -88,7 +92,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenTextIsNotEmpty(string text)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Text = text };
 
         // Act
@@ -104,7 +108,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenTextIsEmpty(string text)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Text = text };
 
         // Act
@@ -120,7 +124,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenAdvantagesIsNotEmpty(string advantages)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Advantages = advantages };
 
         // Act
@@ -136,7 +140,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenAdvantagesIsEmpty(string advantages)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Advantages = advantages };
 
         // Act
@@ -152,7 +156,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenDisadvantagesIsNotEmpty(string disadvantages)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Disadvantages = disadvantages };
 
         // Act
@@ -168,7 +172,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenDisadvantagesIsEmpty(string disadvantages)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Disadvantages = disadvantages };
 
         // Act
@@ -187,7 +191,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenProductRatingIsInclusiveBetweenOneAndFive(double productRating)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { ProductRating = productRating };
 
         // Act
@@ -206,7 +210,7 @@ public sealed class CreateReviewCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenProductRatingIsNotInclusiveBetweenOneAndFive(double productRating)
     {
         // Arrange
-        var validator = new CreateReviewCommandValidator();
+        var validator = new CreateReviewCommandValidator(_contextMock.Object);
         var command = _baseCommand with { ProductRating = productRating };
 
         // Act

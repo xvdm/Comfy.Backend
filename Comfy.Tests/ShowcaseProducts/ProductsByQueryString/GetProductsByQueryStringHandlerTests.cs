@@ -39,8 +39,8 @@ public sealed class GetProductsByQueryStringHandlerTests
         var categoriesMock = categories.AsQueryable().BuildMockDbSet();
         _contextMock.Setup(x => x.Subcategories).Returns(categoriesMock.Object);
 
-        var query = new GetProductsByQueryString(1, null, null, null);
-        var handler = new GetProductsByQueryStringHandler(_contextMock.Object, _mapper);
+        var query = new GetProductsQuery(1, null, null, null, null, null, null);
+        var handler = new GetProductsQueryHandler(_contextMock.Object, _mapper);
 
         // Act
         var result = await handler.Handle(query, default);

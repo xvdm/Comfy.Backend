@@ -1,6 +1,10 @@
 ﻿using Comfy.Application.Handlers.Authorization;
 using Comfy.Application.Handlers.Authorization.Validators;
+using Comfy.Application.Interfaces;
+using Comfy.Domain.Identity;
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
+using Moq;
 
 namespace Comfy.Tests.Authorization.Validators;
 
@@ -24,7 +28,9 @@ public sealed class CreateUserCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenNameLengthIsInclusiveBetweenTwoAndThirty(string name)
     {
         // Arrange
-        var validator = new CreateUserCommandValidator();
+        var store = new Mock<IUserStore<User>>();
+        var userManagerMock = new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        var validator = new CreateUserCommandValidator(userManagerMock.Object);
         var command = _baseCommand with { Name = name };
 
         // Act
@@ -42,7 +48,9 @@ public sealed class CreateUserCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenNameLengthIsNotInclusiveBetweenTwoAndThirty(string name)
     {
         // Arrange
-        var validator = new CreateUserCommandValidator();
+        var store = new Mock<IUserStore<User>>();
+        var userManagerMock = new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        var validator = new CreateUserCommandValidator(userManagerMock.Object);
         var command = _baseCommand with { Name = name };
 
         // Act
@@ -58,7 +66,9 @@ public sealed class CreateUserCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenPasswordLengthIsNotInclusiveBetweenSixAndThirty(string password)
     {
         // Arrange
-        var validator = new CreateUserCommandValidator();
+        var store = new Mock<IUserStore<User>>();
+        var userManagerMock = new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        var validator = new CreateUserCommandValidator(userManagerMock.Object);
         var command = _baseCommand with { Password = password };
 
         // Act
@@ -76,7 +86,9 @@ public sealed class CreateUserCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenPasswordLengthIsNotInclusiveBetweenSixAndThirty(string password)
     {
         // Arrange
-        var validator = new CreateUserCommandValidator();
+        var store = new Mock<IUserStore<User>>();
+        var userManagerMock = new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        var validator = new CreateUserCommandValidator(userManagerMock.Object);
         var command = _baseCommand with { Password = password };
 
         // Act
@@ -92,7 +104,9 @@ public sealed class CreateUserCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenEmailIsValidEmailAddress(string email)
     {
         // Arrange
-        var validator = new CreateUserCommandValidator();
+        var store = new Mock<IUserStore<User>>();
+        var userManagerMock = new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        var validator = new CreateUserCommandValidator(userManagerMock.Object);
         var command = _baseCommand with { Email = email };
 
         // Act
@@ -110,7 +124,9 @@ public sealed class CreateUserCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenEmailIsNotValidEmailAddress(string email)
     {
         // Arrange
-        var validator = new CreateUserCommandValidator();
+        var store = new Mock<IUserStore<User>>();
+        var userManagerMock = new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        var validator = new CreateUserCommandValidator(userManagerMock.Object);
         var command = _baseCommand with { Email = email };
 
         // Act

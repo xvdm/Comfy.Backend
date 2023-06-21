@@ -1,12 +1,15 @@
 ﻿using Comfy.Application.Handlers.Questions.QuestionAnswers;
 using Comfy.Application.Handlers.Questions.QuestionAnswers.Validators;
+using Comfy.Application.Interfaces;
 using FluentAssertions;
+using Moq;
 
 namespace Comfy.Tests.QuestionAnswers.Validators;
 
 public sealed class CreateQuestionAnswerCommandValidatorTests
 {
     private readonly CreateQuestionAnswerCommand _baseCommand;
+    private readonly Mock<IApplicationDbContext> _contextMock;
     public CreateQuestionAnswerCommandValidatorTests()
     {
         _baseCommand = new CreateQuestionAnswerCommand
@@ -15,6 +18,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
             Text = "text",
             UserId = Guid.NewGuid()
         };
+        _contextMock = new Mock<IApplicationDbContext>();
     }
 
     [Theory]
@@ -22,7 +26,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenUserIdIsGuid(Guid userId)
     {
         // Arrange
-        var validator = new CreateQuestionAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -37,7 +41,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenUserIdIsGuidEmpty(Guid userId)
     {
         // Arrange
-        var validator = new CreateQuestionAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { UserId = userId };
 
         // Act
@@ -53,7 +57,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenQuestionIdIsGreaterThanZero(int questionId)
     {
         // Arrange
-        var validator = new CreateQuestionAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { QuestionId = questionId };
 
         // Act
@@ -69,7 +73,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenQuestionIdIsLessThanZero(int questionId)
     {
         // Arrange
-        var validator = new CreateQuestionAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { QuestionId = questionId };
 
         // Act
@@ -85,7 +89,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenTextIsNotEmpty(string text)
     {
         // Arrange
-        var validator = new CreateQuestionAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Text = text };
 
         // Act
@@ -101,7 +105,7 @@ public sealed class CreateQuestionAnswerCommandValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenTextIsEmpty(string text)
     {
         // Arrange
-        var validator = new CreateQuestionAnswerCommandValidator();
+        var validator = new CreateQuestionAnswerCommandValidator(_contextMock.Object);
         var command = _baseCommand with { Text = text };
 
         // Act
