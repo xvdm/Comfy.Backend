@@ -12,7 +12,7 @@ public class TwoFactorAuthController : BaseController
     }
 
     /// <summary>
-    /// Sets two-factor enabled
+    /// Sets two-factor enabled || JwtValidation
     /// </summary>
     [HttpPost("enableTwoFactor")]
     public async Task<IActionResult> EnableTwoFactor([FromBody] EnableTwoFactorCommand command)
@@ -22,7 +22,7 @@ public class TwoFactorAuthController : BaseController
     }
 
     /// <summary>
-    /// Sets two-factor disabled
+    /// Sets two-factor disabled || JwtValidation
     /// </summary>
     [HttpPost("disableTwoFactor")]
     public async Task<IActionResult> DisableTwoFactor([FromBody] DisableTwoFactorCommand command)

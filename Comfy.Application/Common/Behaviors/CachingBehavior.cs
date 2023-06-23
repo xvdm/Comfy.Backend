@@ -22,7 +22,7 @@ public sealed class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         {
             response = await next.Invoke();
             cachedValue = JsonSerializer.Serialize(response);
-            var options = new DistributedCacheEntryOptions()
+            var options = new DistributedCacheEntryOptions
             {
                 SlidingExpiration = TimeSpan.FromHours(request.ExpirationHours)
             };
