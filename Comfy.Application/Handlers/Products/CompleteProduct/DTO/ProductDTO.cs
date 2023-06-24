@@ -16,6 +16,8 @@ public sealed record ProductDTO : IMapWith<Product>
     public double Rating { get; init; }
     public int ReviewsNumber { get; set; }
     public string Url { get; init; } = null!;
+    public string SubcategoryName { get; init; } = null!;
+    public string MainCategoryName { get; init; } = null!;
 
     public IEnumerable<PriceHistoryDTO> PriceHistory { get; init; } = null!;
     public IEnumerable<ImageDTO> Images { get; init; } = null!;
@@ -23,6 +25,8 @@ public sealed record ProductDTO : IMapWith<Product>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Product, ProductDTO>();
+        profile.CreateMap<Product, ProductDTO>()
+            .ForMember(dto => dto.SubcategoryName, x => x.MapFrom(product => product.Category.Name))
+            .ForMember(dto => dto.MainCategoryName, x => x.MapFrom(product => product.Category.MainCategory.Name));
     }
 }

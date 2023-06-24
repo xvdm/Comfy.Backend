@@ -30,6 +30,8 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
     public async Task<ProductDTO> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
         var product = await _context.Products
+            .Include(x => x.Category)
+                .ThenInclude(x => x.MainCategory)
             .Include(x => x.Brand)
             .Include(x => x.Category)
             .Include(x => x.Characteristics)
