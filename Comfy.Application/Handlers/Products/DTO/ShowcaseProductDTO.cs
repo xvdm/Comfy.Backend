@@ -2,7 +2,6 @@
 using Comfy.Application.Common.Mappings;
 using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Domain.Entities;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace Comfy.Application.Handlers.Products.DTO;
 
@@ -20,6 +19,7 @@ public sealed record ShowcaseProductDTO : IMapWith<Product>
     public string SubcategoryName { get; init; } = null!;
 
     public IEnumerable<ImageDTO> Images { get; init; } = null!;
+    public IEnumerable<CharacteristicGroupDTO> CharacteristicGroups { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {

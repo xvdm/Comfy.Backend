@@ -14,6 +14,7 @@ public interface IApplicationDbContext
     public DbSet<MainCategory> MainCategories { get; set; }
     public DbSet<Subcategory> Subcategories { get; set; }
     public DbSet<Characteristic> Characteristics { get; set; }
+    public DbSet<CharacteristicGroup> CharacteristicGroups { get; set; }
     public DbSet<CharacteristicName> CharacteristicsNames { get; set; }
     public DbSet<CharacteristicValue> CharacteristicsValues { get; set; }
     public DbSet<Image> Images { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Comfy.Application.Common.Mappings;
+using Comfy.Application.Handlers.Products.DTO;
 using Comfy.Domain.Entities;
 
 namespace Comfy.Application.Handlers.Products.CompleteProduct.DTO;
@@ -21,12 +22,13 @@ public sealed record ProductDTO : IMapWith<Product>
 
     public IEnumerable<PriceHistoryDTO> PriceHistory { get; init; } = null!;
     public IEnumerable<ImageDTO> Images { get; init; } = null!;
-    public IEnumerable<CharacteristicDTO> Characteristics { get; init; } = null!;
+    public IEnumerable<CharacteristicGroupDTO> CharacteristicGroups { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Product, ProductDTO>()
             .ForMember(dto => dto.SubcategoryName, x => x.MapFrom(product => product.Category.Name))
-            .ForMember(dto => dto.MainCategoryName, x => x.MapFrom(product => product.Category.MainCategory.Name));
+            .ForMember(dto => dto.MainCategoryName, x => x.MapFrom(product => product.Category.MainCategory.Name))
+            .ForMember(dto => dto.CharacteristicGroups, x => x.MapFrom(product => product.CharacteristicGroups.Where(y => y.Characteristics.Any())));
     }
 }

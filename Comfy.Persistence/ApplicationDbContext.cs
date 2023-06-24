@@ -24,6 +24,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, ApplicationRo
     public DbSet<MainCategory> MainCategories { get; set; } = null!;
     public DbSet<Subcategory> Subcategories { get; set; } = null!;
     public DbSet<Characteristic> Characteristics { get; set; } = null!;
+    public DbSet<CharacteristicGroup> CharacteristicGroups { get; set; } = null!;
     public DbSet<CharacteristicName> CharacteristicsNames { get; set; } = null!;
     public DbSet<CharacteristicValue> CharacteristicsValues { get; set; } = null!;
     public DbSet<Image> Images { get; set; } = null!;

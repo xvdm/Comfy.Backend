@@ -82,6 +82,12 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         var products = _context.Products
             .Include(x => x.Images.OrderBy(y => y.Id).Take(3))
             .Include(x => x.Category)
+            .Include(x => x.CharacteristicGroups.OrderBy(y => y.Id).Take(1))
+                .ThenInclude(x => x.Characteristics.Take(5))
+                    .ThenInclude(x => x.CharacteristicsName)
+            .Include(x => x.CharacteristicGroups)
+                .ThenInclude(x => x.Characteristics)
+                    .ThenInclude(x => x.CharacteristicsValue)
             .Where(x => x.CategoryId == request.SubcategoryId)
             .Where(x => x.IsActive == true)
             .AsNoTracking()

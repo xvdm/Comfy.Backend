@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Comfy.Application.Common.Constants;
-using Comfy.Application.Common.Exceptions;
 using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Application.Interfaces;
 using Comfy.Domain.Entities;
@@ -34,10 +32,12 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
                 .ThenInclude(x => x.MainCategory)
             .Include(x => x.Brand)
             .Include(x => x.Category)
-            .Include(x => x.Characteristics)
-                .ThenInclude(x => x.CharacteristicsName)
-            .Include(x => x.Characteristics)
-                .ThenInclude(x => x.CharacteristicsValue)
+            .Include(x => x.CharacteristicGroups.OrderBy(y => y.Id))
+                .ThenInclude(x => x.Characteristics)
+                    .ThenInclude(x => x.CharacteristicsName)
+            .Include(x => x.CharacteristicGroups)
+                .ThenInclude(x => x.Characteristics)
+                    .ThenInclude(x => x.CharacteristicsValue)
             .Include(x => x.Images)
             .Include(x => x.Model)
             .Include(x => x.PriceHistory)
