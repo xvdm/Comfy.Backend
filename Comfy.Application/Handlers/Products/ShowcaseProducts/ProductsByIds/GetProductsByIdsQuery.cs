@@ -26,6 +26,7 @@ public sealed class GetProductsByIdsQueryHandler : IRequestHandler<GetProductsBy
             .Where(x => request.Ids.Contains(x.Id))
             .Where(x => x.IsActive == true)
             .Include(x => x.Images.OrderBy(y => y.Id).Take(3))
+            .Include(x => x.Category)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 

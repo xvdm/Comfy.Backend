@@ -2,6 +2,7 @@
 using Comfy.Application.Common.Mappings;
 using Comfy.Application.Handlers.Products.CompleteProduct.DTO;
 using Comfy.Domain.Entities;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace Comfy.Application.Handlers.Products.DTO;
 
@@ -16,11 +17,13 @@ public sealed record ShowcaseProductDTO : IMapWith<Product>
     public double Rating { get; init; }
     public int ReviewsNumber { get; set; }
     public string Url { get; init; } = null!;
+    public string SubcategoryName { get; init; } = null!;
 
     public IEnumerable<ImageDTO> Images { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Product, ShowcaseProductDTO>();
+        profile.CreateMap<Product, ShowcaseProductDTO>()
+            .ForMember(dto => dto.SubcategoryName, x => x.MapFrom(product => product.Category.Name));
     }
 }

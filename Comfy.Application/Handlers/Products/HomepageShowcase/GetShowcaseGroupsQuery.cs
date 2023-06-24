@@ -29,6 +29,8 @@ public sealed class GetShowcaseGroupsQueryHandler : IRequestHandler<GetShowcaseG
         var groups = await _context.ShowcaseGroups
             .Include(x => x.Products)
                 .ThenInclude(x => x.Images.OrderBy(y => y.Id).Take(3))
+            .Include(x => x.Products)
+                .ThenInclude(x => x.Category)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
