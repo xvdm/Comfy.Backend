@@ -100,19 +100,10 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         if (request.PriceFrom is not null) products = products.Where(x => x.Price >= request.PriceFrom);
         if (request.PriceTo is not null) products = products.Where(x => x.Price <= request.PriceTo);
 
-        if (string.IsNullOrEmpty(request.SearchTerm) == false)
-        {
-            products = products.Where(x => x.Name.Contains(request.SearchTerm));
-        }
+        if (string.IsNullOrEmpty(request.SearchTerm) == false) products = products.Where(x => x.Name.Contains(request.SearchTerm));
 
-        if (request.SortOrder == "desc")
-        {
-            products = products.OrderByDescending(GetSortProperty(request));
-        }
-        else
-        {
-            products = products.OrderBy(GetSortProperty(request));
-        }
+        if (request.SortOrder == "desc") products = products.OrderByDescending(GetSortProperty(request));
+        else products = products.OrderBy(GetSortProperty(request));
 
         if (queryDictionary.Any())
         {
@@ -127,18 +118,9 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         {
             var ids = pair.Value.Where(x => int.TryParse(x, out var id)).Select(int.Parse).ToArray();
 
-            if (pair.Key == "brand")
-            {
-                products = products.Where(x => ids.Contains(x.BrandId));
-            }
-            else if (pair.Key == "model")
-            {
-                products = products.Where(x => ids.Contains(x.ModelId));
-            }
-            else
-            {
-                products = products.Where(x => x.Characteristics.Any(c => ids.Contains(c.CharacteristicsValueId)));
-            }
+            if (pair.Key == "brand") products = products.Where(x => ids.Contains(x.BrandId));
+            else if (pair.Key == "model") products = products.Where(x => ids.Contains(x.ModelId));
+            else products = products.Where(x => x.Characteristics.Any(c => ids.Contains(c.CharacteristicsValueId)));
         }
 
         var characteristics = GetCharacteristicsInCategory(category);

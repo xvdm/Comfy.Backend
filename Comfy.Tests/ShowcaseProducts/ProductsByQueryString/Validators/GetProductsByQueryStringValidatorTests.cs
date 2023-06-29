@@ -12,7 +12,7 @@ public sealed class GetProductsByQueryStringValidatorTests
     public async Task Handle_Should_ReturnTrue_WhenSubcategoryIdIsGreaterThanZero(int subcategoryId)
     {
         // Arrange
-        var validator = new GetProductsByQueryStringValidator();
+        var validator = new GetProductsQueryValidator();
         var query = new GetProductsQuery(subcategoryId, null, null, null, null, null, null);
 
         // Act
@@ -28,7 +28,7 @@ public sealed class GetProductsByQueryStringValidatorTests
     public async Task Handle_Should_ReturnFalse_WhenSubcategoryIdIsNotGreaterThanZero(int subcategoryId)
     {
         // Arrange
-        var validator = new GetProductsByQueryStringValidator();
+        var validator = new GetProductsQueryValidator();
         var query = new GetProductsQuery(subcategoryId, null, null, null, null, null, null);
 
         // Act
