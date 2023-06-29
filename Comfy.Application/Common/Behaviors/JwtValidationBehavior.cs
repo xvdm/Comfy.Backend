@@ -31,10 +31,8 @@ public sealed class JwtValidationBehavior<TRequest, TResponse> : IPipelineBehavi
         if (user is null) throw new UnauthorizedException();
 
         var stamp = await _userManager.GetSecurityStampAsync(user);
-        if (stamp is null) throw new UnauthorizedException();
-
         var tokenStamp = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value;
-        if (tokenStamp != stamp) throw new UnauthorizedException();
+        if (tokenStamp is null || tokenStamp != stamp) throw new UnauthorizedException();
 
         return await next.Invoke();
     }
