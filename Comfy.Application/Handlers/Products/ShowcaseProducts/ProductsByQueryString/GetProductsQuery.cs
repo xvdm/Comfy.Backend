@@ -17,6 +17,8 @@ public sealed record GetProductsQuery : IRequest<ProductsPageDTO>
     public string? SortColumn { get; init; }
     public string? SortOrder { get; init; }
     public int SubcategoryId { get; init; }
+    public int? PriceFrom { get; init; }
+    public int? PriceTo { get; init; }
 
     private const int MaxPageSize = 50;
     private int _pageSize = MaxPageSize;
@@ -33,9 +35,11 @@ public sealed record GetProductsQuery : IRequest<ProductsPageDTO>
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetProductsQuery(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
+    public GetProductsQuery(int subcategoryId, int? priceFrom, int? priceTo, string? searchTerm, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
     {
         SubcategoryId = subcategoryId;
+        PriceFrom = priceFrom;
+        PriceTo = priceTo;
         SearchTerm = searchTerm?.Trim();
         QueryString = queryString?.ToLower();
         SortColumn = sortColumn?.Trim().ToLower();
@@ -92,6 +96,9 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
             .Where(x => x.IsActive == true)
             .AsNoTracking()
             .AsQueryable();
+
+        if (request.PriceFrom is not null) products = products.Where(x => x.Price >= request.PriceFrom);
+        if (request.PriceTo is not null) products = products.Where(x => x.Price <= request.PriceTo);
 
         if (string.IsNullOrEmpty(request.SearchTerm) == false)
         {

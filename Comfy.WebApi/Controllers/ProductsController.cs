@@ -46,15 +46,19 @@ public sealed class ProductsController : BaseController
     /// <summary>
     /// Returns showcase information about the products (products in specific subcategory, with sorting, searching by name and filtering by characteristics, models and brands)
     /// </summary>
+    /// <param name="subcategoryId"></param>
+    /// <param name="priceFrom">Lower limit of price</param>
+    /// <param name="priceTo">Upper limit of price</param>
     /// <param name="searchTerm">Needed for searching by products names</param>
     /// <param name="sortColumn">Needed for determining the column by which sorting is applied. Possible values: 'name', 'price', 'rating'</param>
     /// <param name="sortOrder">Needed for determining the sort ordering. Possible values: 'desc' for descending order. For ascending order - anything else, including null</param>
     /// <param name="filterQuery">Needed for filtering products by their brand, model or characteristics</param>
-
+    /// <param name="pageNumber"></param>
+    /// <param name="pageSize"></param>
     [HttpGet]
-    public async Task<IActionResult> GetProductsWithFilteringAndSorting(int subcategoryId, string? searchTerm, string? sortColumn, string? sortOrder, string? filterQuery, int? pageNumber, int? pageSize)
+    public async Task<IActionResult> GetProductsWithFilteringAndSorting(int subcategoryId, int? priceFrom, int? priceTo, string? searchTerm, string? sortColumn, string? sortOrder, string? filterQuery, int? pageNumber, int? pageSize)
     {
-        var result = await Sender.Send(new GetProductsQuery(subcategoryId, searchTerm, sortColumn, sortOrder, filterQuery, pageNumber, pageSize));
+        var result = await Sender.Send(new GetProductsQuery(subcategoryId, priceFrom, priceTo, searchTerm, sortColumn, sortOrder, filterQuery, pageNumber, pageSize));
         return Ok(result);
     }
 }
