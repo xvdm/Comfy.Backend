@@ -116,11 +116,17 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
 
         foreach (var pair in queryDictionary.Where(pair => pair.Value.Any()))
         {
-            var ids = pair.Value.Where(x => int.TryParse(x, out var id)).Select(int.Parse).ToArray();
+            var ids = pair.Value.Where(x => int.TryParse(x, out _)).Select(int.Parse).ToArray();
+            var isCharacteristic = int.TryParse(pair.Key, out var characteristicNameId);
 
-            if (pair.Key == "brand") products = products.Where(x => ids.Contains(x.BrandId));
-            else if (pair.Key == "model") products = products.Where(x => ids.Contains(x.ModelId));
-            else products = products.Where(x => x.Characteristics.Any(c => ids.Contains(c.CharacteristicsValueId)));
+            products = pair.Key switch
+            {
+                "brand" => products.Where(x => ids.Contains(x.BrandId)),
+                "model" => products.Where(x => ids.Contains(x.ModelId)),
+                _ => isCharacteristic 
+                    ? products.Where(x => x.Characteristics.Any(c => c.CharacteristicsNameId == characteristicNameId && ids.Contains(c.CharacteristicsValueId))) 
+                    : products
+            };
         }
 
         var characteristics = GetCharacteristicsInCategory(category);
