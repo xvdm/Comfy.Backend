@@ -44,6 +44,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, ApplicationRo
     public DbSet<Banner> Banners { get; set; } = null!;
     public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
     public DbSet<PendingUser> PendingUsers { get; set; } = null!;
+    public DbSet<CategoryUniqueCharacteristic> CategoryUniqueCharacteristics { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -51,7 +52,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, ApplicationRo
         base.OnModelCreating(builder);
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
         DbSaveChanges();
         return base.SaveChangesAsync(cancellationToken);
@@ -69,7 +70,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, ApplicationRo
         return base.SaveChanges(acceptAllChangesOnSuccess);
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new())
     {
         DbSaveChanges();
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);

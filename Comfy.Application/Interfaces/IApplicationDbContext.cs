@@ -34,7 +34,7 @@ public interface IApplicationDbContext
     public DbSet<Banner> Banners { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<PendingUser> PendingUsers { get; set; }
+    public DbSet<CategoryUniqueCharacteristic> CategoryUniqueCharacteristics { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
-

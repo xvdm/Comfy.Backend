@@ -9,7 +9,7 @@ public sealed class Subcategory
     public int MainCategoryId { get; set; }
     public MainCategory MainCategory { get; set; } = null!;
 
-    public ISet<Characteristic> UniqueCharacteristics { get; set; } = null!;
+    public ISet<CategoryUniqueCharacteristic> UniqueCharacteristics { get; set; } = null!;
     public ISet<Brand> UniqueBrands { get; set; } = null!;
     public ICollection<SubcategoryFilter> Filters { get; set; } = null!;
 }

@@ -67,9 +67,9 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
 
         var category = await _context.Subcategories
             .Include(x => x.UniqueCharacteristics)
-                .ThenInclude(x => x.CharacteristicsName)
+                .ThenInclude(x => x.CharacteristicName)
             .Include(x => x.UniqueCharacteristics)
-                .ThenInclude(x => x.CharacteristicsValue)
+                .ThenInclude(x => x.CharacteristicValue)
             .Include(x => x.UniqueBrands)
             .FirstOrDefaultAsync(x => x.Id == request.SubcategoryId, cancellationToken);
 
@@ -172,9 +172,9 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
             var exists = false;
             foreach (var characteristicDTO in characteristicsList)
             {
-                if (characteristicDTO.Name.Name == characteristic.CharacteristicsName.Name)
+                if (characteristicDTO.Name.Name == characteristic.CharacteristicName.Name)
                 {
-                    var value = _mapper.Map<CharacteristicValueDTO>(characteristic.CharacteristicsValue);
+                    var value = _mapper.Map<CharacteristicValueDTO>(characteristic.CharacteristicValue);
                     characteristicDTO.Values.Add(value);
                     exists = true;
                     break;
@@ -185,8 +185,8 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
 
             var newCharacteristicDTO = new CharacteristicDTO
             {
-                Name = _mapper.Map<CharacteristicNameDTO>(characteristic.CharacteristicsName),
-                Values = new List<CharacteristicValueDTO> { _mapper.Map<CharacteristicValueDTO>(characteristic.CharacteristicsValue) }
+                Name = _mapper.Map<CharacteristicNameDTO>(characteristic.CharacteristicName),
+                Values = new List<CharacteristicValueDTO> { _mapper.Map<CharacteristicValueDTO>(characteristic.CharacteristicValue) }
             };
             characteristicsList.Add(newCharacteristicDTO);
         }
