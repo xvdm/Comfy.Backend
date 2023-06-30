@@ -3,5 +3,6 @@
 public sealed record QuestionsDTO
 {
     public int ProductId { get; init; }
+    public int TotalQuestionsNumber { get; init; }
     public IEnumerable<QuestionDTO> Questions { get; init; } = null!;
 }

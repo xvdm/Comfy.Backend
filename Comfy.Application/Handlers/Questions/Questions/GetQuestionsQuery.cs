@@ -63,10 +63,13 @@ public sealed class GetQuestionsQueryHandler : IRequestHandler<GetQuestionsQuery
 
         var questionsDTO = _mapper.Map<IEnumerable<QuestionDTO>>(questions);
 
+        var totalQuestionsNumber = await _context.Questions.CountAsync(x => x.IsActive && x.ProductId == request.ProductId, cancellationToken);
+
         var result = new QuestionsDTO
         {
             ProductId = request.ProductId,
-            Questions = questionsDTO
+            Questions = questionsDTO,
+            TotalQuestionsNumber = totalQuestionsNumber
         };
 
         return result;

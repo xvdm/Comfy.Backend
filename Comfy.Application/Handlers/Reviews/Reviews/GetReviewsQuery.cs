@@ -63,10 +63,13 @@ public sealed class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, Re
 
         var mappedReviews = _mapper.Map<IEnumerable<ReviewDTO>>(reviews);
 
+        var totalReviewsNumber = await _context.Questions.CountAsync(x => x.IsActive && x.ProductId == request.ProductId, cancellationToken);
+
         var result = new ReviewsDTO
         {
             ProductId = request.ProductId,
-            Reviews = mappedReviews
+            Reviews = mappedReviews,
+            TotalReviewsNumber = totalReviewsNumber
         };
         return result;
     }
