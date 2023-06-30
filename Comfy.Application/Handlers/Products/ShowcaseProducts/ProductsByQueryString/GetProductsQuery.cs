@@ -12,7 +12,6 @@ namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQuerySt
 
 public sealed record GetProductsQuery : IRequest<ProductsPageDTO>
 {
-    public string? SearchTerm { get; init; }
     public string? QueryString { get; init; }
     public string? SortColumn { get; init; }
     public string? SortOrder { get; init; }
@@ -35,12 +34,11 @@ public sealed record GetProductsQuery : IRequest<ProductsPageDTO>
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetProductsQuery(int subcategoryId, int? priceFrom, int? priceTo, string? searchTerm, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
+    public GetProductsQuery(int subcategoryId, int? priceFrom, int? priceTo, string? sortColumn, string? sortOrder, string? queryString, int? pageNumber, int? pageSize)
     {
         SubcategoryId = subcategoryId;
         PriceFrom = priceFrom;
         PriceTo = priceTo;
-        SearchTerm = searchTerm?.Trim();
         QueryString = queryString?.ToLower();
         SortColumn = sortColumn?.Trim().ToLower();
         SortOrder = sortOrder?.Trim().ToLower();
@@ -100,8 +98,6 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         if (request.PriceFrom is not null) products = products.Where(x => x.Price >= request.PriceFrom);
         if (request.PriceTo is not null) products = products.Where(x => x.Price <= request.PriceTo);
 
-        if (string.IsNullOrEmpty(request.SearchTerm) == false) products = products.Where(x => x.Name.Contains(request.SearchTerm));
-
         if (request.SortOrder == "desc") products = products.OrderByDescending(GetSortProperty(request));
         else products = products.OrderBy(GetSortProperty(request));
 
@@ -132,6 +128,8 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         var characteristics = GetCharacteristicsInCategory(category);
         var brands = category.UniqueBrands.ToList();
 
+        var productsNumber = await products.CountAsync(cancellationToken);
+
         var productsList = await products
             .Skip((request.PageNumber - 1) * request.PageSize)
             .Take(request.PageSize)
@@ -142,6 +140,7 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
 
         result = new ProductsPageDTO
         {
+            TotalProductsNumber = productsNumber,
             SubcategoryId = category.Id,
             QueryString = queryString,
             Characteristics = characteristics,

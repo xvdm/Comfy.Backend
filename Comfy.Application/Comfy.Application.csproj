@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Comfy.Domain\Comfy.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\Products\ShowcaseProducts\ProductsBySearchTerm\Validators\" />
+  </ItemGroup>
+
 </Project>

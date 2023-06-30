@@ -4,6 +4,7 @@ namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQuerySt
 
 public sealed record ProductsPageDTO
 {
+    public int TotalProductsNumber { get; set; }
     public int SubcategoryId { get; set; }
     public string? QueryString { get; set; }
     public IEnumerable<CharacteristicDTO> Characteristics { get; set; } = null!;
