@@ -24,6 +24,7 @@ public sealed record ShowcaseProductDTO : IMapWith<Product>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Product, ShowcaseProductDTO>()
+            .ForMember(dto => dto.Rating, x => x.MapFrom(product => Math.Round(product.Rating, 1)))
             .ForMember(dto => dto.SubcategoryName, x => x.MapFrom(product => product.Category.Name));
     }
 }
