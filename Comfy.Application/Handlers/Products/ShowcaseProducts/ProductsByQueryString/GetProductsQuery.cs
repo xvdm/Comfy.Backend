@@ -175,16 +175,7 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
                 if (characteristicDTO.Name.Name == characteristic.CharacteristicsName.Name)
                 {
                     var value = _mapper.Map<CharacteristicValueDTO>(characteristic.CharacteristicsValue);
-                    var valueIsInList = false;
-                    foreach (var dtoValue in characteristicDTO.Values)
-                    {
-                        if (dtoValue.Value == value.Value)
-                        {
-                            valueIsInList = true;
-                            break;
-                        }
-                    }
-                    if(valueIsInList == false) characteristicDTO.Values.Add(value);
+                    characteristicDTO.Values.Add(value);
                     exists = true;
                     break;
                 }
