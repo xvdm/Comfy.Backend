@@ -8,6 +8,7 @@ public sealed record SubcategoryDTO : IMapWith<Subcategory>
 {
     public int Id { get; init; }
     public string Name { get; init; } = null!;
+    public string? ImageUrl { get; set; }
     public IEnumerable<SubcategoryFilterDTO> Filters { get; init; } = null!;
 
     public void Mapping(Profile profile)
