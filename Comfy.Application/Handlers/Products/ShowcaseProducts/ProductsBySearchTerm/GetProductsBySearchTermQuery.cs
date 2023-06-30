@@ -11,7 +11,7 @@ namespace Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsBySearchT
 
 public sealed record GetProductsBySearchTermQuery : IRequest<ProductsPageBySearchTermDTO>
 {
-    public string SearchTerm { get; init; }
+    public string? SearchTerm { get; init; }
     public string? SortColumn { get; init; }
     public string? SortOrder { get; init; }
     public int? PriceFrom { get; init; }
@@ -33,9 +33,9 @@ public sealed record GetProductsBySearchTermQuery : IRequest<ProductsPageBySearc
         set => _pageNumber = value < 1 ? 1 : value;
     }
 
-    public GetProductsBySearchTermQuery(string searchTerm, int? priceFrom, int? priceTo, string? sortColumn, string? sortOrder, int? pageNumber, int? pageSize)
+    public GetProductsBySearchTermQuery(string? searchTerm, int? priceFrom, int? priceTo, string? sortColumn, string? sortOrder, int? pageNumber, int? pageSize)
     {
-        SearchTerm = searchTerm.Trim();
+        SearchTerm = searchTerm?.Trim();
         PriceFrom = priceFrom;
         PriceTo = priceTo;
         SortColumn = sortColumn?.Trim().ToLower();

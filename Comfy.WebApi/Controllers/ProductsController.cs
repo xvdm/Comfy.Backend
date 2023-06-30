@@ -2,6 +2,7 @@
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByIds;
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsByQueryString;
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsBySearchTerm;
+using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsForSearchTab;
 using Comfy.WebApi.Controllers.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -55,9 +56,21 @@ public sealed class ProductsController : BaseController
     /// <param name="pageNumber"></param>
     /// <param name="pageSize"></param>
     [HttpGet("bySearchTerm")]
-    public async Task<IActionResult> GetProductsBySearchTerm(string searchTerm, int? priceFrom, int? priceTo, string? sortColumn, string? sortOrder, int? pageNumber, int? pageSize)
+    public async Task<IActionResult> GetProductsBySearchTerm(string? searchTerm, int? priceFrom, int? priceTo, string? sortColumn, string? sortOrder, int? pageNumber, int? pageSize)
     {
         var result = await Sender.Send(new GetProductsBySearchTermQuery(searchTerm, priceFrom, priceTo, sortColumn, sortOrder, pageNumber, pageSize));
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Returns some info (name, price, discount) about first 4 (or less) products
+    /// </summary>
+    /// <param name="searchTerm"> This is the string that is searched in the product names. Can be null.</param>
+    /// <returns></returns>
+    [HttpGet("forSearchTab")]
+    public async Task<IActionResult> GetProductsForSearchTab(string? searchTerm)
+    {
+        var result = await Sender.Send(new GetProductsForSearchTabQuery(searchTerm));
         return Ok(result);
     }
 
