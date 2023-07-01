@@ -8,6 +8,7 @@ public sealed record MainCategoryDTO : IMapWith<MainCategory>
 {
     public int Id { get; init; }
     public string Name { get; init; } = null!;
+    public string Url { get; set; } = null!;
     public string? ImageUrl { get; set; }
     public IEnumerable<SubcategoryDTO> Categories { get; init; } = null!;
 
