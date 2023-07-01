@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsForSearchTab.DTO;
 using Comfy.Application.Interfaces;
+using Comfy.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,19 +24,25 @@ public sealed class GetProductsForSearchTabQueryHandler : IRequestHandler<GetPro
     public async Task<IEnumerable<SearchTabProductDTO>> Handle(GetProductsForSearchTabQuery request, CancellationToken cancellationToken)
     {
         var productsQueryable = _context.Products
-            .AsNoTracking()
+            .OrderBy(x => x.Rating)
             .AsQueryable();
 
         if (string.IsNullOrEmpty(request.SearchTerm) == false)
         {
-            productsQueryable = productsQueryable.Where(x => x.Name.Contains(request.SearchTerm));
+            productsQueryable = productsQueryable.Where(x => x.Name.ToLower().Contains(request.SearchTerm.ToLower()));
         }
 
-        productsQueryable = productsQueryable
-            .OrderBy(x => x.Rating)
-            .Take(4);
-
-        var productsList = await productsQueryable.ToListAsync(cancellationToken);
+        var productsList = await productsQueryable
+            .Take(4)
+            .Select(x => new SearchTabProductDTO
+            {
+                DiscountAmount = x.DiscountAmount,
+                Name = x.Name,
+                Price = x.Price,
+                Url = x.Url,
+                ImageUrl = x.Images.FirstOrDefault()!.Url
+            })
+            .ToListAsync(cancellationToken);
 
         var mappedProducts = _mapper.Map<IEnumerable<SearchTabProductDTO>>(productsList);
         return mappedProducts;
