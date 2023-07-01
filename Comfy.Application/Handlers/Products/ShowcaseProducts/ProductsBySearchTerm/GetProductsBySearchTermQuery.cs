@@ -35,7 +35,7 @@ public sealed record GetProductsBySearchTermQuery : IRequest<ProductsPageBySearc
 
     public GetProductsBySearchTermQuery(string? searchTerm, int? priceFrom, int? priceTo, string? sortColumn, string? sortOrder, int? pageNumber, int? pageSize)
     {
-        SearchTerm = searchTerm?.Trim();
+        SearchTerm = searchTerm?.Trim().ToLower();
         PriceFrom = priceFrom;
         PriceTo = priceTo;
         SortColumn = sortColumn?.Trim().ToLower();
@@ -69,7 +69,7 @@ public sealed class GetProductsBySearchTermQueryHandler : IRequestHandler<GetPro
                 .ThenInclude(x => x.Characteristics)
                     .ThenInclude(x => x.CharacteristicsValue)
             .Where(x => x.IsActive == true)
-            .Where(x => x.Name.Contains(request.SearchTerm))
+            .Where(x => x.Name.ToLower().Contains(request.SearchTerm!))
             .AsNoTracking()
             .AsQueryable();
 
