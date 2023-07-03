@@ -20,6 +20,6 @@ public sealed record ReviewDTO : IMapWith<Review>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Review, ReviewDTO>()
-            .ForMember(dto => dto.Username, x => x.MapFrom(review => review.User.UserName));
+            .ForMember(dto => dto.Username, x => x.MapFrom(review => review.User.Name));
     }
 }

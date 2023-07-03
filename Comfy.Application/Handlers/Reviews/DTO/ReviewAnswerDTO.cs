@@ -16,6 +16,6 @@ public sealed record ReviewAnswerDTO : IMapWith<ReviewAnswer>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<ReviewAnswer, ReviewAnswerDTO>()
-            .ForMember(dto => dto.Username, x => x.MapFrom(answer => answer.User.UserName));
+            .ForMember(dto => dto.Username, x => x.MapFrom(answer => answer.User.Name));
     }
 }

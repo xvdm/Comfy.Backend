@@ -17,6 +17,6 @@ public sealed record QuestionDTO : IMapWith<Question>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Question, QuestionDTO>()
-            .ForMember(dto => dto.Username, x => x.MapFrom(question => question.User.UserName));
+            .ForMember(dto => dto.Username, x => x.MapFrom(question => question.User.Name));
     }
 }
