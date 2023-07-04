@@ -6,21 +6,26 @@ namespace Comfy.Domain.Entities;
 public sealed class Order : Auditable
 {
     public int Id { get; set; }
-    public string Description { get; set; } = null!;
-    public decimal TotalSum { get; set; }
-    public DateTime ReceivingDate { get; set; }
+
+    public int OrderStatusId { get; set; }
+    public OrderStatus OrderStatus { get; set; } = null!;
+
+    public decimal TotalPrice { get; set; }
+
+    public string Email { get; set; } = null!;
+    public string PhoneNumber { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public string Surname { get; set; } = null!;
+    public string Patronymic { get; set; } = null!;
+
+    public string City { get; set; } = null!;
+    public string Address { get; set; } = null!;
+
+    public string? UserComment { get; set; }
+    public bool CallToConfirm { get; set; }
 
     public Guid UserId { get; set; }
     public User User { get; set; } = null!;
 
-    public int AddressId { get; set; }
-    public Address Address { get; set; } = null!;
-
-    public int PaymentTypeId { get; set; }
-    public PaymentType PaymentType { get; set; } = null!;
-
-    public int StatusId { get; set; }
-    public OrderStatus Status { get; set; } = null!;
-
-    public ICollection<Product> OrderedProducts { get; set; } = null!;
+    public ICollection<Product> Products { get; set; } = null!;
 }
