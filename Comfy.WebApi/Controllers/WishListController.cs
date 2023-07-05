@@ -12,7 +12,7 @@ public sealed class WishListController : BaseController
     }
 
     /// <summary>
-    /// Get products in user's wishList
+    /// Get products in a user's wishList
     /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetWishListProducts([FromQuery] GetUserWishListProductsQuery query)
@@ -22,7 +22,7 @@ public sealed class WishListController : BaseController
     }
 
     /// <summary>
-    /// Add product to user wishList || JwtValidation
+    /// Add product to a user's wishList || JwtValidation
     /// </summary>
     [HttpPost]
     public async Task<IActionResult> AddProductToWishList(AddProductToWishListCommand command)
