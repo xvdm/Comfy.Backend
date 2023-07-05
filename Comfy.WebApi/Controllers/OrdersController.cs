@@ -13,12 +13,22 @@ public sealed class OrdersController : BaseController
 
 
     /// <summary>
-    /// Creates and order || JwtValidation
+    /// Creates an order || JwtValidation
     /// </summary>
     [HttpPost]
     public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
     {
         await Sender.Send(command);
         return Ok();
+    }
+
+    /// <summary>
+    /// Get orders for user || JwtValidation
+    /// </summary>
+    [HttpGet("forUser")]
+    public async Task<IActionResult> GetOrdersForUser([FromQuery]GetOrdersForUserQuery query)
+    {
+        var orders = await Sender.Send(query);
+        return Ok(orders);
     }
 }
