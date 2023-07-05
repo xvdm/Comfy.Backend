@@ -12,7 +12,7 @@ public sealed class WishListController : BaseController
     }
 
     /// <summary>
-    /// Get products in a user's wishList
+    /// Get products in a user's wishList || JwtValidation
     /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetWishListProducts([FromQuery] GetUserWishListProductsQuery query)
@@ -32,7 +32,7 @@ public sealed class WishListController : BaseController
     }
 
     /// <summary>
-    /// Removes product from user's wishList
+    /// Removes product from user's wishList || JwtValidation
     /// </summary>
     [HttpDelete]
     public async Task<IActionResult> RemoveProductFromWishList(RemoveProductFromWishListCommand command)
