@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.WishLists;
 
-public sealed record RemoveProductFromWishListCommand(Guid UserId, int ProductId) : IRequest;
+public sealed record RemoveProductFromWishListCommand(Guid UserId, int ProductId) : IRequest, IJwtValidation;
 
 
 public sealed class RemoveProductFromWishListCommandHandler : IRequestHandler<RemoveProductFromWishListCommand>

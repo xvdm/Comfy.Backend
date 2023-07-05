@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.WishLists;
 
-public sealed record GetUserWishListProductsQuery(Guid UserId) : IRequest<IEnumerable<WishListProductDTO>>;//, IJwtValidation;
+public sealed record GetUserWishListProductsQuery(Guid UserId) : IRequest<IEnumerable<WishListProductDTO>>, IJwtValidation;
 
 
 public sealed class GetUserWishListProductsQueryHandler : IRequestHandler<GetUserWishListProductsQuery, IEnumerable<WishListProductDTO>>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.WishLists;
 
-public sealed record AddProductToWishListCommand(Guid UserId, int ProductId) : IRequest;//, IJwtValidation;
+public sealed record AddProductToWishListCommand(Guid UserId, int ProductId) : IRequest, IJwtValidation;
 
 
 public sealed class AddProductToWishListCommandHandler : IRequestHandler<AddProductToWishListCommand>
