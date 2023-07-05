@@ -6,6 +6,7 @@ namespace Comfy.Application.Handlers.Orders.DTO;
 
 public sealed record OrderDTO : IMapWith<Order>
 {
+    public int Id { get; set; }
     public string OrderStatus { get; set; } = null!;
 
     public decimal TotalPrice { get; set; }
