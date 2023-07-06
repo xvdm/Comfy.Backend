@@ -15,11 +15,13 @@ public sealed record ReviewDTO : IMapWith<Review>
     public double ProductRating { get; init; }
     public int Likes { get; init; }
     public int Dislikes { get; init; }
+    public string? CreatedAt { get; init; }
     public IEnumerable<ReviewAnswerDTO> Answers { get; init; } = null!;
 
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Review, ReviewDTO>()
+            .ForMember(dto => dto.CreatedAt, x => x.MapFrom(review => review.CreatedAt!.Value))
             .ForMember(dto => dto.Username, x => x.MapFrom(review => review.User.Name));
     }
 }
