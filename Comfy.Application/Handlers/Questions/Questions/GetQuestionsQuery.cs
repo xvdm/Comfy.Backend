@@ -6,12 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Questions.Questions;
 
-public sealed record GetQuestionsQuery : IRequest<QuestionsDTO>, ICacheable
+public sealed record GetQuestionsQuery : IRequest<QuestionsDTO>
 {
     public int ProductId { get; init; }
-
-    public string CacheKey => $"product-questions:{ProductId}:{PageNumber}:{PageSize}";
-    public double ExpirationHours => 3;
 
     private const int MaxPageSize = 10;
     private int _pageSize = MaxPageSize;

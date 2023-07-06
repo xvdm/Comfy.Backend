@@ -6,12 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Comfy.Application.Handlers.Reviews.Reviews;
 
-public sealed record GetReviewsQuery : IRequest<ReviewsDTO>, ICacheable
+public sealed record GetReviewsQuery : IRequest<ReviewsDTO>
 {
     public int ProductId { get; init; }
-
-    public string CacheKey => $"product-reviews:{ProductId}:{PageNumber}:{PageSize}";
-    public double ExpirationHours => 3;
 
     private const int MaxPageSize = 10;
     private int _pageSize = MaxPageSize;
