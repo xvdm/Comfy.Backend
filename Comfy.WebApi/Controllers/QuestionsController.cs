@@ -23,6 +23,16 @@ public sealed class QuestionsController : BaseController
     }
 
     /// <summary>
+    /// Returns questions for the product
+    /// </summary>
+    [HttpGet("userQuestions")]
+    public async Task<IActionResult> GetQuestionsForUser(Guid userId, int? pageNumber, int? pageSize)
+    {
+        var result = await Sender.Send(new GetUserQuestionsQuery(userId, pageNumber, pageSize));
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Creates a question for the product || JwtValidation
     /// </summary>
     [HttpPost]

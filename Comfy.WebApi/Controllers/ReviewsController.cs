@@ -23,6 +23,16 @@ public sealed class ReviewsController : BaseController
     }
 
     /// <summary>
+    /// Returns all user's reviews
+    /// </summary>
+    [HttpGet("userReviews")]
+    public async Task<IActionResult> GetReviewsForUser(Guid userId, int? pageNumber, int? pageSize)
+    {
+        var result = await Sender.Send(new GetUserReviewsQuery(userId, pageNumber, pageSize));
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Creates a review for the product || JwtValidation
     /// </summary>
     /// <param name="command"></param>
