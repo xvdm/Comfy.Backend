@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Comfy.Application.Common.Constants;
 using Comfy.Application.Common.Exceptions;
-using Comfy.Application.Handlers.Questions.DTO;
 using Comfy.Application.Handlers.Reviews.DTO;
 using Comfy.Application.Interfaces;
 using Comfy.Domain.Identity;
@@ -56,15 +55,17 @@ public sealed class GetUserReviewsQueryHandler : IRequestHandler<GetUserReviewsQ
     {
         var user = await _userManager.Users
             .Include(x => x.Reviews
+                .OrderByDescending(y => y.Id)
                 .Where(y => y.IsActive)
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize))
+            .ThenInclude(x => x.Product)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
 
         if (user is null) throw new NotFoundException(LocalizationStrings.User);
 
-        var mappedReviews = _mapper.Map<IEnumerable<ReviewDTO>>(user.Reviews);
+        var mappedReviews = _mapper.Map<IEnumerable<ReviewForUserDTO>>(user.Reviews);
 
         var totalReviewsNumber = await _context.Reviews.CountAsync(x => x.IsActive && x.UserId == request.UserId, cancellationToken);
 

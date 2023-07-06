@@ -55,15 +55,17 @@ public sealed class GetUserQuestionsQueryHandler : IRequestHandler<GetUserQuesti
     {
         var user = await _userManager.Users
             .Include(x => x.Questions
+                .OrderByDescending(y => y.Id)
                 .Where(y => y.IsActive)
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize))
+            .ThenInclude(x => x.Product)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
 
         if (user is null) throw new NotFoundException(LocalizationStrings.User);
 
-        var mappedQuestions = _mapper.Map<IEnumerable<QuestionDTO>>(user.Questions);
+        var mappedQuestions = _mapper.Map<IEnumerable<QuestionForUserDTO>>(user.Questions);
 
         var totalQuestionsNumber = await _context.Questions.CountAsync(x => x.IsActive && x.UserId == request.UserId, cancellationToken);
 

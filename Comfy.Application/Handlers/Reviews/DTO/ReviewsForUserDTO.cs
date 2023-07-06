@@ -4,5 +4,5 @@ public sealed record ReviewsForUserDTO
 {
     public Guid UserId { get; init; }
     public int TotalReviewsNumber { get; init; }
-    public IEnumerable<ReviewDTO> Reviews { get; init; } = null!;
+    public IEnumerable<ReviewForUserDTO> Reviews { get; init; } = null!;
 }
