@@ -16,6 +16,6 @@ public sealed class CreateQuestionCommandValidator : AbstractValidator<CreateQue
         RuleFor(x => x.ProductId).MustAsync(async (id, cancellationToken) =>
         {
             return await context.Products.AnyAsync(x => x.Id == id, cancellationToken);
-        }).WithMessage(ValidationMessages.QuestionAnswerWasNotFound);
+        }).WithMessage(ValidationMessages.ProductWasNotFound);
     }
 }
