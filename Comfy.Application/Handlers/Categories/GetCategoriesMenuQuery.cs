@@ -28,7 +28,7 @@ public sealed class GetCategoriesMenuQueryHandler : IRequestHandler<GetCategorie
     {
         var mainCategories = await _context.MainCategories
             .Include(x => x.Categories)
-                .ThenInclude(x => x.Filters)
+                .ThenInclude(x => x.Filters.OrderBy(y => y.Name))
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
