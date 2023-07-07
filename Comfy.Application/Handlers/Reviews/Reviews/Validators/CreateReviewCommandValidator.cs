@@ -18,8 +18,7 @@ public sealed class CreateReviewCommandValidator : AbstractValidator<CreateRevie
 
         RuleFor(x => x.ProductId).MustAsync(async (id, cancellationToken) =>
         {
-            var products = await context.Products.CountAsync(x => x.Id == id, cancellationToken);
-            return products > 0;
+            return await context.Products.AnyAsync(x => x.Id == id, cancellationToken);
         }).WithMessage(ValidationMessages.ReviewAnswerWasNotFound);
     }
 }

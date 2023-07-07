@@ -15,8 +15,7 @@ public sealed class CreateQuestionAnswerCommandValidator : AbstractValidator<Cre
 
         RuleFor(x => x.QuestionId).MustAsync(async (id, cancellationToken) =>
         {
-            var questions = await context.Questions.CountAsync(x => x.Id == id, cancellationToken);
-            return questions > 0;
+            return await context.Questions.AnyAsync(x => x.Id == id, cancellationToken);
         }).WithMessage(ValidationMessages.QuestionWasNotFound);
     }
 }

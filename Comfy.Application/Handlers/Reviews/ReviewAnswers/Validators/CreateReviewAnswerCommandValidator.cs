@@ -15,8 +15,7 @@ public sealed class CreateReviewAnswerCommandValidator : AbstractValidator<Creat
 
         RuleFor(x => x.ReviewId).MustAsync(async (id, cancellationToken) =>
         {
-            var reviews = await context.Reviews.CountAsync(x => x.Id == id, cancellationToken);
-            return reviews > 0;
+            return await context.Reviews.AnyAsync(x => x.Id == id, cancellationToken);
         }).WithMessage(ValidationMessages.ReviewWasNotFound);
     }
 }
