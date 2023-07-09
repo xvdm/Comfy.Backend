@@ -6,6 +6,7 @@ namespace Comfy.Application.Handlers.Reviews.DTO;
 
 public sealed record ReviewForUserDTO : IMapWith<Review>
 {
+    public int Id { get; init; }
     public string Text { get; init; } = null!;
     public string Advantages { get; init; } = null!;
     public string Disadvantages { get; init; } = null!;

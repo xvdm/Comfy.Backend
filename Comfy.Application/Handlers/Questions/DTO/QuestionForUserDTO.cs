@@ -6,6 +6,7 @@ namespace Comfy.Application.Handlers.Questions.DTO;
 
 public sealed record QuestionForUserDTO : IMapWith<Question>
 {
+    public int Id { get; init; }
     public string Text { get; init; } = null!;
     public int Likes { get; init; }
     public int Dislikes { get; init; }
