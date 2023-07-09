@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Comfy.Application.Handlers.Products.ShowcaseProducts.ProductsForSearchTab.DTO;
 using Comfy.Application.Interfaces;
-using Comfy.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +13,7 @@ public sealed class GetProductsForSearchTabQueryHandler : IRequestHandler<GetPro
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
+    private const int ProductsNumber = 4;
 
     public GetProductsForSearchTabQueryHandler(IApplicationDbContext context, IMapper mapper)
     {
@@ -33,7 +33,7 @@ public sealed class GetProductsForSearchTabQueryHandler : IRequestHandler<GetPro
         }
 
         var productsList = await productsQueryable
-            .Take(4)
+            .Take(ProductsNumber)
             .Select(x => new SearchTabProductDTO
             {
                 DiscountAmount = x.DiscountAmount,
