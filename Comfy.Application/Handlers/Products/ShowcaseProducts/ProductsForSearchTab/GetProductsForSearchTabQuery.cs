@@ -27,7 +27,7 @@ public sealed class GetProductsForSearchTabQueryHandler : IRequestHandler<GetPro
             .OrderBy(x => x.Rating)
             .AsQueryable();
 
-        if (string.IsNullOrEmpty(request.SearchTerm) == false)
+        if (string.IsNullOrWhiteSpace(request.SearchTerm) == false)
         {
             productsQueryable = productsQueryable.Where(x => x.Name.ToLower().Contains(request.SearchTerm.ToLower()));
         }
