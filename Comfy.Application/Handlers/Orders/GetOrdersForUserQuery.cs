@@ -27,6 +27,8 @@ public sealed class GetOrdersForUserQueryHandler : IRequestHandler<GetOrdersForU
             .Include(x => x.Products)
             .ThenInclude(x => x.Images.OrderBy(y => y.Id).Take(1))
             .Where(x => x.UserId == request.UserId)
+            .OrderByDescending(x => x.Id)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var mappedOrders = _mapper.Map<IEnumerable<OrderDTO>>(orders);

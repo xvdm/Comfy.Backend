@@ -60,6 +60,7 @@ public sealed class GetUserReviewsQueryHandler : IRequestHandler<GetUserReviewsQ
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize))
             .ThenInclude(x => x.Product)
+            .OrderByDescending(x => x.Id)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
 

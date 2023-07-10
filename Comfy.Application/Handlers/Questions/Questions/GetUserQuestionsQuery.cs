@@ -60,6 +60,7 @@ public sealed class GetUserQuestionsQueryHandler : IRequestHandler<GetUserQuesti
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize))
             .ThenInclude(x => x.Product)
+            .OrderByDescending(x => x.Id)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
 
