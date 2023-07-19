@@ -1,25 +1,69 @@
 version: '3.8'
 
-
 networks:
-  comfy_network:
-    external: true
-
+  loffy:
+    name: loffy
 
 volumes:
-  dbvolume:
+  postgres_volume:
+    external: true
+  redis_volume:
     external: true
 
-
 services:
-  backend:
-    container_name: backend
-    image: ${DOCKER_REGISTRY-}comfywebapi
+  database:
+    container_name: postgres
+    image: postgres
+    restart: always
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=comfy
     ports:
-      - "20080:80"
-      - "20443:443"
-    build:
-      context: .
-      dockerfile: Comfy.WebApi/Dockerfile
+      - "15432:5432"
     networks:
-      - comfy_network
+      - loffy
+
+  redis:
+    container_name: redis
+    image: redis
+    volumes:
+      - redis_volume:/data
+    ports:
+      - "16379:6379"
+    networks: 
+      - loffy
+
+  # adminpanel:
+  #   container_name: adminpanel
+  #   image: tapeex/adminpanel
+  #   ports:
+  #     - "30080:80"
+  #   depends_on:
+  #     - database
+  #     - redis
+  #   networks:
+  #     - loffy
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://+:80
+  #     - ConnectionStrings__AdminPanelContextConnection=Host=database;Port=5432;Username=postgres;Password=password;Database=comfy;Pooling=true;
+  #     - ConnectionStrings__Redis=redis:6379
+    
+  # backend:
+  #   container_name: backend
+  #   image: tapeex/comfywebapi
+  #   ports:
+  #     - "20080:80"
+  #   depends_on:
+  #     - database
+  #     - redis
+  #   networks:
+  #     - loffy
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://+:80
+  #     - ConnectionStrings__ComfyDbContextConnection=Host=database;Port=5432;Username=postgres;Password=password;Database=comfy;Pooling=true;
+  #     - ConnectionStrings__Redis=redis:6379
